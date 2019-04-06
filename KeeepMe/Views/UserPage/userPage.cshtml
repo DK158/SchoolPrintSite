@@ -13,7 +13,7 @@
     <script type="text/javascript" src="~/Scripts/jquery-1.8.2.min.js"></script>
     <script>
         $(document).ready(function () {
-            $.ajax
+            
         })
     </script>
 </head>
@@ -45,14 +45,22 @@
         </div>
 
 
-        <div class="" scrolling="no">
+        <div class="" scrolling="no" style="height:600px;width:100%;">
             <!-- 内容主体区域 -->
-            <div id="theStores">
-                <ul>
-                    <li>
-                        <img src="~/Content/images/headicon/illust.png" alt="" />
-                    </li>
-                </ul>
+            <!--左边内容-->
+            <div class="layui-carousel-left" style="height:600px;">
+                <img src="~/Content/images/headicon/illust.png" alt="" class="layui-layer-imgbar" style="width:200px;"/>
+            </div>
+            <!--右边内容-->
+            <div class="layui-carousel-right">
+                <!--用户信息填写-->
+                <div class="layui-body layui-bg-green" style="height:200px;">
+
+                </div>
+                <!--文件上传，修改参数-->
+                <div class="layui-body layui-bg-black" style="height:400px;margin-top:200px;">
+
+                </div>
             </div>
             @*<div class="content content-nav-base buytoday-content">
                 <div id="list-cont">

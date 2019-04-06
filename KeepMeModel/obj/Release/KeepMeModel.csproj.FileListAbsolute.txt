@@ -1,0 +1,5 @@
+F:\Visual Studio工作\KeeepMe\KeepMeModel\bin\Release\KeepMeModel.dll
+F:\Visual Studio工作\KeeepMe\KeepMeModel\bin\Release\KeepMeModel.pdb
+F:\Visual Studio工作\KeeepMe\KeepMeModel\obj\Release\KeepMeModel.dll
+F:\Visual Studio工作\KeeepMe\KeepMeModel\obj\Release\KeepMeModel.pdb
+F:\Visual Studio工作\KeeepMe\KeepMeModel\obj\Release\KeepMeModel.csprojResolveAssemblyReference.cache

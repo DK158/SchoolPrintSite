@@ -1,0 +1,413 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>天煞打印店</title>
+    <link rel="stylesheet" href="~/Content/dengmain/reset.css" />
+    <link rel="stylesheet" href="~/Content/dengmain/main.css" />
+    <link rel="stylesheet" href="~/Content/dengmain/printpage.css" />
+    <link rel="stylesheet" href="~/Content/dengmain/font-awesome.css" />
+    <link rel="stylesheet" href="~/Content/layui/css/layui.css">
+    <script src="~/Script/jquery.min.js"></script>
+    <script src="~/Script/jquery-form.js"></script>
+    <script src="~/Content/layui/layui.js" charset="utf-8"></script>
+    <style>
+        .uploadfileinfo{
+            background-color:rgba(212, 80, 80 ,0.26);
+            padding:1rem;
+        }
+        .uploadfileinfo span{
+            margin:0 1rem;
+        }
+        .uploadfileinfo select{
+            margin:0 2rem 0 0;
+        }
+        .uploadfileinfo input{
+            margin:0 2rem 0 0;
+            width:30px;
+        }
+        .uploadfileinfo a{
+            margin:0 3rem 0 0;
+            color:red;
+        }
+    </style>
+    <script type="text/javascript">
+        //layui.use('layer', function () {
+        //    var $ = layui.jquery, layer = layui.layer;
+        
+        var num = 0;  //记录上传文件的个数
+        //上传图片
+        function FileUpload() {
+            if ($("#MyFileUpload").val() == "") {
+                alert("请选择文件");
+                return;
+            }
+            $("#form1").ajaxSubmit({
+                type: 'post',
+                url: '../Print/FileUpload',
+                success: function (data) {
+                    var serverData = data.split(":");
+                    if (serverData[0] == "ok") {
+                        /*判断文档页数*/
+                        if (parseInt(serverData[2]) <= 0) {
+                            alert("文档页数获取异常。");
+                            return;
+                        }
+                        num++;  //增加文件的个数
+                       // alert(serverData[2] + "  " + serverData[4]);
+                       $("#docunment_pagenum").val(serverData[2]);
+                       $("#uploadfilelist").append("<div id=\"" + num + "\" class=\"uploadfileinfo\"><span id=\"name" + num + "\" title=\"" + serverData[4] + "\">" + serverData[3] + "</span>页数:<span id=\"pages" + num + "\">" + serverData[2] + "p</span><\/div><br \/>");
+                       $("#" + num + "").append("是否缩印：<select id=\"reduced" + num + "\"> <option value=\"1\">   否</option><option value=\"2\">一页两面</option><option value=\"4\">一页四面</option></select>");
+                       $("#" + num + "").append("打印方式：<select id=\"pagestyle" + num + "\"> <option>单面</option><option>双面</option></select>");
+                       $("#" + num + "").append("份数：<input type=\"Text\" id=\"copy" + num + "\" value=\"1\"/>");
+                       $("#" + num + "").append("<a id=\"money" + num + "\" >￥</a>");
+                       $("#" + num + "").append("<i id=\"icon" + num + "\" class=\"fa fa icon-1x icon-remove-circle\" title=\"删除\"></i>");
+                       $("#MyFileUpload").clearFields(); //清空选择文件
+                       $("#recordfilenum").val(num); //储存文件个数
+                       $("#money" + num + "").text(parseInt(serverData[2]) * 0.16 + "￥"); //初始单个文件费用
+                       $("#totalmoney").text((parseFloat($("#totalmoney").text()) + parseFloat($("#money" + num + "").text())).toFixed(2));//初始总费用
+                        /*添加，绑定select change事件*/
+                       $(".uploadfileinfo select").on('change', function () {
+                           var scene = $(this).attr("id"); //获取修改的id
+                           var numid = scene.substr(scene.length - 1);//截取最后的id
+                           var pagestext = $("#pages" + numid + "").text();
+                           var page = parseInt(pagestext.substring(pagestext.indexOf(':')+1, pagestext.indexOf('p'))); //获取页数
+                           var copynums=parseInt($("#copy" + numid + "").val());
+                         //  alert(pagestext + "   " + page + "   " + copynums);
+                           //计算单个文件费用
+                           $("#money" + numid + "").text(parseFloat(page * 0.16 * copynums) / parseFloat($("#reduced" + numid + "").find("option:selected").val()) + "￥");
+                           /*计算总费用*/
+                           var totalmoney = 0;
+                           for (var i = 1; i < 10; i++) {
+                               if ($("#" + i + "").length>0) {
+                                   totalmoney = parseFloat($("#money" + i + "").text()) + totalmoney;
+                               }
+                           }
+                           $("#totalmoney").text(totalmoney.toFixed(2));
+                       });
+                        /*添加，绑定select change事件*/
+                       $(".uploadfileinfo input").on('change', function () {
+                           var reg = /^\w+$/;
+                           if(!reg.test($(this).val())){
+                               alert("请输入数字！！");return;
+                           }
+                           else{
+                               if(parseInt($(this).val())<1){
+                                   alert("请输入大等于 0 的数字！！");return;
+                               }
+                               else {
+                                   var scene = $(this).attr("id"); //获取修改的id
+                                   var numid = scene.substr(scene.length - 1);//截取最后的id
+                                   var pagestext = $("#pages" + numid + "").text();
+                                   var page = parseInt(pagestext.substring(pagestext.indexOf(':') + 1, pagestext.indexOf('p'))); //获取页数
+                                   var copynums = parseInt($("#copy" + numid + "").val());
+                                 //  alert(pagestext + "   " + page + "   " + copynums);
+                                   //计算单个文件费用
+                                   $("#money" + numid + "").text(parseFloat(page * 0.16 * copynums) / parseFloat($("#reduced" + numid + "").find("option:selected").val()) + "￥");
+                                   /*计算总费用*/
+                                   var totalmoney = 0;
+                                   for (var i = 1; i < 10; i++) {
+                                       if ($("#" + i + "").length>0) {
+                                           totalmoney = parseFloat($("#money" + i + "").text()) + totalmoney;
+                                       }
+                                   }
+                                   $("#totalmoney").text(totalmoney.toFixed(2));
+                               }
+                           }
+                       });
+                        /*添加，绑定i click事件*/
+                       $(".uploadfileinfo i").on('click', function () {
+                           var scene = $(this).attr("id"); //获取修改的id
+                           var numid = scene.substr(scene.length - 1);//截取最后的id
+                           var name = $("#name" + numid + "").attr('title');
+                        //   alert(name);
+                           $.ajax({
+                               type: "POST",
+                               url: '../Print/deletetempfile',
+                               data: { name: name },
+                               success: function (data) {
+                                   /*删除成功删除页面显示*/
+                                   if (data==1) {
+                                       $("#" + numid + "").remove();
+                                       /*重新计算总费用*/
+                                       var totalmoney = 0;
+                                       for (var i = 1; i < 10; i++) {
+                                           if ($("#" + i + "").length > 0) {
+                                               totalmoney = parseFloat($("#money" + i + "").text()) + totalmoney;
+                                           }
+                                       }
+                                       $("#totalmoney").text(totalmoney);
+                                   }
+                                   else {
+                                       alert("取消失败。 。。未找到此文件。");
+                                   }
+                               }
+
+                           });
+                           
+                       });
+                    }
+                    else {
+                        alert("提示: 文件格式错误，本程序只支持 .pdf .doc .docx 文件");
+                        $("#MyFileUpload").clearFields(); //清空选择文件
+                    }
+                }
+            });
+        }
+        
+        /*准备事件*/
+        $(document).ready(function () {
+            /*提交事件*/
+            $("#submitpool").on('click', function () {
+                var tel = $("#yourtel").val();
+                if (tel.length != 0) {
+                    reg = /^1[34578]\d{9}$/;
+                    if (!reg.test(tel)) {
+                        alert("请填写正确格式的电话号码。");
+                        return;
+                    }
+                } else {
+                    alert("请填写您的电话。");
+                    return;
+                }
+                if ($("#yourname").val().length == 0) {
+                    alert("请填写您的姓名。");
+                    return;
+                }
+                if (confirm("您已确认订单。")) {
+                    layui.use('layer', function () {
+                        var $ = layui.jquery, layer = layui.layer;
+                        $("#checktotalmoney").text($("#totalmoney").text());
+                        layer.open({
+                            type: 1,
+                            title: '诚信支付',
+                            skin: 'layui-layer-demo', //样式类名
+                            closeBtn: 1, //不显示关闭按钮
+                            anim: 2,
+                            shadeClose: false, //开启遮罩关闭
+                            content: $("#payform")
+                        });
+                    });
+                    
+                   
+                }
+                else { return;}
+            });
+            /*确认已支付*/
+            $("#Iamsure").on('click', function () {
+                var tel = $("#yourtel").val();
+                if (tel.length != 0) {
+                    reg = /^1[34578]\d{9}$/;
+                    if (!reg.test(tel)) {
+                        alert("请填写正确格式的电话号码");
+                        return;
+                    }
+                    var files = "";  //储存文件名称
+                    var realfilename = "";//储存修改后的文件名称
+                    var filerepeat = "";//储存单个文件重复打印次数
+                    var pages = "";//储存单个文件页数
+                    var filenarrow = "";//储存单个文件是否缩印
+                    var fileside = "";//储存单个文件是单面还是双面
+                    var filenum = 0;  //储存文件个数
+                    for (var i = 1; i < 10; i++) {
+                        if ($("#" + i + "").length > 0) {
+                            files = files + $("#name" + i + "").text() + "!!";
+                            filerepeat = filerepeat + $("#copy" + i + "").val()+"!!";
+                            filenarrow = filenarrow + $("#reduced" + i + "").find("option:selected").text() + "!!";
+                            fileside = fileside + $("#pagestyle" + i + "").find("option:selected").text() + "!!";
+                            pages = pages + $("#pages" + i + "").text() + "!!";
+                            realfilename=realfilename+$("#name" + i + "").attr('title')+"!!";
+                            filenum++;
+                        }
+                    }
+                    //记录寝室
+                    var dormitory = $("#dornumber_dong").find("option:selected").val() + "-" + $("#dornumber_floor").find("option:selected").val() + "-" + $("#dornumber_room").find("option:selected").val();
+                    //alert("true" + tel);
+                    $.ajax({
+                        type: 'post',
+                        url: '../Print/recordorderpool',
+                        data: {
+                            money: $("#totalmoney").text(), files: files, tel: tel, remark: $("#remark").val(), domitory: dormitory, filenum: filenum, username: $("#yourname").val(),
+                            filerepeat: filerepeat, filenarrow: filenarrow, fileside: fileside, pages: pages, realfilename: realfilename  },
+                        success: function (data) {
+                            if (data > 0) {
+                                alert("提交成功，我们将在预定时间段将文件送达您的寝室。");
+                                location.href = "../Print/Main";
+                            } else {
+                                alert("emmm.....出故障了。");
+                            }
+                        }
+                    });
+                } 
+            });
+            /*支付宝，微信支付图片切换*/
+            $("#zhifubao").on('click', function () {
+                $("#wechatpay").css('display', 'none');
+                $("#alipay").css('display', 'block');
+            });
+            $("#weixin").on('click', function () {
+                $("#alipay").css('display', 'none');
+                $("#wechatpay").css('display', 'block');
+            });
+            
+        });
+     //   });
+    </script>
+</head>
+<body>
+    <form id="form1" runat="server">
+
+        <div class="main_wrapper1" style="background:#444  url(../../Content/images/banner01.jpg); background-attachment:fixed; background-size:cover; height:1000px;">
+            <div class="backgroundcolor">
+                <header id="header1">
+                    <!--页头-->
+                    <nav>
+                        <div class="logo"><a href="#">邓小窝</a></div>
+                        <ul>
+                            <li><a href="../DengMain/DengMain" class="active">首页</a></li>
+                            <li><a href="../Print/Main">打印</a></li>
+                            <li><a href="#">连接1</a></li>
+                            <li id="sidebar_trigger"><a href="#">侧栏</a></li>
+                        </ul>
+                    </nav>
+                </header>
+                <p>
+                    <span class="head_prompt">填写寝室 》 上传文件 》 完成！</span>
+                    <a href="http://print.sui.me/" target="_blank" id="to_suimi" style="font-size:16px; color:#00ffff; padding:0 0 0 86px;">什么？你有随米帐号</a>
+                </p>
+                <span class="users_information conclude_money">
+                    <input type="file" name="MyFileUpload" id="MyFileUpload" />
+                    <input type="button" id="Inputthefile" value="上传" onclick="FileUpload()" style="width:60px;"/>
+                    <input  id="recordfilenum" style="display:none;"/>
+
+                    <asp:Label ID="Labelprompt" runat="server" Text=""></asp:Label>
+                </span><br />
+                <div id="uploadfilelist" class="users_information"></div><br />
+                <span class="users_information">
+                    寝室：
+                    <select name="dornumber_dong" id="dornumber_dong" title="哪栋">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                    </select>
+                    <select name="dornumber_floor" id="dornumber_floor" title="哪层">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                    </select>
+                    <select name="dornumber_room" id="dornumber_room" title="哪间">
+                        <option>01</option>
+                        <option>02</option>
+                        <option>03</option>
+                        <option>04</option>
+                        <option>05</option>
+                        <option>06</option>
+                        <option>07</option>
+                        <option>08</option>
+                        <option>09</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                        <option>13</option>
+                        <option>14</option>
+                        <option>15</option>
+                        <option>16</option>
+                        <option>17</option>
+                        <option>18</option>
+                        <option>19</option>
+                        <option>20</option>
+                        <option>21</option>
+                        <option>22</option>
+                        <option>23</option>
+                        <option>24</option>
+                        <option>25</option>
+                        <option>26</option>
+                        <option>27</option>
+                        <option>28</option>
+                        <option>29</option>
+                        <option>30</option>
+                    </select>
+                </span>
+                <span class="conclude_money">
+                    你的电话:<input id="yourtel" type="text" required></input>
+                </span>
+                <span class="conclude_money">
+                    你的姓名:<input id="yourname" type="text" required maxlength="10"/>
+                </span><br />
+                <span class="conclude_money">
+                    备注:<input type="text" ID="remark" style="width:20%;"/>
+                </span>
+                <div id="showprintmoney">总费用：<span id="totalmoney" style="color:#41f316;font-size:18px;">0.0</span>￥</div>
+                <input id="submitpool" type="button" style="margin:0 0 0 20px;padding:0 12px;background-color:rgba(0, 255, 255, 0.19);" value="确认提交" /><br />
+                
+
+                <span class="payfor conclude_money">
+                    <a id="payforzfb" href="#" style="color:#ea9191;">支付宝</a>
+                    <a id="payforwx" href="#" style="color:#ea9191;">微信</a>
+                </span>
+               <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=3162795401&site=qq&menu=yes"><img border="0" src="../../Content/images/qie.jpg" height="16px" width="16px" alt="点击这里给我发消息" title="怕小主忘记了" />怕小主忘记了</a><br />
+                 
+                <img id="wxzf" src="../../Content/images/important/wxzf.png   " height="180px" width="0" />
+                <img id="zfbzf" src="../../Content/images/important/zfbzf.png" height="200px" width="0" />
+
+                <div class="top_tompt">
+                    不懂找我点“怕小主忘记了”<br />
+                    QQ：3162795401  Tel：15892744748<br />
+                    点微信，支付宝转账哦，还有信息别填错了<br />
+                    送货时间：晚上十点开始<br />
+                </div>
+            </div>
+        </div>
+        <div class="mask"></div>
+        <div id="sidebar">
+            <ul>
+                <li><a target="_blank" href="../DengMain/demoguoguan">过关小游戏</a></li>
+                <li><a target="_blank" href="../DengMain/demodelesqure">弹珠消方块</a></li>
+                <li><a target="_blank" href="../DengMain/demosnake">贪吃蛇</a></li>
+                <li><a href="../DengMain/redericMainPage">用户首页</a></li>
+                <li><a href="#">item</a></li>
+            </ul>
+        </div>
+        <script src="~/Script/dengmain/printpage.js"></script>
+    </form>
+    <!--------------编辑信息表单布局---------------------->
+    <div id="payform" style="display:none;padding:0;width:360px;">
+        <form id="pay">
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="font-size:46px;font-family:楷体;width:60%;"><i class="layui-icon" style="font-size:30px;color: #1E9FFF;">&#xe60c;</i>信<i class="layui-icon" style="font-size: 30px; color: #1E9FFF;">&#xe60c;</i> </label>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">总费用:</label>
+                <label class="layui-form-label" id="checktotalmoney" style="color:red;font-size:36px;"></label>
+            </div>
+            <div class="layui-form-item" style="padding:0;">
+                <img id="alipay" src="~/Content/images/important/alipay.jpg" style="height:300px;width:300px;margin:0 30px;" />
+                <img id="wechatpay" style="display:none;height:300px;width:300px;margin:0 30px;" src="~/Content/images/important/wechatpay.png" />
+            </div>
+            <div class="layui-form-item">
+                <input type="button" id="zhifubao" name="zhifubao" autocomplete="off" value="支付宝" class="layui-btn" style="margin:0 0 0 110px;">
+                <input type="button" id="weixin" name="weixin" autocomplete="off" value="微信" class="layui-btn">
+            </div>
+            <div class="layui-form-item">
+                <input type="button" style="width:100%;padding:0 20px 0 20px;background-color:#FF5722;" id="Iamsure" name="Iamsure" autocomplete="off" value="我已支付" class="layui-btn">
+            </div>
+        </form>
+    </div>
+</body>
+</html>

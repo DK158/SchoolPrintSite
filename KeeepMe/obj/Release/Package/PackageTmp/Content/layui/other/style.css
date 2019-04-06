@@ -1,0 +1,138 @@
+.addon, .input, .button, blockquote, .drop-menu, .nav ul, .nav.nav-main li:first-child, .nav.nav-main li:first-child a, .nav.nav-main li:last-child a, .nav.nav-sub a, .nav.nav-tabs a, .bg-inverse .nav.nav-tabs a, .bg-inverse
+.nav.nav-tabs .active a, .selected-inline li, .progress, .progress
+.progress-bar:last-child, .range, .range-bar, .panel, .panel-head, .panel-foot, .tab .tab-nav li a, .tab .tab-body-bordered, .dialog, .dialog .dialog-head, .tip, .tip .tip-body, .tip .image, .alert, .pagination li, .pagination .active, .pagination a:hover, .pagination-group, .pagination-group
+li:first-child, .pagination-group li:last-child, .pager li a {
+    border-radius: 0;
+}
+
+.layui-upload-file {
+    display: none !important;
+    opacity: .01;
+    filter: Alpha(opacity=1)
+}
+
+.layui-upload-wrap .layui-upload-file {
+    display: block !important;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    font-size: 100px;
+    width: 100%;
+    height: 100%;
+    opacity: .01;
+    filter: Alpha(opacity=1);
+    cursor: pointer
+}
+
+@font-face {
+    font-family: layui-icon;
+    src: url(font/iconfont.eot?v=2);
+    src: url(font/iconfont.eot?v=2#iefix) format('embedded-opentype'), url(font/iconfont.svg?v=2#iconfont) format('svg'), url(font/iconfont.woff?v=2) format('woff'), url(font/iconfont.ttf?v=2) format('truetype')
+}
+
+.layui-icon {
+    font-family: layui-icon !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale
+}
+
+/* 分页 */
+.pagination {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    vertical-align: bottom;
+    border-right: solid 1px #ddd;
+    border-radius: 0;
+    background: #ffffff;
+}
+
+.pagination li {
+    display: inline-block;
+    border: solid 1px #ddd;
+    float: left;
+    border-right: 0;
+    border-radius: 0
+}
+
+.pagination li:not(:first-child):not(:last-child) {
+    border-radius: 0
+}
+
+.pagination li:first-child {
+    border-radius: 0
+}
+
+.pagination li:last-child {
+    border-radius: 0
+}
+
+.pagination a {
+    color: #333;
+    padding: 8px 12px;
+    line-height: 18px;
+    display: block;
+    transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1) 0s
+}
+
+.pagination span {
+    color: #333;
+    padding: 8px 12px;
+    line-height: 18px;
+    display: block;
+    transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1) 0s
+}
+
+.pagination .disabled a:link, .pagination .disabled a:visited, .pagination .disabled a:hover {
+    cursor: not-allowed;
+    pointer-events: none;
+    color: #ddd
+}
+
+.pagination .active {
+    pointer-events: none
+}
+
+.pagination .active, .pagination a:hover {
+    background: #f5f5f5;
+    border-radius: 0;
+    transition: all .3s cubic-bezier(0.175, 0.885, 0.32, 1) 0s
+}
+
+.pagination-big a {
+    padding: 10px 16px;
+    font-size: 16px
+}
+
+.pagination-small a {
+    padding: 5px 10px;
+    font-size: 12px
+}
+
+.pagination.border-main .active a, .pagination.border-sub .active a, .pagination.border-dot .active a, .pagination.border-black .active a, .pagination.border-gray .active a, .pagination.border-red .active a, .pagination.border-yellow .active a, .pagination.border-blue .active a, .pagination.border-green .active a {
+    color: #fff
+}
+
+
+#back-to-top {
+    display: block;
+    width: 45px;
+    height: 45px;
+    position: fixed;
+    right: 50px;
+    bottom: 70px;
+    border: 1px solid #bebebe;
+    text-indent: -9999em;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background: url(/public/main/images/back_to_top.png) no-repeat center center;
+}
+
+#back-to-top:hover {
+    background: url(/public/main/images/back_to_top_hover.png) no-repeat center center;
+}

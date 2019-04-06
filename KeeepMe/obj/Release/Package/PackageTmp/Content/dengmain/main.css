@@ -1,0 +1,287 @@
+﻿
+body {
+}
+*{
+    font-family:微软雅黑;
+}
+.clearfix:after{
+    content:'';
+      display:block;
+      clear:both;
+}
+h1{
+    padding:12px;
+    border-top:2px solid #fff;
+    border-bottom:2px solid #fff;
+}
+h2{
+    font-size:30px;
+}
+h3{
+    font-size:24px;
+}
+p{
+    font-size:18px;
+    letter-spacing:1px;
+}
+a{
+    text-decoration:none;
+}
+ul{
+    margin:0;
+}
+header{
+    background:rgba(0,0,0,0.4);
+}
+nav{
+    background:transparent;
+    height:50px;
+}
+#banner{
+    background:transparent;
+    height:700px;
+}
+nav ul{
+    list-style:none;
+    margin:0;
+    float:right;
+}
+nav ul li,nav .logo{
+    display:inline-block;
+    line-height:50px;
+    margin-right:20px;
+}
+nav ul li a{
+    line-height:inherit;
+    text-decoration:none;
+    display:inline-block;
+    height:inherit;
+    color:#fff;
+}
+nav ul li.logo{
+    float:left;
+}
+#banner .inner{
+    max-width:300px;
+    text-align:center;
+    margin:0 auto;
+    position:relative;
+    top:160px;
+    color:#fff;
+}
+#banner .inner h1{
+    margin:0;
+    color:#fff;
+}
+button{
+    border:none;
+    background:#333;
+    color:#eee;
+    padding:10px;
+}
+#banner button{
+    padding:15px 60px;
+    background:#10b0c4;
+}
+
+#banner .inner .more{
+    margin-top:300px;
+    margin-bottom:20px;
+}
+.sub-heading{
+    line-height:30px;
+    font-size:18px;
+}
+.logo{
+    font-size:20px;
+    font-weight:700;
+    letter-spacing:3px;
+    color:#fff;
+}
+.logo a{
+    color:#fff;
+    padding:20px;
+}
+.green-section{
+    text-align:center;
+    background:#089DB0;
+    color:#fff;
+    padding:100px 0;
+}
+.green-section .hr{
+    background:#078494;
+    width:60%;
+}
+
+.wrapper{
+    max-width:1080px;
+    margin:0 auto;
+}
+.hr{
+    width:100px;
+    height:2px;
+    margin:20px auto;
+}
+.green-section .icon-group .icon1{
+    display:inline-block;
+    width:80px;
+    height:80px;
+    border:1px solid #0D6F7C ;
+    transform:rotate(45deg);
+    margin:20px;
+}
+.icon-group{
+    margin:50px;
+}
+.green-section .icon-group .icon1  span{
+    display:inline-block;
+    width:60px;
+    height:60px;
+    transform:rotate(315deg);
+    margin:10px;
+}
+.gray-section{
+    background:#252f34;
+    color:#fff;
+}
+.gray-section .img-section{
+    width:45%;
+}
+.img-section img{
+    width:100%;
+}
+.gray-section .text-section{
+    width:55%;
+}
+ .article-preview > div{
+     float:left;
+     font-size:0;
+}
+ .article-preview:nth-child(2n+1){
+     background-color:rgba(255,255,255,0.05);
+ }
+ .article-preview:after{
+      content:'';
+      display:block;
+      clear:both;
+ }
+.text-section{
+    position:relative;
+    top:60px;
+    left:50px;
+}
+.text-section h2{
+    margin-bottom:20px;
+}
+.text-section  p{
+    font-size:18px;
+    letter-spacing:1px;
+}
+.text-section > *{
+    max-width:90%;
+}
+
+.purple-section {
+    background:#3f3965;
+    color:#fff;
+    padding:200px;
+}
+.purple-section .heading-wrapper{
+    text-align:center;
+}
+.purple-section .hr{
+    background:#373259;
+    width:60%;
+}
+.card{
+    float:left;
+    width:50%;
+    min-height:300px;
+    padding:40px;
+    box-sizing:border-box;
+}
+.card:first-child{
+    background:rgba(0,0,0,0.04);
+}
+.card:nth-child(2){
+    background:rgba(0,0,0,0.08);
+}
+.card:nth-child(3){
+    background:rgba(0,0,0,0.12);
+}
+.card:nth-child(4){
+    background:rgba(0,0,0,0.16);
+}
+.card:nth-child(5){
+    background:rgba(0,0,0,0.20);
+}
+.card:nth-child(6){
+    background:rgba(0,0,0,0.24);
+}
+
+footer{
+    background:#333;
+    color:#fff;
+    min-height:200px;
+    text-align:center;
+}
+ul.share-group{
+    display:block;
+    width:100%;
+    margin:0 auto;
+    padding:50px;
+}
+ul.share-group li{
+    display:inline-block;
+    padding:10px;
+}
+.copy{
+    padding-bottom:20px;
+}
+.main-wrapper{
+    background:#444 url(../images/banner.jpg);
+    background-attachment:fixed;
+    background-size:cover;
+    background-position:center;
+    overflow:hidden;
+}
+.mask{
+    display:none;
+    position:fixed;
+    top:0;
+    right:0;
+    left:0;
+    bottom:0;
+    background:rgba(0,0,0,0.3);
+}
+#sidebar{
+    position:fixed;
+    width:300px;
+    top:0;
+    right:-300px;
+    bottom:0;
+    padding:0;
+    background:#333;
+    padding:20px 0;
+    transition: right 0.5s;
+}
+#sidebar ul{
+    list-style:none;
+    padding:0px;
+    margin:0px;
+}
+#sidebar ul a{
+    display:inline-block;
+    padding:10px 30px;
+    width:100%;
+    color:#fff;
+}
+#sidebar ul a:hover{
+    background:#444;
+}
+.backto-top{
+    position:fixed;
+    bottom:30px;
+    right:30px;
+    border:1px solid #888;
+}

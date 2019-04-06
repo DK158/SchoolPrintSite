@@ -1,0 +1,14 @@
+F:\Visual Studio工作\KeeepMe\KeepMeclass\bin\Debug\KeepMeclass.dll
+F:\Visual Studio工作\KeeepMe\KeepMeclass\bin\Debug\KeepMeclass.pdb
+F:\Visual Studio工作\KeeepMe\KeepMeclass\obj\Debug\KeepMeclass.dll
+F:\Visual Studio工作\KeeepMe\KeepMeclass\obj\Debug\KeepMeclass.pdb
+F:\Visual Studio工作\KeeepMe\KeepMeclass\obj\Debug\KeepMeclass.csproj.CoreCompileInputs.cache
+F:\Visual Studio工作\KeeepMe\KeepMeclass\obj\Debug\KeepMeclass.csproj.CopyComplete
+F:\Visual Studio工作\KeeepMe\KeepMeclass\obj\Debug\KeepMeclass.csprojAssemblyReference.cache
+E:\visualstudio_workspace\KeeepMe\KeepMeclass\bin\Debug\KeepMeclass.dll
+E:\visualstudio_workspace\KeeepMe\KeepMeclass\bin\Debug\KeepMeclass.pdb
+E:\visualstudio_workspace\KeeepMe\KeepMeclass\obj\Debug\KeepMeclass.csprojAssemblyReference.cache
+E:\visualstudio_workspace\KeeepMe\KeepMeclass\obj\Debug\KeepMeclass.csproj.CoreCompileInputs.cache
+E:\visualstudio_workspace\KeeepMe\KeepMeclass\obj\Debug\KeepMeclass.csproj.CopyComplete
+E:\visualstudio_workspace\KeeepMe\KeepMeclass\obj\Debug\KeepMeclass.dll
+E:\visualstudio_workspace\KeeepMe\KeepMeclass\obj\Debug\KeepMeclass.pdb

@@ -1,0 +1,14 @@
+F:\Visual Studio工作\KeeepMe\KeepMeBll\bin\Debug\KeepMeBll.dll
+F:\Visual Studio工作\KeeepMe\KeepMeBll\bin\Debug\KeepMeBll.pdb
+F:\Visual Studio工作\KeeepMe\KeepMeBll\bin\Debug\KeepMeclass.dll
+F:\Visual Studio工作\KeeepMe\KeepMeBll\bin\Debug\KeepMeDal.dll
+F:\Visual Studio工作\KeeepMe\KeepMeBll\bin\Debug\MySql.Data.dll
+F:\Visual Studio工作\KeeepMe\KeepMeBll\bin\Debug\itextsharp.dll
+F:\Visual Studio工作\KeeepMe\KeepMeBll\bin\Debug\Microsoft.Office.Interop.Word.dll
+F:\Visual Studio工作\KeeepMe\KeepMeBll\bin\Debug\KeepMeclass.pdb
+F:\Visual Studio工作\KeeepMe\KeepMeBll\bin\Debug\KeepMeDal.pdb
+F:\Visual Studio工作\KeeepMe\KeepMeBll\obj\Debug\printonlineBll.csprojAssemblyReference.cache
+F:\Visual Studio工作\KeeepMe\KeepMeBll\obj\Debug\printonlineBll.csproj.CoreCompileInputs.cache
+F:\Visual Studio工作\KeeepMe\KeepMeBll\obj\Debug\printonlineBll.csproj.CopyComplete
+F:\Visual Studio工作\KeeepMe\KeepMeBll\obj\Debug\KeepMeBll.dll
+F:\Visual Studio工作\KeeepMe\KeepMeBll\obj\Debug\KeepMeBll.pdb

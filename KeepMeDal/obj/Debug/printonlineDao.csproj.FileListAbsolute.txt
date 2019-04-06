@@ -1,0 +1,11 @@
+F:\Visual Studio工作\KeeepMe\KeepMeDal\bin\Debug\KeepMeDal.dll
+F:\Visual Studio工作\KeeepMe\KeepMeDal\bin\Debug\KeepMeDal.pdb
+F:\Visual Studio工作\KeeepMe\KeepMeDal\bin\Debug\KeepMeclass.dll
+F:\Visual Studio工作\KeeepMe\KeepMeDal\bin\Debug\itextsharp.dll
+F:\Visual Studio工作\KeeepMe\KeepMeDal\bin\Debug\Microsoft.Office.Interop.Word.dll
+F:\Visual Studio工作\KeeepMe\KeepMeDal\bin\Debug\KeepMeclass.pdb
+F:\Visual Studio工作\KeeepMe\KeepMeDal\obj\Debug\printonlineDao.csprojAssemblyReference.cache
+F:\Visual Studio工作\KeeepMe\KeepMeDal\obj\Debug\printonlineDao.csproj.CoreCompileInputs.cache
+F:\Visual Studio工作\KeeepMe\KeepMeDal\obj\Debug\printonlineDao.csproj.CopyComplete
+F:\Visual Studio工作\KeeepMe\KeepMeDal\obj\Debug\KeepMeDal.dll
+F:\Visual Studio工作\KeeepMe\KeepMeDal\obj\Debug\KeepMeDal.pdb

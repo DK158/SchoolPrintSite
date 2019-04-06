@@ -1,0 +1,558 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <meta name="viewport" content="width=device-width" />
+    <title>MainPage</title>
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Areas/user/Content/common.css" rel="stylesheet" />
+    <link href="~/Areas/user/Content/index.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <header class="myheader animated top is_top_true">
+        <!-- 顶部信息 -->
+        <div class="layui-container">
+            <div class="logo">
+
+            </div>
+            <div class="left my-hide-xs">
+                <ul class="layui-nav">
+                    <li class="layui-nav-item layui-this">
+                        <a href="index.html">首页</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="article_list.html">文档推荐</a>
+                    </li>
+
+                    <li class="layui-nav-item">
+                        <a href="leave_msg.html">留言</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="about.html">关于</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="right">
+                <ul class="layui-nav">
+                    <li class="layui-nav-item layui-hide-sm layui-hide-md layui-hide-lg" id="navs">
+                        <a>
+                            <i class="layui-icon">&#xe65f;</i>
+                        </a>
+                    </li>
+                    <li id="login_no" class="layui-nav-item">
+                        <a action="qq_login" href="javascript:;" id="login"><img src="https://triedblog.oss-cn-beijing.aliyuncs.com/my/nologin.png" class="layui-nav-img">QQ登录</a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" id="login">立即登录</a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" id="reg">点我注册</a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li id="login_yes" class="layui-nav-item">
+                        <a><img id="figureurlQq1" class="layui-nav-img"><b id="nickname">您的昵称</b></a>
+                        <dl class="layui-nav-child">
+
+                            <dd>
+                                <a href="javascript:;">绑定账号</a>
+                            </dd>
+
+                            <dd>
+                                <a href="javascript:;" id="login_out">退出</a>
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <!-- 轮播图 -->
+    <div class="scorllimgs">
+
+        <img src="https://triedblog.oss-cn-beijing.aliyuncs.com/index_background/programmer/499787.png" />
+        <img src="/images/background/background2.jpg" />
+
+        <img src="../images/web/500/maintain.png" />
+
+        <img src="https://triedblog.oss-cn-beijing.aliyuncs.com/blog/20181222/tb/background2.jpg" />
+    </div>
+    <div class="content">
+        <!-- 每日语录 -->
+        <div class="layui-container quoteoftheday layui-anim layui-anim-fadein">
+            <div class="layui-row">
+                <div class="layui-col-md8 layui-col-sm8 layui-col-xs12">
+                    <div class="txtScroll-top">
+                        <div class="bd">
+                            <ul class="infoList">
+                                <li>
+                                    <span class="quotetitle layui-unselect">查询收货<i id="quoterefresh" class="layui-icon layui-icon-face-smile layui-unselect"></i>：</span>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="title" required lay-verify="required" placeholder="请输入电话或订单号" autocomplete="off" class="layui-input"
+                                               style="height: 28px;width: 300px;">
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 帖子 -->
+        <div class="layui-container mycontent">
+            <div class="layui-row">
+                <div class="layui-col-md8 layui-col-sm8 layui-col-xs12 content-left">
+                    <div class="infomation">
+
+                    </div>
+                    <ul class="post-list" id="store_list">
+
+                        <li class="post-one">
+                            <span class="label layui-unselect"><c>营业中</c></span>
+                            <h3 class="title animated"><a class="animated" title="西柚打印室" href="/article_detail/1542529945218">西柚打印室</a></h3>
+                            <div class="article_lable_show layui-unselect">
+
+                                <span class="animated3" style="background-color: #ff00b3;">送货上门</span>
+
+                                <span class="animated3" style="background-color: #ff0808;">低价</span>
+
+                            </div>
+                            <div class="post-desc">
+                                <div href="" class="summaryimg">
+                                    <a href="/article_detail/1542529945218" title="Storm整合kafka进行数据消费"><img title="Storm整合kafka进行数据消费" alt="Storm整合kafka进行数据消费" src="https://triedblog.oss-cn-beijing.aliyuncs.com/web/2018-11-18/storm-logo.png" /></a>
+                                </div>
+                                <span style="font-family: 微软雅黑;">单面：<span id="singlecharge" style="color: #1E9FFF;">0.15</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span style="font-family: 微软雅黑;">双面：<span id="singlecharge" style="color: #1E9FFF;">0.32</span></span>
+                                <p class="post-desc-txt">位置：十九栋背后</p>
+                                <div class="layui-clear"></div>
+                            </div>
+                            <div class="post-info">
+                                <p class="post-info-left">
+                                    <a href="javascript:;">
+                                        <img title="纯真年代" src="https://triedblog.oss-cn-beijing.aliyuncs.com/my/login.jpg" />
+                                        <span class="author">纯真年代</span>
+                                    </a>
+                                </p>
+                                <p class="post-info-right layui-unselect">
+                                    <a><i class="layui-icon">&#xe60a;</i><span class="num">312</span></a><!-- 总订单数目  -->
+                                    <a><i class="layui-icon">&#xe637;</i><span class="time">2018-11-18 </span></a><!--  加入时间  -->
+                                </p>
+                            </div>
+                        </li>
+
+                        <li class="post-one">
+                            <span class="label layui-unselect layui-bg-green"><c>歇业中</c></span>
+                            <h3 class="title animated"><a class="animated" title="Storm整合jdbc" href="/article_detail/1542473021037">Storm整合jdbc</a></h3>
+                            <div class="article_lable_show layui-unselect">
+
+                                <span class="animated3" style="background-color: #ff0808;">Storm</span>
+
+                            </div>
+                            <div class="post-desc">
+                                <div href="" class="summaryimg">
+                                    <a href="/article_detail/1542473021037" title="Storm整合jdbc"><img title="Storm整合jdbc" alt="Storm整合jdbc" src="https://triedblog.oss-cn-beijing.aliyuncs.com/web/2018-11-18/storm-logo.png" /></a>
+                                </div>
+                                <p class="post-desc-txt">Storm1.2.2整合jdbc进行查询、存储，以wordcount为例</p>
+                                <div class="layui-clear"></div>
+                            </div>
+                            <div class="post-info">
+                                <p class="post-info-left">
+                                    <a href="javascript:;">
+                                        <img title="纯真年代" src="https://triedblog.oss-cn-beijing.aliyuncs.com/my/login.jpg" />
+                                        <span class="author">纯真年代</span>
+                                    </a>
+                                </p>
+                                <p class="post-info-right layui-unselect">
+                                    <a><i class="layui-icon">&#xe705;</i><span class="num">127</span></a>
+                                    <a><i class="layui-icon">&#xe637;</i><span class="time">2018-11-18 00:43:41</span></a>
+                                </p>
+                            </div>
+                        </li>
+
+
+                        <li class="post-one">
+                            <span class="label layui-unselect"><c>学习</c></span>
+                            <h3 class="title animated"><a class="animated" title="Storm基本概念" href="/article_detail/1541995069865">Storm基本概念</a></h3>
+                            <div class="article_lable_show layui-unselect">
+
+                                <span class="animated3" style="background-color: #ff0808;">Storm</span>
+
+                            </div>
+                            <div class="post-desc">
+                                <div href="" class="summaryimg">
+                                    <a href="/article_detail/1541995069865" title="Storm基本概念"><img title="Storm基本概念" alt="Storm基本概念" src="https://triedblog.oss-cn-beijing.aliyuncs.com/web/2018-11-12/storm-logo.png" /></a>
+                                </div>
+                                <p class="post-desc-txt">包括Topologies、Streams、Spouts、Bolts、Stream groupings、Reliability、Tasks、Workers</p>
+                                <div class="layui-clear"></div>
+                            </div>
+                            <div class="post-info">
+                                <p class="post-info-left">
+                                    <a href="javascript:;">
+                                        <img title="纯真年代" src="https://triedblog.oss-cn-beijing.aliyuncs.com/my/login.jpg" />
+                                        <span class="author">纯真年代</span>
+                                    </a>
+                                </p>
+                                <p class="post-info-right layui-unselect">
+                                    <a><i class="layui-icon">&#xe705;</i><span class="num">99</span></a>
+                                    <a><i class="layui-icon">&#xe637;</i><span class="time">2018-11-12 11:57:50</span></a>
+                                </p>
+                            </div>
+                        </li>
+
+                        <li class="post-one">
+                            <span class="label layui-unselect"><c>学习</c></span>
+                            <h3 class="title animated"><a class="animated" title="Spark Streaming整合Flume、Kafka案例实时数据处理" href="/article_detail/1540869901102">Spark Streaming整合Flume、Kafka案例实时数据处理</a></h3>
+                            <div class="article_lable_show layui-unselect">
+
+                                <span class="animated3" style="background-color: #d9de49;">Scala</span>
+
+                                <span class="animated3" style="background-color: #d439ff;">Spark Streaming</span>
+
+                                <span class="animated3" style="background-color: #9d14ff;">Flume</span>
+
+                                <span class="animated3" style="background-color: #ff00b3;">Kafka</span>
+
+                                <span class="animated3" style="background-color: #01bc94;">Shell</span>
+
+                            </div>
+                            <div class="post-desc">
+                                <div href="" class="summaryimg">
+                                    <a href="/article_detail/1540869901102" title="Spark Streaming整合Flume、Kafka案例实时数据处理"><img title="Spark Streaming整合Flume、Kafka案例实时数据处理" alt="Spark Streaming整合Flume、Kafka案例实时数据处理" src="https://triedblog.oss-cn-beijing.aliyuncs.com/web/2018-10-30/anlilogo1.png" /></a>
+                                </div>
+                                <p class="post-desc-txt">本文基于Spark Streaming整合Flume、Kafka实现日志的实时微批处理</p>
+                                <div class="layui-clear"></div>
+                            </div>
+                            <div class="post-info">
+                                <p class="post-info-left">
+                                    <a href="javascript:;">
+                                        <img title="纯真年代" src="https://triedblog.oss-cn-beijing.aliyuncs.com/my/login.jpg" />
+                                        <span class="author">纯真年代</span>
+                                    </a>
+                                </p>
+                                <p class="post-info-right layui-unselect">
+                                    <a><i class="layui-icon">&#xe705;</i><span class="num">215</span></a>
+                                    <a><i class="layui-icon">&#xe637;</i><span class="time">2018-10-30 11:25:01</span></a>
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+
+
+                        <!-- 分页 -->
+                        <ul class="pagination">
+
+                            <li>
+                                <a class="active" href="javascript:;">1</a>
+                            </li>
+
+                            <li>
+                                <a href="/index?page=2">2</a>
+                            </li>
+
+                            <li>
+                                <a href="/index?page=3">3</a>
+                            </li>
+
+                            <li class="china">
+                                <a title="下一页" href="/index?page=2">下一页 <i class="layui-icon layui-icon-next"></i></a>
+                            </li>
+
+                            <li class="info">
+                                共<b>3</b>页<b>28</b>条数据
+                            </li>
+                        </ul>
+                </div>
+                <!-- 右边模块 -->
+                <div class="layui-col-md4 layui-col-sm4 layui-col-xs12 content-right">
+                    <div>
+
+                        <!-- 热门文章，后台通过点击量 -->
+                        <div class="hot-post">
+                            <h3 class="layui-unselect layui-bg-blue">推荐文档</h3>
+                            <div class="content layui-bg-gray">
+                                <ul>
+
+                                    <li class="animated8">
+                                        <a href="/article_detail/1537198865279" title="Hadoop实战-浏览器统计" target="_blank" class="thumbnail-link">
+                                            <img class="thumbnailside" title="Hadoop实战-浏览器统计" alt="Hadoop实战-浏览器统计" src="https://triedblog.oss-cn-beijing.aliyuncs.com/my/5.jpg" width="46" height="46" style="overflow: hidden;" />
+                                        </a>
+                                        <div class="right-box">
+                                            <h4 class="title">
+                                                <a href="/article_detail/1537198865279" title="Hadoop实战-浏览器统计">Hadoop实战-浏览器统计</a>
+                                            </h4>
+                                            <p class="time">
+                                                <i class="layui-icon layui-icon-date"></i>
+                                                <a>2018-09-17 23:41:05</a>
+                                            </p>
+                                            <p class="view">
+                                                <i class="layui-icon layui-icon-read"></i>
+                                                <a>333</a>
+                                            </p>
+                                        </div>
+                                    </li>
+
+                                    <li class="animated8">
+                                        <a href="/article_detail/1538138100603" title="Hadoop分布式环境搭建" target="_blank" class="thumbnail-link">
+                                            <img class="thumbnailside" title="Hadoop分布式环境搭建" alt="Hadoop分布式环境搭建" src="https://triedblog.oss-cn-beijing.aliyuncs.com/my/5.jpg" width="46" height="46" style="overflow: hidden;" />
+                                        </a>
+                                        <div class="right-box">
+                                            <h4 class="title">
+                                                <a href="/article_detail/1538138100603" title="Hadoop分布式环境搭建">Hadoop分布式环境搭建</a>
+                                            </h4>
+                                            <p class="time">
+                                                <i class="layui-icon layui-icon-date"></i>
+                                                <a>2018-09-28 20:35:01</a>
+                                            </p>
+                                            <p class="view">
+                                                <i class="layui-icon layui-icon-read"></i>
+                                                <a>229</a>
+                                            </p>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- 活动-->
+                        <div class="re-post">
+                            <h3 class="layui-unselect layui-bg-blue">活动</h3>
+                            <div class="content layui-bg-gray">
+                                <ol>
+                                    <div class="layui-row">
+                                        <div class="layui-col-md12 layui-col-sm12 layui-col-xs12">
+                                            <li>
+                                                <a target="_blank" href="https://promotion.aliyun.com/ntms/act/campus2018.html?userCode=7ulkk1gd">阿里云学生价（24岁以下自动获得学生身份）</a>
+                                            </li>
+                                            <li>
+                                                <a target="_blank" href="https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=7ulkk1gd">阿里云最高￥1000云产品通用代金券</a>
+                                            </li>
+                                            <li>
+                                                <a target="_blank" href="https://promotion.aliyun.com/ntms/act/qwbk.html?userCode=7ulkk1gd">ECS云服务器2折起，优惠配置多选1</a>
+                                            </li>
+                                            <li>
+                                                <a target="_blank" href="https://promotion.aliyun.com/ntms/act/enterprise-discount.html?userCode=7ulkk1gd">企业级ECS云服务器特惠</a>
+                                            </li>
+                                        </div>
+                                    </div>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <!-- 文章分类 -->
+                        <div class="classify" id="right_fenlei">
+                            <h3 class="layui-unselect layui-bg-blue">热心分享</h3>
+                            <div class="content layui-bg-gray">
+
+                                <a href="/classify/4" title="学习笔记">学习笔记 (27)</a>
+
+                                <a href="/classify/25" title="公共资源">公共资源 (1)</a>
+
+                            </div>
+                        </div>
+
+                        <!-- 文章标签 -->
+                        <div class="flag" id="right_labels">
+                            <h3 class="layui-unselect layui-bg-blue">标签</h3>
+                            <div class="content layui-bg-gray">
+
+                                <a class="animated3" href="/label/1" title="springboot" style="background-color: #7b91fc;">
+                                    springboot
+                                    <span class="layui-bg-gray" style="font-size: 14px;padding:0 4px;border-radius: 2px;">0</span>
+                                </a>
+
+                                <a class="animated3" href="/label/6" title="YARN" style="background-color: #fb7dff;">
+                                    YARN
+                                    <span class="layui-bg-gray" style="font-size: 14px;padding:0 4px;border-radius: 2px;">3</span>
+                                </a>
+
+                                <a class="animated3" href="/label/33" title="Redis" style="background-color: #ff9900;">
+                                    Redis
+                                    <span class="layui-bg-gray" style="font-size: 14px;padding:0 4px;border-radius: 2px;">1</span>
+                                </a>
+
+                                <a class="animated3" href="/label/34" title="Flink" style="background-color: #01dab2;">
+                                    Flink
+                                    <span class="layui-bg-gray" style="font-size: 14px;padding:0 4px;border-radius: 2px;">0</span>
+                                </a>
+
+                            </div>
+                        </div>
+
+                        <!-- google广告 -->
+                        <div class="re-post">
+                            <div class="content" style="padding-left: 10px;text-align: center;overflow:hidden;">
+                                <ol>
+                                    <div class="layui-row">
+                                        <div class="layui-col-md12 layui-col-sm12 layui-col-xs12">
+                                            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                                            <!-- 右边导航广告 -->
+                                            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8186665406720470" data-ad-slot="1658992109" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                                            <script>
+                                                (adsbygoogle = window.adsbygoogle || []).push({});
+                                            </script>
+                                        </div>
+                                    </div>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 底部信息 -->
+    <footer class="footer">
+
+        <div class="info">
+
+            <span>
+                <a>© 2018 纯真年代-博客</a>
+            </span>
+            <span>
+                <a href="http://www.miitbeian.gov.cn" target="_blank">渝ICP备17007479号-2</a>
+            </span>
+            <span class="no-right-border">
+                <a href="../admin/login.html" target="_blank">后台登录</a>
+            </span>
+            <span class="layui-clear no-right-border"></span>
+        </div>
+    </footer>
+    <ul class="layui-fixbar layui-hide">
+        <li class="layui-icon layui-fixbar-top" lay-type="top" style="display: list-item;">&#xe604;</li>
+    </ul>
+    <!--<div id="music163" class="animated">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=450 src="//music.163.com/outchain/player?type=0&id=383785579&auto=0&height=430"></iframe>
+        <i class="layui-icon">&#xe6fc;</i>
+    </div>-->
+
+
+    <script src="~/Script/jquery.min.js"></script>
+    <script src="~/Script/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="~/Content/layui/layui.js"></script>
+    <script type="text/javascript" src="~/Areas/user/Script/MainPage/index.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            //window.onload = function loadInfo() {
+            //$.getJSON("GetStores", function (data) {
+            //    $.each(data, function (key, value) {
+            //        var state = "";
+            //        if (value.state == 1) {
+            //            state = "营业中";
+            //        } else {
+            //            state = "歇业中";
+            //        }
+            //        alert(value);
+            //        //$("#store_list").append("<li class=\"post-one\">" +
+            //        //    "<span class=\"label layui-unselect\"><c>" + state + "</c></span>" +
+            //        //    "< h3 class= \"title animated\" > <a class=\"animated\" title=" + value.s_name + " href=\"\">" + value.s_name + "</a></h3 >" +
+            //        //    "<div class=\"article_lable_show layui-unselect\">" +
+            //        //    "<span class=\"animated3\" style=\"background-color: #ff00b3;\">" + value.songhuo + "</span>" +
+            //        //    "<span class=\"animated3\" style=\"background-color: #ff0808;\">" + value + "</span>" +
+            //        //    "</div>" +
+            //        //    "<div class=\"post-desc\">" +
+            //        //    "<div href=\"\" class=\"summaryimg\">" +
+            //        //    "<a href=\"\" title=" + value.s_name + "><img title=" + value.s_name + " alt=" + value.s_name + " src=\"https://triedblog.oss-cn-beijing.aliyuncs.com/web/2018-11-18/storm-logo.png\" /></a>" +
+            //        //    "</div >" +
+            //        //    "<span style=\"font-family: 微软雅黑; \">单面：<span id=\"\" style=\"color: #1E9FFF;\">" + value + "</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+            //        //    "<span style=\"font-family: 微软雅黑; \">双面：<span id=\"\" style=\"color: #1E9FFF;\">" + value + "</span></span>" +
+            //        //    "<p class=\"post-desc-txt\">位置：" + value.location + "</p>" +
+            //        //    "div class=\"layui-clear\">" +
+            //        //    "</div > " +
+            //        //    "</div>" +
+            //        //    "<div class=\"post-info\">" +
+            //        //    "<p class=\"post-info-left\">" +
+            //        //    "<a href=\"javascript:; \">" +
+            //        //    "<img title=" + value.ower_name + " src=\"https://triedblog.oss-cn-beijing.aliyuncs.com/my/login.jpg\" />" +
+            //        //    "<span class=\"author\">" + value.ower_name + "</span>" +
+            //        //    "</a>" +
+            //        //    "</p>" +
+            //        //    "<p class=\"post-info-right layui-unselect\">" +
+            //        //    "<a><i class=\"layui-icon\">&#xe60a;</i><span class=\"num\">" + value.order_num + "</span></a>" +
+            //        //    "<a><i class=\"layui-icon\">&#xe637;</i><span class=\"time\">" + value.create_time + "</span></a>" +
+            //        //    "</p>" +
+            //        //    "</div>" +
+            //        //    "</li >");
+            //        //$("#store_list").append("<div id='" + value.work_id + "' class=\"addworklist bc-head uinput ub bc-border uba ub-f1 umar-a myadd\"> " + value.work_name + "--" + value.post_time1 + "--" + value.place + "<\/div>");
+
+            //    });
+            //})
+
+            $.ajax({
+                type: 'get',
+                url: 'GetStores',
+                //data: { page: page, limit: limit },
+                dataType: 'json',
+                success: function (data) {
+                    if (data != null) {
+                        $.each(data, function (key, value) { //遍历每一行数据
+                            var state = "";//记录店铺状态
+                            var state_bg = "";//背景颜色
+                            if (value.s_runstate == 1) {
+                                state = "营业中";
+                            } else {
+                                state = "歇业中";
+                                state_bg = "layui-bg-green";
+                            }
+                            var theprice = value.price;//记录价格
+                            var charge = theprice.split(",");//分开单面和双面价格
+
+                            //alert(value);
+                            $("#store_list").append("<li class=\"post-one\">" +
+                                "<span class=\"label layui-unselect " + state_bg + "\"><c>" + state + "</c></span>" +
+                                "<h3 class= \"title animated\" > <a class=\"animated\" title=" + value.s_name + " href=\"\">" + value.s_name + "</a></h3>" +
+                                "<div class=\"article_lable_show layui-unselect\">" +
+                                "<span class=\"animated3\" style=\"background-color: #ff00b3;\">" + value.songhuo + "</span>" +
+                                "<span class=\"animated3\" style=\"background-color: #ff0808;\">" + value + "</span>" +
+                                "</div>" +
+                                "<div class=\"post-desc\">" +
+                                "<div href=\"\" class=\"summaryimg\">" +
+                                "<a href=\"\" title=" + value.s_name + "><img title=" + value.s_name + " alt=" + value.s_name + " src=\"https://triedblog.oss-cn-beijing.aliyuncs.com/web/2018-11-18/storm-logo.png\" /></a>" +
+                                "</div >" +
+                                "<span style=\"font-family: 微软雅黑; \">单面：<span id=\"\" style=\"color: #1E9FFF;\">" + charge[0] + "</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+                                "<span style=\"font-family: 微软雅黑; \">双面：<span id=\"\" style=\"color: #1E9FFF;\">" + charge[1] + "</span></span>" +
+                                "<p class=\"post-desc-txt\">位置：" + value.s_location + "</p>" +
+                                "<div class=\"layui-clear\">" +
+                                "</div > " +
+                                "</div>" +
+                                "<div class=\"post-info\">" +
+                                "<p class=\"post-info-left\">" +
+                                "<a href=\"javascript:; \">" +
+                                "<img title=" + value.ower_name + " src=\"https://triedblog.oss-cn-beijing.aliyuncs.com/my/login.jpg\" />" +
+                                "<span class=\"author\">用心打造优质服务</span>" +
+                                "</a>" +
+                                "</p>" +
+                                "<p class=\"post-info-right layui-unselect\">" +
+                                "<a><i class=\"layui-icon\">&#xe60a;</i><span class=\"num\">" + value.order_num + "</span></a>" +
+                                "<a><i class=\"layui-icon\">&#xe637;</i><span class=\"time\">" + value.s_worktime + "</span></a>" +
+                                "</p>" + 
+                                "</div>" +
+                                "</li >");
+                            
+                            //$("#store_list").append("<div id='" + value.work_id + "' > " + value.work_name + "--" + value.post_time1 + "--" + value.place + "<\/div>");
+
+                        });
+                    }
+                    layui.use('element', function () {
+                        var element = layui.element;
+                        element.render();
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

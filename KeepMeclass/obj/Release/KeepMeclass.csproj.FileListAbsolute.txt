@@ -1,0 +1,8 @@
+F:\Visual Studio工作\KeeepMe\KeepMeclass\bin\Release\KeepMeclass.dll
+F:\Visual Studio工作\KeeepMe\KeepMeclass\bin\Release\KeepMeclass.pdb
+F:\Visual Studio工作\KeeepMe\KeepMeclass\bin\Release\itextsharp.dll
+F:\Visual Studio工作\KeeepMe\KeepMeclass\bin\Release\Microsoft.Office.Interop.Word.dll
+F:\Visual Studio工作\KeeepMe\KeepMeclass\obj\Release\KeepMeclass.dll
+F:\Visual Studio工作\KeeepMe\KeepMeclass\obj\Release\KeepMeclass.pdb
+F:\Visual Studio工作\KeeepMe\KeepMeclass\bin\Release\MySql.Data.dll
+F:\Visual Studio工作\KeeepMe\KeepMeclass\obj\Release\KeepMeclass.csprojResolveAssemblyReference.cache

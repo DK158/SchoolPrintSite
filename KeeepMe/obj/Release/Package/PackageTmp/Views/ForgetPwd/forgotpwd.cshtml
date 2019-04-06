@@ -1,0 +1,131 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>重置密码</title>
+    <link rel="stylesheet" href="~/Content/Login/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/Login/animate.css">
+    <link rel="stylesheet" href="~/Content/Login/style.css">
+    <link rel="stylesheet" href="~/Content/layui/css/layui.css" media="all">
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+
+
+    <script type="text/javascript" src="~/Content/layui/layui.js"></script>
+    <script>
+        layui.use('layer', function(){ //独立版的layer无需执行这一句
+            var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+        $(document).ready(function () {
+            $("#sendmail").click(function () {
+                var tel_str = $("#email").val().trim();
+                if (tel_str.length != 0) {
+                    reg = /^([a-zA-Z0-9]+[_|_|.]?)*[a-zA-Z0-9]+@@([a-zA-Z0-9]+[_|_|.]?)*[a-zA-Z0-9]+\.(?:com|cn)$/;
+                    if (!reg.test(tel_str)) {
+                        alert("对不起，您输入的邮箱格式不正确!");
+                        return;
+                    }
+                    else {
+                        $.ajax({
+                            type: 'POST',
+                            url: '../ForgetPwd/SendEmail',
+                            data: {
+                                mail: $("#email").val()
+                            },
+                            seccess: function (data) {
+                                if (data) {
+                                    layer.msg("发送成功");
+                                }
+                                else {
+                                    layer.msg("emmmmm.......发生错误");
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+            $("#updatepwd").click(function () {
+                //判断密码是否相同
+                var pass1 = $("#password").val();
+                var pass2 = $("#re_password").val();
+                if (pass1 != pass2) {
+                    $("#the_wrongimf").css("display", "block");
+                    return;
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: '../ForgetPwd/updatepwd',
+                    data: {
+                        thecode: $("#thecode").val(),
+                        mail: $("#email").val(),
+                        pwd: $("#re_password").val()
+                    },
+                    success: function (data) {
+                        if (data == -1) {
+                            layer.msg("验证码错误");
+                        }
+                        else if (data > 0) {
+                            layer.msg("修改成功");
+                            time: 1000;
+                            window.location.href = "../UserLogin/UserLoginview";
+                        }
+                        else {
+                            layer.msg("修改失败");
+                        }
+                    }
+                })
+            });
+        });
+        });
+    </script>
+</head>
+<body class="style-3">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-push-8">
+                <!-- Start Sign In Form -->
+                <form action="#" class="fh5co-form animate-box" data-animate-effect="fadeInRight">
+                    <h2>Forgot Password</h2>
+                    <div class="form-group" style="display:none;">
+                        <div class="alert alert-success" role="alert">Your email has been sent.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="sr-only">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="QQ邮箱" autocomplete="off">
+                    </div>
+                    <div class="form-group" style="display:inline-block;">
+                        <input id="thecode" type="email" class="form-control" placeholder="邮件验证码" autocomplete="off" style="width:150px;display:inline-block;">
+                        <input id="sendmail" type="button" class="btn btn-primary" value="发送验证码">
+                    </div>
+                    <div class="form-group">
+                        <input id="password" type="password" class="form-control" placeholder="密码" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <input id="re_password" type="password" class="form-control" placeholder="确认密码" autocomplete="off">
+                    </div>
+                    <div id="the_wrongimf" class="form-group" style="display:none;">
+                        <p style="color:red;">两次密码不一致</p>
+                    </div>
+                    <div class="form-group">
+                        <p><a href="../Login/Index">Sign In</a> or <a href="#">Sign Up</a></p>
+                    </div>
+                    <div class="form-group">
+                        <input id="updatepwd" value="确认修改密码" class="btn btn-primary">
+                    </div>
+                </form>
+                <!-- END Sign In Form -->
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,233 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ManUsers</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="~/Content/layui/css/layui.css" media="all">
+    <script type="text/javascript" src="~/Script/jquery-1.8.2.min.js"></script>
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+
+    <div class="layui-btn-group demoTable">
+        <button class="layui-btn" data-type="getCheckData">获取选中行数据</button>
+        <button class="layui-btn" data-type="getCheckLength">获取选中数目</button>
+        <button class="layui-btn" data-type="isAll">验证是否全选</button>
+    </div>
+
+    <!--------------数据表---------------------->
+    <table class="layui-table" id="tbusers" lay-filter="tbusers"></table>
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-primary layui-btn-xs showdetail" lay-event="edit">查看</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+
+    <!--------------编辑信息表单布局---------------------->
+    <div id="EditUserform" style="display:none;padding:0 36px 0 0;">
+        <form id="editform">
+            <div class="layui-form-item">
+                <label class="layui-form-label">电话</label>
+                <div class="layui-input-block">
+                    <input type="text" id="edittel" value="158" name="tel" placeholder="TEL" class="layui-input" disabled="disabled">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">昵称</label>
+                <div class="layui-input-block ">
+                    <input type="text" id="editname" name="name" autocomplete="off" placeholder="NAME" class="layui-input" disabled="disabled">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">邮箱</label>
+                <div class=" layui-input-block">
+                    <input type="text" id="email" name="email" autocomplete="off" placeholder="ADDRESS" class="layui-input" disabled="disabled">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">学校</label>
+                <div class=" layui-input-block">
+                    <input type="text" id="school" name="school" autocomplete="off" placeholder="MAIL" class="layui-input" disabled="disabled">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">寝室</label>
+                <div class=" layui-input-block">
+                    <input type="text" id="dormitory1" name="dormitory1" autocomplete="off" placeholder="MAIL" class="layui-input" disabled="disabled">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">性别</label>
+                <div class=" layui-input-block">
+                    <input type="text" id="editsex" name="sex" autocomplete="off" placeholder="SEX" class="layui-input" disabled="disabled">
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="~/Content/layui/layui.js" charset="utf-8"></script>
+
+    <script>
+        layui.use('table', function(){
+            var table = layui.table;
+        //--------------方法渲染TABLE----------------
+        var tableIns = table.render({
+            elem: '#tbusers'
+            , id: 'tbusers'
+            , url: '@Url.Action("Showusers1", "ManUsers")'
+            , cols: [[
+                 { checkbox: true, LAY_CHECKED: false, fixed: 'left' } //其它参数在此省略
+                  , { field: 'st_tel', title: '电话',  align: 'center' }
+                 , { field: 'st_nick', title: '昵称', align: 'center' }
+                , { field: 'st_email', title: '邮箱',  align: 'center' }
+                , { field: 'st_school', title: '学校', edit: 'text'  }
+                , { field: 'st_dormitory', title: '寝室', align: 'center'}
+                , { field: 'st_sex', title: '性别', align: 'center' }
+                , { fixed: 'right', width: 178, align: 'center', toolbar: '#barDemo' }
+            ]]
+            , page: true
+            , limits: [10,15,20,30,60]
+            , limit: 10 //默认采用10
+            , response: {
+                statusName: 'code' //数据状态的字段名称，默认：code
+                , statusCode: 0 //成功的状态码，默认：0
+                , msgName: 'msg' //状态信息的字段名称，默认：msg
+                , countName: 'count' //数据总数的字段名称，默认：count
+                , dataName: 'data' //数据列表的字段名称，默认：data
+            }
+            , done: function (res, curr, count) {
+                //如果是异步请求数据方式，res即为你接口返回的信息。
+                //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                //console.log(res);
+                //得到当前页码
+                //console.log(curr);
+               // $("#curPageIndex").val(curr);
+                //得到数据总量
+                //console.log(count);
+            }
+        });
+        });
+    </script>
+    <script>
+layui.use('table', function(){
+  var table = layui.table;
+  var indexnum;//记录当前弹出层的id
+    //监听表格复选框选择
+  table.on('checkbox(demo)', function (obj) {
+      console.log(obj)
+  });
+    //监听工具条,行内操作按钮
+  table.on('tool(demo)', function (obj) {
+      var data = obj.data;
+      if (obj.event === 'detail') {
+          layer.msg('ID：' + data.U_Tel + ' 的查看操作');
+
+      }
+          //删除信息
+      else if (obj.event === 'del') {
+          layer.confirm('真的删除行么', function (index) {
+
+              layer.close(index);
+              $.ajax({
+                  type: 'POST',
+                  url: 'deleteuserinf',  //在数据库中删除该行
+                  data: { usertel: data.U_Tel },
+                  success: function (data) {
+                      if (data > 0) {
+                          obj.del();  //在显示页面中删除改行
+                          layer.msg("删除成功");
+                      }
+                      else {
+                          layer.msg("系统故障，删除失败");
+                      }
+                  }
+              })
+          });
+          //编辑行信息
+      } else if (obj.event === 'edit') {
+         // layer.alert('编辑行：<br>' + JSON.stringify(data));
+          $("#edittel").val(data.st_tel);
+          $("#editname").val(data.st_nick);
+          $("#email").val(data.st_email);
+          $("#school").val(data.st_school);
+          $("#dormitory1").val(data.st_dormitory);
+          $("#editsex").val(data.st_sex);
+          //自定页,弹出层
+          indexnum=layer.open({
+              type: 1,
+              title:'查看信息',
+              skin: 'layui-layer-demo', //样式类名
+              closeBtn: 1, //不显示关闭按钮
+              anim: 2,
+              shadeClose: false, //开启遮罩关闭
+              content: $("#EditUserform")
+          });
+      }
+  });
+
+  var $ = layui.$, active = {
+      getCheckData: function () { //获取选中数据
+          var checkStatus = table.checkStatus('tbusers')
+          , data = checkStatus.data;
+         // alert(data[0].U_Tel);
+          layer.alert(JSON.stringify(data));
+      }
+    , getCheckLength: function () { //获取选中数目
+        var checkStatus = table.checkStatus('tbusers')
+        , data = checkStatus.data;
+        layer.msg('选中了：' + data.length + ' 个');
+    }
+    , isAll: function () { //验证是否全选
+        var checkStatus = table.checkStatus('tbusers');
+        layer.msg(checkStatus.isAll ? '全选' : '未全选')
+    }
+  };
+
+  $('.demoTable .layui-btn').on('click', function () {
+      var type = $(this).data('type');
+      active[type] ? active[type].call(this) : '';
+  });
+    //点击取消
+  $("#editcansel").click(function () {
+      layer.close(indexnum);
+  })
+    // 点击确定,提交修改数据
+  $("#editsubmit").click(function () {
+      layer.confirm('确定修改？', { icon: 3, title: '提示' }, function (index) {
+          $.ajax({
+              type: 'POST',
+              url:'../ManUser/updateuserinf',
+              data:{
+                  tel:$("#edittel").val(),
+                  name:$("#editname").val(),
+                  address:$("#editaddress").val(),
+                  mail:$("#editmail").val(),
+                  sex:$("#editsex").val(),
+              },
+              success: function (data) {
+                  if (data == 1) {
+                      layer.msg("修改成功");
+                      window.location.href = '../ManUser/Users';
+                  }
+                  else {
+                      layer.msg("修改失败");
+                  }
+              }
+          })
+          layer.close(index);
+          layer.close(indexnum);
+      });
+  })
+
+
+});
+    </script>
+</body>
+</html>

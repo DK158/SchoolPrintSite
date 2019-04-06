@@ -1,0 +1,113 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>用户注册</title>
+    <link rel="stylesheet" href="~/Content/Login/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/Login/animate.css">
+    <link rel="stylesheet" href="~/Content/Login/style.css">
+
+    <!-- Modernizr JS -->
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script>
+    $(window).ready(function () {
+        //点击注册
+        $("#sign_up").click(function () {
+            var tel_str = $("#tel").val().trim();
+            if (tel_str.length != 0) {
+                reg = /^1[3|4|5|8][0-9]\d{4,8}$/;
+                if (!reg.test(tel_str)) {
+                    alert("对不起，您输入的电话格式不正确!");
+                    return;
+                }
+            }
+            //判断密码是否相同
+            var pass1 = $("#password").val();
+            var pass2 = $("#re_password").val();
+            if (pass1 != pass2) {
+                $("#the_wrongimf").css("display", "block");
+                return;
+            }
+            $.ajax({
+                type: "POST",
+                url: "../Registe/registe",
+                data: {
+                    name: $("#name").val(),
+                    tel: $("#tel").val(),
+                    password: $("#password").val()
+                },
+                success: function (data) {
+                    if (data < 0) {
+                        alert("此电话用户已存在");
+                    }
+                    else if (data > 0) {
+                        window.location.href="../Home/Index";
+                    }
+                    else {
+                        alert("emm....");
+                    }
+                }
+            })
+        })
+    })
+    </script>
+
+</head>
+<body class="style-3">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-push-8">
+
+
+                <!-- Start Sign In Form -->
+                <form action="#" class="fh5co-form animate-box" data-animate-effect="fadeInRight">
+                    <h2>Sign Up</h2>
+                    <div class="form-group">
+                        <div class="alert alert-success" role="alert">Your info has been saved.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="sr-only">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Name" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="sr-only">Email</label>
+                        <input type="tel" class="form-control" id="tel" placeholder="Tel" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="sr-only">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Password" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="re-password" class="sr-only">Re-type Password</label>
+                        <input type="password" class="form-control" id="re_password" placeholder="Re-type Password" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="remember"><input type="checkbox" id="remember"> Remember Me</label>
+                    </div>
+                    <div id="the_wrongimf" class="form-group" style="display:none;">
+                        <p style="color:red;">两次密码不一致</p>
+                    </div>
+                    <div class="form-group">
+                        <p>Already registered? <a id="tosignin" href="../UserLogin/UserLoginview">Sign In</a></p>
+                    </div>
+                    <div class="form-group">
+                        <input value="Sign Up" id="sign_up" class="btn btn-primary">
+                    </div>
+                </form>
+                <!-- END Sign In Form -->
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,289 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ManPrice</title>
+    <link rel="stylesheet" href="~/Content/layui/css/layui.css">
+    <script src="~/Script/jquery-1.8.2.min.js"></script>
+</head>
+<body>
+    <div>
+        <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+            <button data-method="addPrintStoreItem" class="layui-btn">添加本打印店定价项目</button>
+        </div>
+    </div>
+    <!--------------展示 本打印店所有定价数据表 不分页 因为由多张表连接 且查询不同---------------------->
+    <table class="layui-table" lay-data="{url:'../ManPrice/getStoreAllPriceItem', page:false, id:'storePrintItem'}" lay-filter="demo">
+        <thead>
+            <tr>
+                @*<th lay-data="{ field: 'sItem_priceId' , hide:'true' }">打印店定价编号</th>
+                <th lay-data="{ field: 'printceItem_id', title: '定价标识' , hide:'true' }"></th>*@
+                <th lay-data="{ field: 's_id', title: '打印店编号'}"></th>
+                <th lay-data="{ field: 'priceItem_name', title: '项目名称', edit: 'text' }"></th>
+                <th lay-data="{ field: 'sItem_price', title: '价格', edit: 'text' }"></th>
+                <th lay-data="{ field: 'priceItem_unit', title: '单位', edit: 'text' }"></th>
+                <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
+            </tr>
+        </thead>
+    </table>
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+
+    <!---------编辑价格表单------------->
+    <div id="detailPriceItem" name="detailPriceItem" style="display:none;padding:20px 36px 0 0;">
+        <form class="layui-form" style="text-align:center;align-content:center;">
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="color:red;width:100%;text-align:center;">只能修改价格数字，其他修改无效</label>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">打印店定价项目编号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="sItem_priceId" name="sItem_priceId" class="layui-input">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">定价标识</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="printceItem_id" name="printceItem_id" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">定价名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="priceItem_name" name="priceItem_name" class="layui-input">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">打印店定价项目价格</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="sItem_price" name="sItem_price" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">打印店编号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="s_id" name="s_id" class="layui-input">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">定价单位</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="priceItem_unit" name="priceItem_unit" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="site-demo-button" id="layerDemo" style="margin-right: 60px;align-content:center;text-align:center;">
+                    <button id="cansel" data-method="cansel" class="layui-btn" style="margin:0 0 0 60px;width:120px;">取消</button>
+                    <button id="surechange" data-method="surechange" class="layui-btn" lay-submit lay-filter="*">确认修改</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!------添加项目表单-------->
+            <div id="addPriceItem" name="addPriceItem" style="display:none;text-align:center;">
+                <form class="layui-form" style="text-align:center;align-content:center;margin:0;padding:0;">
+                    <div class="layui-form-item">
+                        @*系统提供的所有的定价项目用radio表示*@
+                        <div id="allRadio" class="layui-input-block" style="text-align:center;align-content:center;margin:0;padding:0;">
+                            @*<input type="radio" id="s_name_nv" name="printceItem_id" value="女" title="女" />*@
+                        </div>
+                    </div>
+                    <div class="layui-form-item" >
+                        <div class="layui-input-block" style="text-align:center;align-content:center;margin:0;padding:0;">
+                            <label class="layui-form-label">价格</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="sItem_price" name="sItem_price" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="site-demo-button" id="layerDemo" style="text-align:center;align-content:center;margin:0 60px 0 0;padding:0;">
+                            <button id="cansel1" data-method="cansel" class="layui-btn" style="margin:0 0 0 60px;width:120px;">取消</button>
+                            <button id="sureaddItem" data-method="sureaddItem" class="layui-btn" lay-submit lay-filter="*">确认添加定价项目</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+            <script src="~/Content/layui/layui.js" charset="utf-8"></script>
+            <script>
+                layui.use(['form', 'layer', 'table'], function () { //独立版的layer无需执行这一句
+                    var $ = layui.jquery, layer = layui.layer, form = layui.form, table = layui.table; //独立版的layer无需执行这一句
+                    //触发事件
+                    var active = {
+                        addPrintStoreItem: function () {
+                            //获取所有定价项目
+                            $.ajax({
+                                type: 'get',
+                                url: '../ManPrice/getAllPriceItem',
+                                dataType: "json",
+                                success: function (data) {
+                                    if (data != null) {
+                                        $.each(data, function (key, value) {
+                                            $("#allRadio").append("<input id='" + value.printceItem_id + "' type=\"radio\" name=\"printceItem_id\" value='" + value.printceItem_id + "' title='" + value.priceItem_name + "'\/>");
+                                            form.render(); //更新全部
+                                        });
+                                    }
+                                    else {
+                                        layer.msg("系统故障，无详细信息");
+                                    }
+                                    form.render();
+                                }
+                            });
+                            layer.open({
+                                type: 1,
+                                title: '添加打印定价条目',
+                                skin: 'layui-layer-lan',
+                                area: ['500px', '400px'],
+                                content: $('#addPriceItem')
+                            });
+                        },
+                        cansel: function () {
+                            layer.closeAll();
+                        },
+                        //添加定价项目
+                        sureaddItem: function () {
+                            form.on('submit(*)', function (data) {
+                                $.ajax({
+                                    type: "POST",
+                                    url: '../ManPrice/addStorePriceItem',
+                                    data: data.field,//当前容器的全部表单字段，名值对形式：{name: value}
+                                    success: function (data) {
+                                        if (data > 0) {
+                                            layer.closeAll();
+                                            layer.msg("添加成功", { icon: 1, time: 3000, end: function () { window.location.reload(); } });
+                                            //$(".layui-laypage-btn")[0].click();//模拟点击实现刷新
+                                        }
+                                        else if (data == -1) {
+                                            layer.closeAll();
+                                            layer.msg("已存在相同店名", { icon: 2, time: 3000, end: function () { } });//不必跳转
+                                            //$(".layui-laypage-btn")[0].click();//模拟点击实现刷新
+                                        }
+                                        else {
+                                            layer.closeAll();
+                                            layer.msg("添加失败", { icon: 2, time: 3000, end: function () { window.location.reload(); } });
+                                            //$(".layui-laypage-btn")[0].click();//模拟点击实现刷新
+                                        }
+                                    }
+                                });
+                                return false; //阻止全部刷新
+                            });
+                        },
+                        //修改
+                        surechange: function () {
+                            form.on('submit(*)', function (data) {
+                                $.ajax({
+                                    type: "POST",
+                                    url: '../ManPrice/editPrice',
+                                    data: data.field,//当前容器的全部表单字段，名值对形式：{name: value}
+                                    success: function (data) {
+                                        if (data > 0) {
+                                            layer.closeAll();
+                                            layer.msg("修改成功", { icon: 1, time: 3000, end: function () { window.location.reload(); } });
+                                            //$(".layui-laypage-btn")[0].click();//模拟点击实现刷新
+                                        }
+                                        else {
+                                            layer.closeAll();
+                                            layer.msg("修改失败", { icon: 2, time: 3000, end: function () { window.location.reload(); } });
+                                            //$(".layui-laypage-btn")[0].click();//模拟点击实现刷新
+                                        }
+                                    }
+                                });
+                                return false; //阻止全部刷新
+                            });
+                        }
+                    }
+                    //点击按钮的出发事件
+                    $('#layerDemo .layui-btn').on('click', function () {
+                        var othis = $(this), method = othis.data('method');
+                        active[method] ? active[method].call(this, othis) : '';
+                    });
+
+                });
+
+                layui.use(['table', 'form'], function () {
+                    var table = layui.table, form = layui.form;
+                    var indexnum;//记录当前弹出层的id
+                    //监听表格复选框选择
+                    table.on('checkbox(demo)', function (obj) {
+                        console.log(obj)
+                    });
+                    //监听工具条,行内操作按钮
+                    table.on('tool(demo)', function (obj) {
+                        var data = obj.data;
+                        
+                        //删除信息
+                        if (obj.event === 'del') {
+                            layer.confirm('确定删除？？', { btn: ['确认删除', '手滑了'], title: "警告" }, function (index) {
+                                layer.close(index);
+                                $.ajax({
+                                    type: 'POST',
+                                    url: 'deletePriceItem',  //在数据库中删除该行
+                                    data: { sItem_priceId: data.sItem_priceId },
+                                    success: function (data) {
+                                        if (data > 0) {
+                                            obj.del();  //在显示页面中删除改行
+                                            layer.msg("删除成功", { icon: 1 });
+                                        }
+                                        else {
+                                            layer.msg("系统故障，删除失败", { icon: 2 });
+                                        }
+                                    }
+                                })
+                            });
+
+                            /*编辑行信息方法*/
+                        } else if (obj.event === 'edit') {
+                            alert(data.sItem_priceId);
+                            layer.open({
+                                type: 1,
+                                title: '编辑信息',
+                                skin: 'layui-layer-lan',
+                                area: ['690px', '400px'],
+                                content: $('#detailPriceItem')
+                            });
+                            ////获取详细信息,赋值
+                            $.ajax({
+                                type: 'get',
+                                url: '../ManPrice/showPriceItemDetail',
+                                data: { sItem_priceId: data.sItem_priceId },
+                                dataType: "json",
+                                success: function (data) {
+                                    if (data != null) {
+                                        $.each(data, function (key, value) {
+                                            $("#sItem_priceId").val(value.sItem_priceId);
+                                            $("#printceItem_id").val(value.printceItem_id);
+                                            $("#priceItem_name").val(value.priceItem_name);
+                                            $("#sItem_price").val(value.sItem_price);
+                                            $("#s_id").val(value.s_id);
+                                            $("#priceItem_unit").val(value.priceItem_unit);
+                                            form.render(); //更新全部
+                                        });
+                                    }
+                                    else {
+                                        layer.msg("系统故障，无详细信息");
+                                    }
+                                }
+                            });
+                            $("form input,textarea").prop("readonly", false);//使可编辑
+                        }
+                    });
+                });
+            </script>
+</body>
+</html>

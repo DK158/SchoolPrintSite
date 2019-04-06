@@ -1,0 +1,81 @@
+﻿body {
+    margin:0;
+    padding:0;
+}
+a{
+    text-decoration:none;
+}
+
+/*现在*/
+.backgroundcolor{
+    background:rgba(0,0,0,0.3);
+    margin:0;
+    padding:0;
+    height:100%;
+}
+
+.main_wrapper1{
+    background:#444 url(../images/banner01.jpg); /*不知道为什么已经失效，之前可以用的#*/
+    background-attachment:fixed;
+    background-size:cover;
+    height:auto;
+}
+#header1{
+    background:none;
+    margin:0 0 100px 0;
+}
+
+.head_prompt{
+    font-size:22px;
+    color:#00ffff;
+    margin:0;
+    padding:260px 0 20px 60px;
+}
+.users_information{
+    display:inline-block;
+    margin:0 0 5px 60px;
+}
+.conclude_money{
+    margin:10px 10px 5px 60px;
+}
+#Labelprompt{
+    color:red;
+}
+#dormotory{
+    color:#808080;
+}
+#showprintmoney{
+    display:block;
+    margin:0 0 5px 60px;
+}
+
+#conclude_butten{
+    display:inline-block;
+    font-size:18px;
+    align-content:center;
+    color:#00ffff;
+    margin:0 0 0 36px;
+}
+#wxzf #zfbzf{
+    height:200px;
+    width:200px;
+    display:none;
+}
+.top_tompt{
+    display:inline-block;
+    padding:20px;
+    z-index:100;
+    background:rgba(119, 192, 246, 0.66);
+    float:right;
+}
+.a{
+    font-weight:600;
+    color:#00ffff;
+}
+
+.uploadfileinfo{
+    background-color:#333;
+}
+.uploadfileinfo span{
+    margin:0 10px;
+}

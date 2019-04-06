@@ -1,0 +1,12 @@
+F:\Visual Studio工作\KeeepMe\KeepMeModel\bin\Debug\KeepMeModel.dll
+F:\Visual Studio工作\KeeepMe\KeepMeModel\bin\Debug\KeepMeModel.pdb
+F:\Visual Studio工作\KeeepMe\KeepMeModel\obj\Debug\KeepMeModel.dll
+F:\Visual Studio工作\KeeepMe\KeepMeModel\obj\Debug\KeepMeModel.pdb
+F:\Visual Studio工作\KeeepMe\KeepMeModel\obj\Debug\KeepMeModel.csproj.CoreCompileInputs.cache
+F:\Visual Studio工作\KeeepMe\KeepMeModel\obj\Debug\KeepMeModel.csprojAssemblyReference.cache
+E:\visualstudio_workspace\KeeepMe\KeepMeModel\bin\Debug\KeepMeModel.dll
+E:\visualstudio_workspace\KeeepMe\KeepMeModel\bin\Debug\KeepMeModel.pdb
+E:\visualstudio_workspace\KeeepMe\KeepMeModel\obj\Debug\KeepMeModel.csproj.CoreCompileInputs.cache
+E:\visualstudio_workspace\KeeepMe\KeepMeModel\obj\Debug\KeepMeModel.dll
+E:\visualstudio_workspace\KeeepMe\KeepMeModel\obj\Debug\KeepMeModel.pdb
+E:\visualstudio_workspace\KeeepMe\KeepMeModel\obj\Debug\KeepMeModel.csprojAssemblyReference.cache

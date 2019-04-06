@@ -1,0 +1,70 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>ManPrintPrice</title>
+    <link rel="stylesheet" href="~/Content/layui/css/layui.css">
+    <script src="~/Script/jquery-1.8.2.min.js"></script>
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+
+    <div class="layui-btn-group demoTable">
+        <button class="layui-btn" data-type="gettodayExcel">导出今日excel</button>
+    </div>
+
+    <!--------------数据表---------------------->
+    <table class="layui-table" id="tborders1" lay-filter="tborders1"></table>
+
+    <!--------------编辑信息表单布局---------------------->
+    <div id="EditUserform" >
+        <form id="editform">
+            <div class="layui-form-item">
+                <label class="layui-form-label">电话</label>
+                <div class="layui-input-block">
+                    <input type="text" id="edittel" value="158" name="tel" placeholder="TEL" class="layui-input" disabled="disabled">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">昵称</label>
+                <div class="layui-input-block ">
+                    <input type="text" id="editname" name="name" autocomplete="off" placeholder="NAME" class="layui-input" disabled="disabled">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">邮箱</label>
+                <div class=" layui-input-block">
+                    <input type="text" id="email" name="email" autocomplete="off" placeholder="ADDRESS" class="layui-input" disabled="disabled">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">学校</label>
+                <div class=" layui-input-block">
+                    <input type="text" id="school" name="school" autocomplete="off" placeholder="MAIL" class="layui-input" disabled="disabled">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">寝室</label>
+                <div class=" layui-input-block">
+                    <input type="text" id="dormitory1" name="dormitory1" autocomplete="off" placeholder="MAIL" class="layui-input" disabled="disabled">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">性别</label>
+                <div class=" layui-input-block">
+                    <input type="text" id="editsex" name="sex" autocomplete="off" placeholder="SEX" class="layui-input" disabled="disabled">
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="~/Content/layui/layui.js" charset="utf-8"></script>
+
+</body>
+</html>

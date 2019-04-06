@@ -1,0 +1,24 @@
+F:\Visual Studio工作\KeeepMe\KeepMeDal\bin\Debug\KeepMeDal.dll
+F:\Visual Studio工作\KeeepMe\KeepMeDal\bin\Debug\KeepMeDal.pdb
+F:\Visual Studio工作\KeeepMe\KeepMeDal\bin\Debug\KeepMeclass.dll
+F:\Visual Studio工作\KeeepMe\KeepMeDal\bin\Debug\itextsharp.dll
+F:\Visual Studio工作\KeeepMe\KeepMeDal\bin\Debug\Microsoft.Office.Interop.Word.dll
+F:\Visual Studio工作\KeeepMe\KeepMeDal\bin\Debug\KeepMeclass.pdb
+F:\Visual Studio工作\KeeepMe\KeepMeDal\obj\Debug\KeepMeDal.dll
+F:\Visual Studio工作\KeeepMe\KeepMeDal\obj\Debug\KeepMeDal.pdb
+F:\Visual Studio工作\KeeepMe\KeepMeDal\obj\Debug\KeepMeDal.csprojAssemblyReference.cache
+F:\Visual Studio工作\KeeepMe\KeepMeDal\obj\Debug\KeepMeDal.csproj.CoreCompileInputs.cache
+F:\Visual Studio工作\KeeepMe\KeepMeDal\obj\Debug\KeepMeDal.csproj.CopyComplete
+E:\visualstudio_workspace\KeeepMe\KeepMeDal\bin\Debug\KeepMeDal.dll
+E:\visualstudio_workspace\KeeepMe\KeepMeDal\bin\Debug\KeepMeDal.pdb
+E:\visualstudio_workspace\KeeepMe\KeepMeDal\bin\Debug\KeepMeclass.dll
+E:\visualstudio_workspace\KeeepMe\KeepMeDal\bin\Debug\KeepMeModel.dll
+E:\visualstudio_workspace\KeeepMe\KeepMeDal\bin\Debug\itextsharp.dll
+E:\visualstudio_workspace\KeeepMe\KeepMeDal\bin\Debug\Microsoft.Office.Interop.Word.dll
+E:\visualstudio_workspace\KeeepMe\KeepMeDal\bin\Debug\KeepMeclass.pdb
+E:\visualstudio_workspace\KeeepMe\KeepMeDal\bin\Debug\KeepMeModel.pdb
+E:\visualstudio_workspace\KeeepMe\KeepMeDal\obj\Debug\KeepMeDal.csprojAssemblyReference.cache
+E:\visualstudio_workspace\KeeepMe\KeepMeDal\obj\Debug\KeepMeDal.csproj.CoreCompileInputs.cache
+E:\visualstudio_workspace\KeeepMe\KeepMeDal\obj\Debug\KeepMeDal.csproj.CopyComplete
+E:\visualstudio_workspace\KeeepMe\KeepMeDal\obj\Debug\KeepMeDal.dll
+E:\visualstudio_workspace\KeeepMe\KeepMeDal\obj\Debug\KeepMeDal.pdb

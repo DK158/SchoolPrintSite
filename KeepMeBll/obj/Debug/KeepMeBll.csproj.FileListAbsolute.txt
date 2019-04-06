@@ -1,0 +1,30 @@
+F:\Visual Studio工作\KeeepMe\KeepMeBll\bin\Debug\KeepMeBll.dll
+F:\Visual Studio工作\KeeepMe\KeepMeBll\bin\Debug\KeepMeBll.pdb
+F:\Visual Studio工作\KeeepMe\KeepMeBll\bin\Debug\KeepMeclass.dll
+F:\Visual Studio工作\KeeepMe\KeepMeBll\bin\Debug\KeepMeDal.dll
+F:\Visual Studio工作\KeeepMe\KeepMeBll\bin\Debug\MySql.Data.dll
+F:\Visual Studio工作\KeeepMe\KeepMeBll\bin\Debug\itextsharp.dll
+F:\Visual Studio工作\KeeepMe\KeepMeBll\bin\Debug\Microsoft.Office.Interop.Word.dll
+F:\Visual Studio工作\KeeepMe\KeepMeBll\bin\Debug\KeepMeclass.pdb
+F:\Visual Studio工作\KeeepMe\KeepMeBll\bin\Debug\KeepMeDal.pdb
+F:\Visual Studio工作\KeeepMe\KeepMeBll\obj\Debug\KeepMeBll.dll
+F:\Visual Studio工作\KeeepMe\KeepMeBll\obj\Debug\KeepMeBll.pdb
+F:\Visual Studio工作\KeeepMe\KeepMeBll\obj\Debug\KeepMeBll.csprojAssemblyReference.cache
+F:\Visual Studio工作\KeeepMe\KeepMeBll\obj\Debug\KeepMeBll.csproj.CoreCompileInputs.cache
+F:\Visual Studio工作\KeeepMe\KeepMeBll\obj\Debug\KeepMeBll.csproj.CopyComplete
+E:\visualstudio_workspace\KeeepMe\KeepMeBll\bin\Debug\KeepMeBll.dll
+E:\visualstudio_workspace\KeeepMe\KeepMeBll\bin\Debug\KeepMeBll.pdb
+E:\visualstudio_workspace\KeeepMe\KeepMeBll\bin\Debug\KeepMeclass.dll
+E:\visualstudio_workspace\KeeepMe\KeepMeBll\bin\Debug\KeepMeDal.dll
+E:\visualstudio_workspace\KeeepMe\KeepMeBll\bin\Debug\KeepMeModel.dll
+E:\visualstudio_workspace\KeeepMe\KeepMeBll\bin\Debug\MySql.Data.dll
+E:\visualstudio_workspace\KeeepMe\KeepMeBll\bin\Debug\itextsharp.dll
+E:\visualstudio_workspace\KeeepMe\KeepMeBll\bin\Debug\Microsoft.Office.Interop.Word.dll
+E:\visualstudio_workspace\KeeepMe\KeepMeBll\bin\Debug\KeepMeclass.pdb
+E:\visualstudio_workspace\KeeepMe\KeepMeBll\bin\Debug\KeepMeDal.pdb
+E:\visualstudio_workspace\KeeepMe\KeepMeBll\bin\Debug\KeepMeModel.pdb
+E:\visualstudio_workspace\KeeepMe\KeepMeBll\obj\Debug\KeepMeBll.csprojAssemblyReference.cache
+E:\visualstudio_workspace\KeeepMe\KeepMeBll\obj\Debug\KeepMeBll.csproj.CoreCompileInputs.cache
+E:\visualstudio_workspace\KeeepMe\KeepMeBll\obj\Debug\KeepMeBll.csproj.CopyComplete
+E:\visualstudio_workspace\KeeepMe\KeepMeBll\obj\Debug\KeepMeBll.dll
+E:\visualstudio_workspace\KeeepMe\KeepMeBll\obj\Debug\KeepMeBll.pdb

@@ -1,0 +1,157 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Showorders</title>
+    <link rel="stylesheet" href="~/Content/layui/css/layui.css">
+    <script src="~/Script/jquery-1.8.2.min.js"></script>
+</head>
+<body>
+    <div>
+        <div class="layui-btn-group demoTable" id="layerDemo" style="margin-bottom: 0;">
+            <button data-type="DownLoadSelected" class="layui-btn" title="只支持少部分下载">打包下载已选文件</button>
+            <button data-type="DownLoadAllSelected" class="layui-btn" title="先全选，再点击下载">全选下载</button>
+            <button data-type="DownLoadtodayorders" class="layui-btn" title="下载今日所有订单">下载今日订单</button>
+            <button data-type="BacktoHigherLevel" class="layui-btn">返回上一级</button>
+        </div>
+        <!--------------数据表---------------------->
+        <table class="layui-table" lay-data="{url:'../ManOrders/Showorder', page:true, id:'tborders',cellMinWidth: 80}" lay-filter="demo">
+            <thead>
+                <tr>
+                    <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
+                    <th lay-data="{ field: 'Name',sort:true }">文件名称</th>
+                    <th lay-data="{ field: 'CreationDate',sort:true}">创建日期</th>
+                    <th lay-data="{ field: 'Size', title: '文件大小', edit: 'text' }"></th>
+                    <th lay-data="{ field: 'FullName', width:0px}">全路径</th>
+                    <th lay-data="{ field: 'IsFolder', width:0px}">全路径</th>
+                    <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
+                </tr>
+            </thead>
+        </table>
+        <script type="text/html" id="barDemo">
+            {{#
+            if(d.IsFolder == false){
+            }}
+            <a class="layui-btn layui-btn-primary layui-btn-xs showdetail" lay-event="download">下载</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+            {{#
+            } else {
+            }}
+            <a class="layui-btn layui-btn-normal layui-btn-xs showdetail" lay-event="gointofloder">进入文件夹</a>
+            {{#
+            }
+            }}
+
+        </script>
+    </div>
+    <script src="~/Content/layui/layui.js" charset="utf-8"></script>
+    <script>
+        layui.use(['table', 'layer'], function () {
+            var $ = layui.jquery, layer = layui.layer;
+            var table = layui.table;
+            var indexnum;//记录当前弹出层的id
+
+            //监听表格复选框选择
+            table.on('checkbox(demo)', function (obj) {
+                console.log(obj)
+            });
+            //监听工具条,行内操作按钮
+            table.on('tool(demo)', function (obj) {
+                var data = obj.data;
+                if (obj.event === 'download') {
+                    layer.msg('ID：' + data.FullName + ' 的查看操作');
+                    /*z执行下载函数，并传参*/
+                    location.href = "../ManOrders/DownLoadfile?fileroute=" + data.FullName + "&filename=" + data.Name;
+                }
+                else if (obj.event == 'delete') {
+                    $.ajax({
+                        type: "POST",
+                        url: '../ManOrders/deleteSelected',
+                        data: { name: data.Name, route: data.FullName },
+                        success: function (data) {
+                            if (data == 1) { layer.msg("删除成功。"); obj.del(); }
+                            else { layer.msg("删除失败。"); }
+                        }
+                    });
+                } 
+                else if (obj.event == 'gointofloder') {
+                    folderlevel--; //更新文件级数
+                    table.reload('tborders', {
+                        url: '../ManOrders/Showorder2',
+                        where: { route:data.FullName}
+                    })
+                }
+            });
+            var folderlevel = 0; //全局变量储存当前文件显示的文件夹级数，默认为0 ，向上一级 +1
+            var $ = layui.$, active = {
+                DownLoadSelected: function () { //获取选中数据 
+                    var checkStatus = table.checkStatus('tborders')
+                    , data = checkStatus.data;
+                    var Characters = 0; //记录 href 传输的字符长度，避免超长
+                    var routefilelist = new Array(); //储存文件路径信息
+                    for (var i = 0; i < data.length; i++) {
+                        routefilelist[i] = data[i].FullName;
+                        Characters += data[i].FullName.length;
+                    }
+                    var namefilelist = new Array();  //储存文件名称信息
+                    for (var i = 0; i < data.length; i++) {
+                        namefilelist[i] = data[i].Name;
+                        Characters += data[i].FullName.length;
+                    }
+                    if (Characters > 2000) {
+                        layer.msg("文件选择太多了，少选一些吧。"); return;
+                    }
+                    //layer.alert(JSON.stringify(data));
+                    location.href = "../ManOrders/DownLoadfilelist?fileroute=" + routefilelist + "&filename=" + namefilelist;
+                }
+                , DownLoadAllSelected: function () {
+                    var checkStatus = table.checkStatus('tborders'),
+                        data = checkStatus.data;
+                    var checkselectall = checkStatus.isAll ? '全选' : '未全选';
+                    if (checkselectall == '未全选') {
+                        layer.msg("请先全选文件"); return;
+                    } else {
+                        var route = data[0].FullName;
+                        location.href = "../ManOrders/DownLoadfileNowpage?route="+route;
+                    }
+                }
+                , DownLoadtodayorders: function () {
+                    location.href = "../ManOrders/DownLoadfiletoday";
+                }
+                , BacktoHigherLevel: function () {
+                    if (folderlevel >= 3) { layer.msg("已是根目录。"); return; }
+                    alert(folderlevel);
+                    folderlevel++;
+                    table.reload('tborders', {
+                        url: '../ManOrders/Showorder1',
+                        where: { floder: folderlevel }
+                    })
+                }
+              , getCheckLength: function () { //获取选中数目
+                  var checkStatus = table.checkStatus('trades')
+                  , data = checkStatus.data;
+                  layer.msg('选中了：' + data.length + ' 个');
+              }
+              , isAll: function () { //验证是否全选
+                  var checkStatus = table.checkStatus('trades');
+                  layer.msg(checkStatus.isAll ? '全选' : '未全选')
+              }
+            };
+
+            $('.demoTable .layui-btn').on('click', function () {
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+
+
+
+        });
+</script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>ManOrders</title>
+    <link rel="stylesheet" href="~/Content/layui/css/layui.css">
+    <script src="~/Script/jquery-1.8.2.min.js"></script>
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+
+    <div class="layui-btn-group demoTable">
+        <button class="layui-btn" data-type="gettodayExcel">导出今日excel</button>
+    </div>
+
+    <!--------------数据表---------------------->
+    <table class="layui-table" id="tborders1" lay-filter="tborders1"></table>
+
+    <!--------------编辑信息表单布局---------------------->
+    <div id="EditUserform" style="display:none;padding:0 36px 0 0;">
+        <form id="editform">
+            <div class="layui-form-item">
+                <label class="layui-form-label">电话</label>
+                <div class="layui-input-block">
+                    <input type="text" id="edittel" value="158" name="tel" placeholder="TEL" class="layui-input" disabled="disabled">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">昵称</label>
+                <div class="layui-input-block ">
+                    <input type="text" id="editname" name="name" autocomplete="off" placeholder="NAME" class="layui-input" disabled="disabled">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">邮箱</label>
+                <div class=" layui-input-block">
+                    <input type="text" id="email" name="email" autocomplete="off" placeholder="ADDRESS" class="layui-input" disabled="disabled">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">学校</label>
+                <div class=" layui-input-block">
+                    <input type="text" id="school" name="school" autocomplete="off" placeholder="MAIL" class="layui-input" disabled="disabled">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">寝室</label>
+                <div class=" layui-input-block">
+                    <input type="text" id="dormitory1" name="dormitory1" autocomplete="off" placeholder="MAIL" class="layui-input" disabled="disabled">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">性别</label>
+                <div class=" layui-input-block">
+                    <input type="text" id="editsex" name="sex" autocomplete="off" placeholder="SEX" class="layui-input" disabled="disabled">
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="~/Content/layui/layui.js" charset="utf-8"></script>
+
+    <script>
+        layui.use(['table','layer'], function(){
+            var table = layui.table, layer = layui.layer;
+        //--------------方法渲染TABLE----------------
+        var tableIns = table.render({
+            elem: '#tborders1'
+            , id: 'tborders1'
+            , url: '@Url.Action("Showorderslist", "ManDbOrders")'
+            , cols: [[
+                 { checkbox: true, LAY_CHECKED: false, fixed: 'left' } //其它参数在此省略
+                  , { field: 'vor_id', title: '订单号',  align: 'center' }
+                 , { field: 'vor_tel', title: '电话', align: 'center' }
+                , { field: 'vor_username', title: '姓名',  align: 'center' }
+                , { field: 'vor_time', title: '下单时间', edit: 'text'  }
+                , { field: 'vor_money', title: '金额', align: 'center'}
+                , { field: 'vor_domitory', title: '寝室', align: 'center' }
+            ]]
+            , page: true
+            , limits: [10,15,20,30,60]
+            , limit: 10 //默认采用10
+            , response: {
+                statusName: 'code' //数据状态的字段名称，默认：code
+                , statusCode: 0 //成功的状态码，默认：0
+                , msgName: 'msg' //状态信息的字段名称，默认：msg
+                , countName: 'count' //数据总数的字段名称，默认：count
+                , dataName: 'data' //数据列表的字段名称，默认：data
+            }
+            , done: function (res, curr, count) {
+                //如果是异步请求数据方式，res即为你接口返回的信息。
+                //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                //console.log(res);
+                //得到当前页码
+                //console.log(curr);
+                $("#curPageIndex").val(curr);
+                //得到数据总量
+                //console.log(count);
+            }
+        });
+        });
+    </script>
+    <script>
+layui.use('table', function(){
+  var table = layui.table;
+  var indexnum;//记录当前弹出层的id
+    //监听表格复选框选择
+  table.on('checkbox(demo)', function (obj) {
+      console.log(obj)
+  });
+    //监听工具条,行内操作按钮
+  table.on('tool(demo)', function (obj) {
+      var data = obj.data;
+  });
+
+  var $ = layui.$, active = {
+      gettodayExcel: function () { //获取选中数据
+          location.href = "../ManDbOrders/getTodayExcel";
+      }
+    , getCheckLength: function () { //获取选中数目
+        var checkStatus = table.checkStatus('tborders')
+        , data = checkStatus.data;
+        layer.msg('选中了：' + data.length + ' 个');
+    }
+    , isAll: function () { //验证是否全选
+        var checkStatus = table.checkStatus('tbusers');
+        layer.msg(checkStatus.isAll ? '全选' : '未全选')
+    }
+  };
+
+  $('.demoTable .layui-btn').on('click', function () {
+      var type = $(this).data('type');
+      active[type] ? active[type].call(this) : '';
+  });
+
+});
+    </script>
+</body>
+</html>

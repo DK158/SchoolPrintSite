@@ -1,0 +1,297 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ManAssistant</title>
+    <link rel="stylesheet" href="~/Content/layui/css/layui.css">
+    <script src="~/Script/jquery-1.8.2.min.js"></script>
+</head>
+<body>
+    <div>
+        <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+            <button data-method="addAssistant" class="layui-btn">添加店员信息</button>
+        </div>
+
+    </div>
+    <!--------------数据表---------------------->
+    <table class="layui-table" lay-data="{url:'../ManAssistant/showAllAssistant', page:true, id:'Assistant',limits:[10,15,20,30,60],limit:10}" lay-filter="demo">
+        <thead>
+            <tr>
+                <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
+                <th lay-data="{ field: 'sa_name'}">店员姓名</th>
+                <th lay-data="{ field: 'sa_general', title: '店员性别'}"></th>
+                <th lay-data="{ field: 'sa_tel', title: '店员电话', edit: 'text' }"></th>
+                <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
+            </tr>
+        </thead>
+    </table>
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-primary layui-btn-xs showdetail" lay-event="detail">查看</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+
+
+    <!----------添加店主-------->
+    <div id="addAssistant" name="addAssistant" style="display:none;padding:20px 36px 0 0;">
+        <form id="addrole" class="layui-form">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">店员电话</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="sa_tel" name="sa_tel" class="layui-input">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">打印店编号</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="s_id" name="s_id" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+
+                <label class="layui-form-label">店员姓名</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="sa_name" name="sa_name" class="layui-input">
+                </div>
+                <label class="layui-form-label">店员性别</label>
+                <div class="layui-input-inline">
+                    @*<input type="text" id="sa_general" name="sa_general" class="layui-input">*@
+                    <input type="radio" id="sa_general_nan" name="sa_general" value="男" title="男">
+                    <input type="radio" id="sa_general_nv" name="sa_general" value="女" title="女">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">店员昵称</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="sa_nick" name="sa_nick" class="layui-input">
+                </div>
+                <label class="layui-form-label">出生日期</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="sa_birthday" name="sa_birthday" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">店员简介</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入内容" class="layui-textarea" name="sa_breifinfo" id="sa_breifinfo"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;align-content:center;text-align:center;">
+                    <button id="cansel" data-method="cansel" class="layui-btn" style="margin:0 0 0 60px;width:120px;">取消</button>
+                    <button id="sureadd" data-method="sureadd" class="layui-btn" lay-submit lay-filter="*">确认添加</button>
+                    <button id="surechange" data-method="surechange" class="layui-btn" lay-submit lay-filter="*">确认修改</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+    <script src="~/Content/layui/layui.js" charset="utf-8"></script>
+
+    <script>
+        layui.use(['form', 'layer','table'], function () { //独立版的layer无需执行这一句
+            var $ = layui.jquery, layer = layui.layer, form = layui.form, table = layui.table; //独立版的layer无需执行这一句
+            //触发事件
+            var active = {
+                addAssistant: function () {
+                    $("#surechange").hide();//隐藏按钮
+                    layer.open({
+                        type: 1,
+                        title: '添加店员',
+                        skin: 'layui-layer-lan',
+                        area: ['700px', '420px'],
+                        content: $('#addAssistant')
+                        //不允许修改
+                    });
+                },
+                cansel: function () {
+                    layer.closeAll();
+                },
+                //添加
+                sureadd: function () {
+                    form.on('submit(*)', function (data) {
+                        $.ajax({
+                            type: "POST",
+                            url: '../ManAssistant/addAssistant',
+                            data: data.field,//当前容器的全部表单字段，名值对形式：{name: value}
+                            success: function (data) {
+                                if (data > 0) {
+                                    layer.closeAll();
+                                    layer.msg("添加成功", { icon: 1, time: 3000, end: function () { window.location.reload(); } });
+                                    //$(".layui-laypage-btn")[0].click();//模拟点击实现刷新
+                                }
+                                else if (data == -1) {
+                                    layer.closeAll();
+                                    layer.msg("已存在该电话或身份证号", { icon: 2, time: 3000, end: function () { window.location.reload(); } });
+                                    //$(".layui-laypage-btn")[0].click();//模拟点击实现刷新
+                                }
+                                else {
+                                    layer.closeAll();
+                                    layer.msg("添加失败", { icon: 2, time: 3000, end: function () { window.location.reload(); } });
+                                    //$(".layui-laypage-btn")[0].click();//模拟点击实现刷新
+                                }
+                            }
+                        });
+                        return false; //阻止全部刷新
+                    });
+                },
+                //修改
+                surechange: function () {
+                    form.on('submit(*)', function (data) {
+                        $.ajax({
+                            type: "POST",
+                            url: '../ManAssistant/editAssistant',
+                            data: data.field,//当前容器的全部表单字段，名值对形式：{name: value}
+                            success: function (data) {
+                                if (data > 0) {
+                                    layer.closeAll();
+                                    layer.msg("修改成功", { icon: 1, time: 3000, end: function () { window.location.reload(); } });
+                                    //$(".layui-laypage-btn")[0].click();//模拟点击实现刷新
+                                }
+                                else {
+                                    layer.closeAll();
+                                    layer.msg("修改失败", { icon: 2, time: 3000, end: function () { window.location.reload(); } });
+                                    //$(".layui-laypage-btn")[0].click();//模拟点击实现刷新
+                                }
+                            }
+                        });
+                        return false; //阻止全部刷新
+                    });
+                }
+            }
+            //点击按钮的出发事件
+            $('#layerDemo .layui-btn').on('click', function () {
+                var othis = $(this), method = othis.data('method');
+                active[method] ? active[method].call(this, othis) : '';
+            });
+
+        });
+
+        layui.use(['table','form'], function () {
+            var table = layui.table, form = layui.form;
+            var indexnum;//记录当前弹出层的id
+            //监听表格复选框选择
+            table.on('checkbox(demo)', function (obj) {
+                console.log(obj)
+            });
+            //监听工具条,行内操作按钮
+            table.on('tool(demo)', function (obj) {
+                var data = obj.data;
+
+                /*详细信息事件方法*/
+                if (obj.event === 'detail') {
+                    //layer.msg('ID：' + data.U_Tel + ' 的查看操作');
+                    $("#cansel").hide();//影藏按钮
+                    $("#sureadd").hide()
+                    $("#surechange").hide()
+                    layer.open({
+                        type: 1,
+                        title: '查看店员详细信息',
+                        skin: 'layui-layer-lan',
+                        area: ['700px', '400px'],
+                        content: $('#addAssistant')
+                    });
+                    ////获取详细信息,赋值
+                    $.ajax({
+                        type: 'get',
+                        url: '../ManAssistant/showAssistantdetail',
+                        data: { sa_tel: data.sa_tel },
+                        dataType: "json",
+                        success: function (data) {
+                            if (data != null) {
+                                $.each(data, function (key, value) {
+                                    $("#sa_tel").val(value.sa_tel);
+                                    $("#s_id").val(value.s_id);
+                                    $("#sa_name").val(value.sa_name);
+                                    if (value.sa_general == '男') { $("#sa_general_nan").prop('checked', true); } else { $("#sa_general_nv").prop('checked', true);}
+                                    //$("input[value='" + value.sa_general + "']").attr('checked', 'true');
+                                    $("#sa_birthday").val(value.sa_birthday);
+                                    $("#sa_nick").val(value.sa_nick);
+                                    $("#sa_breifinfo").val(value.sa_breifinfo);
+                                    form.render(); //更新全部
+                                });
+                            }
+                            else {
+                                layer.msg("系统故障，无详细信息");
+                            }
+                        }
+                    });
+                    $("form input,textarea").prop("readonly", true);
+                    //$('input,select,textarea', $('form[name="addAssistant"]')).prop("readonly", true);
+                }
+                //删除信息
+                else if (obj.event === 'del') {
+                    layer.confirm('确定删除？？', { btn: ['确认删除', '手滑了'], title: "警告" },  function (index) {
+                        layer.close(index);
+                        $.ajax({
+                            type: 'POST',
+                            url: 'deleteAssistant',  //在数据库中删除该行
+                            data: { sa_tel: data.sa_tel },
+                            success: function (data) {
+                                if (data > 0) {
+                                    obj.del();  //在显示页面中删除改行
+                                    layer.msg("删除成功", {icon:1});
+                                }
+                                else {
+                                    layer.msg("系统故障，删除失败", {icon:2});
+                                }
+                            }
+                        })
+                    });
+
+                    /*编辑行信息方法*/
+                } else if (obj.event === 'edit') {
+                    layer.open({
+                        type: 1,
+                        title: '编辑店员信息',
+                        skin: 'layui-layer-lan',
+                        area: ['700px', '420px'],
+                        content: $('#addAssistant')
+                    });
+                    $("#cansel").hide();//影藏按钮
+                    $("#sureadd").hide();//显示按钮
+                    $("#surechange").show();
+                    ////获取详细信息,赋值
+                    $.ajax({
+                        type: 'get',
+                        url: '../ManAssistant/showAssistantdetail',
+                        data: { sa_tel: data.sa_tel },
+                        dataType: "json",
+                        success: function (data) {
+                            if (data != null) {
+                                $.each(data, function (key, value) {
+                                    $("#sa_tel").val(value.sa_tel);
+                                    $("#s_id").val(value.s_id);
+                                    $("#sa_name").val(value.sa_name);
+                                    if (value.sa_general == '男') { $("#sa_general_nan").prop('checked', true); } else { $("#sa_general_nv").prop('checked', true); }
+                                    //$("input[value='" + value.sa_general + "']").attr('checked', 'true');
+                                    $("#sa_birthday").val(value.sa_birthday);
+                                    $("#sa_nick").val(value.sa_nick);
+                                    $("#sa_breifinfo").val(value.sa_breifinfo);
+                                    form.render(); //更新全部
+                                });
+                            }
+                            else {
+                                layer.msg("系统故障，无详细信息");
+                            }
+                        }
+                    });
+                    $("form input,textarea").prop("readonly", false);//使可编辑
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>

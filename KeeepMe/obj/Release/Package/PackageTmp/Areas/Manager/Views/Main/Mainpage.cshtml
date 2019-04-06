@@ -1,0 +1,155 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Mainpage</title>
+    <link rel="stylesheet" href="~/Content/layui/css/layui.css">
+    <script type="text/javascript" src="~/Scripts/jquery-1.8.2.min.js"></script>
+</head>
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo">校园打印后台</div>
+            <!-- 头部区域（可配合layui已有的水平导航） -->
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item"><a href="">控制台</a></li>
+                <li class="layui-nav-item"><a href="">商品管理</a></li>
+                <li class="layui-nav-item"><a href="">用户</a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">其它系统</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">邮件管理</a></dd>
+                        <dd><a href="">消息管理</a></dd>
+                        <dd><a href="">授权管理</a></dd>
+                    </dl>
+                </li>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="../../../../Content/images/headicon/sweet.jpg" class="layui-nav-img">
+                        贤心
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">基本资料</a></dd>
+                        <dd><a href="">安全设置</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">退了</a></li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">订单管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;" class="detail" url="../ManOrders/Showorders">订单文件处理</a></dd>
+                            <dd><a href="javascript:;" class="detail" url="../ManDbOrders/Showorderlistview">订单记录信息</a></dd>
+                            <dd><a href="javascript:void(0)" class="detail" url="../ManUsers/Showuser">用户管理</a></dd>
+                            <dd><a href="javascript:;" class="detail">交易列表</a></dd>
+                            <dd><a href="javascript:void(0)" class="detail" >任务管理</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">权限管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;" class="detail" url="#">角色管理</a></dd>
+                            <dd><a href="javascript:;" class="detail" url="#">功能管理</a></dd>
+                            <dd><a href="javascript:;" class="detail" url="#">角色功能管理</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item"><a href="#">云市场</a></li>
+                    <li class="layui-nav-item"><a href="#">发布商品</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body" scrolling="no">
+            <!-- 内容主体区域 -->
+            <div class="layui-tab" lay-filter="demo" lay-allowclose="true">
+                <ul class="layui-tab-title">
+                    <li class="layui-this" lay-id="11">网站设置</li>
+                    <li lay-id="22">用户管理</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">内容1</div>
+                    <div class="layui-tab-item">内容2</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            © layui.com - 底部固定区域
+        </div>
+    </div>
+    <script src="~/Content/layui/layui.js"></script>
+    <script>
+        layui.use('element', function () {
+            var $ = layui.jquery
+            , element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+
+            //触发事件
+            var active = {
+                tabAdd: function () {
+
+                }
+              , tabDelete: function (othis) {
+                  //删除指定Tab项
+                  element.tabDelete('demo', '44'); //删除：“商品管理”
+
+
+                  othis.addClass('layui-btn-disabled');
+              }
+              , tabChange: function () {
+                  //切换到指定Tab项
+                  element.tabChange('demo', '22'); //切换到：用户管理
+              }
+            };
+
+            $('.site-demo-active').on('click', function () {
+                var othis = $(this), type = othis.data('type');
+                active[type] ? active[type].call(this, othis) : '';
+            });
+
+            //新增一个Tab项
+            $(".detail").click(function () {
+                //拿到点击标题
+                var title = $(this).text();
+                //拿到点击的url
+                var url = $(this).attr("url");
+                //判断标签是否存在
+                //var isExt = $("#tt").tabs("exists", title);
+                //如果存在则选中
+                //if (isExt) {
+                //   $("#tt").tabs("select", title);  //选中
+                //  return;
+                // }
+                //不存在就添加标签
+                //$("#tt").tabs("add", {
+                //    title: title,
+                //    content: createTabContent(url),
+                //    closable: true
+                //});
+                element.tabAdd('demo', {
+                    title: title //用于演示
+                      , content: '<iframe src="' + url + '" frameborder="0" width="100%" height="600px"></iframe>'
+                      , id: title //实际使用一般是规定好的id，这里以时间戳模拟下
+                })
+                element.tabChange('demo', title);
+            });
+
+        });
+    </script>
+
+</body>
+</html>

@@ -142,6 +142,7 @@
     <Compile Include="Areas\system\Controllers\ManStoreKeeperController.cs" />
     <Compile Include="Areas\system\systemAreaRegistration.cs" />
     <Compile Include="Areas\user\Controllers\MainPageController.cs" />
+    <Compile Include="Areas\user\Controllers\UsertoStoreController.cs" />
     <Compile Include="Areas\user\userAreaRegistration.cs" />
     <Compile Include="Controllers\DengMainController.cs" />
     <Compile Include="Controllers\ForgetPwdController.cs" />
@@ -187,6 +188,7 @@
     <Content Include="Content\images\pic02.jpg" />
     <Content Include="Content\images\pic03.jpg" />
     <Content Include="Content\images\qie.jpg" />
+    <Content Include="Content\images\storephoto\6666.jpg" />
     <Content Include="Content\layui\css\layui.css" />
     <Content Include="Content\layui\css\layui.mobile.css" />
     <Content Include="Content\layui\css\modules\code.css" />
@@ -394,6 +396,7 @@
     <Content Include="Areas\Manager\Views\ManPrice\ManPrice.cshtml" />
     <Content Include="Areas\Manager\Views\ManAssistant\ManAssistant.cshtml" />
     <Content Include="Areas\user\Views\MainPage\MainPage.cshtml" />
+    <Content Include="Areas\user\Views\UsertoStore\UsertoStore.cshtml" />
     <None Include="Properties\PublishProfiles\Keeepmeconfig.pubxml" />
     <Content Include="Views\UserLogin\UserLoginview.cshtml" />
     <Content Include="Views\UserRegist\UserRegistView.cshtml" />

@@ -49,16 +49,56 @@
             <!-- 内容主体区域 -->
             <!--左边内容-->
             <div class="layui-carousel-left" style="height:600px;">
-                <img src="~/Content/images/headicon/illust.png" alt="" class="layui-layer-imgbar" style="width:200px;"/>
+                <img src="~/Content/images/storephoto/6666.jpg" alt="" class="layui-layer-imgbar" style="width:200px;" />
+                <!--动态添加，各种打印服务价格-->
+                <div id="price_items" style="width:100%;">
+
+                </div>
+                <!--送货价格-->
+                <div id="diliver_cahrge" style="width:100%;">
+                    <span title="送货价格">1</span>
+                </div>
+                <!--打印店地址-->
+                <div id="location" style="width:100%;">
+                    <span tile="打印店地址">1</span>
+                </div>
             </div>
             <!--右边内容-->
             <div class="layui-carousel-right">
                 <!--用户信息填写-->
-                <div class="layui-body layui-bg-green" style="height:200px;">
-
+                <div class="layui-body layui-bg-green" style="height:160px;text-align:left;padding-top:16px;padding-left:30px;">
+                    
+                    <div style="margin:6px;">
+                        <span class="conclude_money">
+                            您的电话：<input id="yourtel" type="text" required />
+                        </span>
+                        <span class="conclude_money" style="margin-left:10px;">
+                            您的姓名：<input id="yourname" type="text" required maxlength="10" />
+                        </span>
+                    </div>
+                    <div style="margin:6px;">
+                        <span class="users_information">
+                            送货地址：<input type="text" required />
+                        </span>
+                        <span class="conclude_money" style="margin-left:10px;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注：<input type="text" ID="remark" />
+                        </span>
+                        <span id="showprintmoney" style="margin-left:60px;">总费用：<span id="totalmoney" style="color:#41f316;font-size:18px;">0.0</span>￥</span>
+                        <input id="submitpool" type="button" style="margin:0 0 0 20px;padding:0 12px;background-color:rgba(0, 255, 255, 0.19);" value="确认提交" />
+                    </div>
                 </div>
                 <!--文件上传，修改参数-->
-                <div class="layui-body layui-bg-black" style="height:400px;margin-top:200px;">
+                <div class="layui-body layui-bg-black" style="height:440px;margin-top:160px;">
+                    <div>
+                        <span class="users_information conclude_money">
+                            <input type="file" name="MyFileUpload" id="MyFileUpload" />
+                            <input type="button" id="Inputthefile" value="上传" onclick="FileUpload()" style="width:60px;" />
+                            <input id="recordfilenum" style="display:none;" />
+
+                            <asp:Label ID="Labelprompt" runat="server" Text=""></asp:Label>
+                        </span>
+                    </div>
+                    <div id="uploadfilelist" class="users_information"></div><br />
 
                 </div>
             </div>

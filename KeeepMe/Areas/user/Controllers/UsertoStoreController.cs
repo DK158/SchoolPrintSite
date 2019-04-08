@@ -18,11 +18,47 @@ namespace KeeepMe.Areas.user.Controllers
         // GET: /user/UsertoStore/
 
         KeepMeBll.BllPrint manp = new KeepMeBll.BllPrint();
+        KeepMeBll.BllUsertoStore bus = new KeepMeBll.BllUsertoStore();
 
         public ActionResult UsertoStore()
         {
             return View();
-        }       
+        }  
+        
+        public string TheStore()
+        {
+            if(Session["now_the_store"]==null || Session["now_the_store"].ToString() == "")
+            {
+                return null;
+            }
+            string store_id = Session["now_the_store"].ToString();
+            return bus.TheStore(store_id);
+        }
+
+        public string StorePriceItem()
+        {
+            if (Session["now_the_store"] == null || Session["now_the_store"].ToString() == "")
+            {
+                return null;
+            }
+            string store_id = Session["now_the_store"].ToString();
+            return bus.StorePriceItem(store_id);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*-----------------------分界线 ---------------以下是从 以前Print引用--------用于上传文件，获取信息-------------------*/
 
         /// <summary>
         /// 文件上传

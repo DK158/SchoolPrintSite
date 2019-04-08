@@ -248,29 +248,29 @@
                     </ul>
 
 
-                        <!-- 分页 -->
-                        <ul class="pagination">
+                    <!-- 分页 -->
+                    <ul class="pagination">
 
-                            <li>
-                                <a class="active" href="javascript:;">1</a>
-                            </li>
+                        <li>
+                            <a class="active" href="javascript:;">1</a>
+                        </li>
 
-                            <li>
-                                <a href="/index?page=2">2</a>
-                            </li>
+                        <li>
+                            <a href="/index?page=2">2</a>
+                        </li>
 
-                            <li>
-                                <a href="/index?page=3">3</a>
-                            </li>
+                        <li>
+                            <a href="/index?page=3">3</a>
+                        </li>
 
-                            <li class="china">
-                                <a title="下一页" href="/index?page=2">下一页 <i class="layui-icon layui-icon-next"></i></a>
-                            </li>
+                        <li class="china">
+                            <a title="下一页" href="/index?page=2">下一页 <i class="layui-icon layui-icon-next"></i></a>
+                        </li>
 
-                            <li class="info">
-                                共<b>3</b>页<b>28</b>条数据
-                            </li>
-                        </ul>
+                        <li class="info">
+                            共<b>3</b>页<b>28</b>条数据
+                        </li>
+                    </ul>
                 </div>
                 <!-- 右边模块 -->
                 <div class="layui-col-md4 layui-col-sm4 layui-col-xs12 content-right">
@@ -441,53 +441,8 @@
     <script src="~/Script/jquery-1.8.2.min.js"></script>
     <script type="text/javascript" src="~/Content/layui/layui.js"></script>
     <script type="text/javascript" src="~/Areas/user/Script/MainPage/index.js"></script>
-
     <script>
         $(document).ready(function () {
-            //window.onload = function loadInfo() {
-            //$.getJSON("GetStores", function (data) {
-            //    $.each(data, function (key, value) {
-            //        var state = "";
-            //        if (value.state == 1) {
-            //            state = "营业中";
-            //        } else {
-            //            state = "歇业中";
-            //        }
-            //        alert(value);
-            //        //$("#store_list").append("<li class=\"post-one\">" +
-            //        //    "<span class=\"label layui-unselect\"><c>" + state + "</c></span>" +
-            //        //    "< h3 class= \"title animated\" > <a class=\"animated\" title=" + value.s_name + " href=\"\">" + value.s_name + "</a></h3 >" +
-            //        //    "<div class=\"article_lable_show layui-unselect\">" +
-            //        //    "<span class=\"animated3\" style=\"background-color: #ff00b3;\">" + value.songhuo + "</span>" +
-            //        //    "<span class=\"animated3\" style=\"background-color: #ff0808;\">" + value + "</span>" +
-            //        //    "</div>" +
-            //        //    "<div class=\"post-desc\">" +
-            //        //    "<div href=\"\" class=\"summaryimg\">" +
-            //        //    "<a href=\"\" title=" + value.s_name + "><img title=" + value.s_name + " alt=" + value.s_name + " src=\"https://triedblog.oss-cn-beijing.aliyuncs.com/web/2018-11-18/storm-logo.png\" /></a>" +
-            //        //    "</div >" +
-            //        //    "<span style=\"font-family: 微软雅黑; \">单面：<span id=\"\" style=\"color: #1E9FFF;\">" + value + "</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-            //        //    "<span style=\"font-family: 微软雅黑; \">双面：<span id=\"\" style=\"color: #1E9FFF;\">" + value + "</span></span>" +
-            //        //    "<p class=\"post-desc-txt\">位置：" + value.location + "</p>" +
-            //        //    "div class=\"layui-clear\">" +
-            //        //    "</div > " +
-            //        //    "</div>" +
-            //        //    "<div class=\"post-info\">" +
-            //        //    "<p class=\"post-info-left\">" +
-            //        //    "<a href=\"javascript:; \">" +
-            //        //    "<img title=" + value.ower_name + " src=\"https://triedblog.oss-cn-beijing.aliyuncs.com/my/login.jpg\" />" +
-            //        //    "<span class=\"author\">" + value.ower_name + "</span>" +
-            //        //    "</a>" +
-            //        //    "</p>" +
-            //        //    "<p class=\"post-info-right layui-unselect\">" +
-            //        //    "<a><i class=\"layui-icon\">&#xe60a;</i><span class=\"num\">" + value.order_num + "</span></a>" +
-            //        //    "<a><i class=\"layui-icon\">&#xe637;</i><span class=\"time\">" + value.create_time + "</span></a>" +
-            //        //    "</p>" +
-            //        //    "</div>" +
-            //        //    "</li >");
-            //        //$("#store_list").append("<div id='" + value.work_id + "' class=\"addworklist bc-head uinput ub bc-border uba ub-f1 umar-a myadd\"> " + value.work_name + "--" + value.post_time1 + "--" + value.place + "<\/div>");
-
-            //    });
-            //})
 
             $.ajax({
                 type: 'get',
@@ -511,7 +466,7 @@
                             //alert(value);
                             $("#store_list").append("<li class=\"post-one\">" +
                                 "<span class=\"label layui-unselect " + state_bg + "\"><c>" + state + "</c></span>" +
-                                "<h3 class= \"title animated\" > <a class=\"animated\" title=" + value.s_name + " href=\"\">" + value.s_name + "</a></h3>" +
+                                "<h3 class= \"title animated storename\" id=" + value.s_id + "> <a class=\"animated\" title=" + value.s_name + " href=\"\">" + value.s_name + "</a></h3>" +
                                 "<div class=\"article_lable_show layui-unselect\">" +
                                 "<span class=\"animated3\" style=\"background-color: #ff00b3;\">" + value.songhuo + "</span>" +
                                 "<span class=\"animated3\" style=\"background-color: #ff0808;\">" + value + "</span>" +
@@ -536,12 +491,27 @@
                                 "<p class=\"post-info-right layui-unselect\">" +
                                 "<a><i class=\"layui-icon\">&#xe60a;</i><span class=\"num\">" + value.order_num + "</span></a>" +
                                 "<a><i class=\"layui-icon\">&#xe637;</i><span class=\"time\">" + value.s_worktime + "</span></a>" +
-                                "</p>" + 
+                                "</p>" +
                                 "</div>" +
                                 "</li >");
-                            
-                            //$("#store_list").append("<div id='" + value.work_id + "' > " + value.work_name + "--" + value.post_time1 + "--" + value.place + "<\/div>");
 
+                            //$("#store_list").append("<div id='" + value.work_id + "' > " + value.work_name + "--" + value.post_time1 + "--" + value.place + "<\/div>");
+                            
+                        });
+                        $(".storename").on('click', function () {
+                            var store_id = $(this).attr("id"); //获取修改的id
+                            alert(store_id);
+                            //window.location("toStorePage?store_id=" + store_id+"");
+                            $.ajax({
+                                type: 'get',
+                                url: 'toStorePage',
+                                data: { store_id: store_id },
+                                success: function (data) {
+                                    if (data == null) {
+                                        alert("该店已歇业。");
+                                    }
+                                }
+                            });
                         });
                     }
                     layui.use('element', function () {
@@ -550,9 +520,9 @@
                     });
                 }
             });
+
         });
     </script>
-
 </body>
 
 </html>

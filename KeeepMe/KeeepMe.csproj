@@ -189,6 +189,7 @@
     <Content Include="Content\images\pic03.jpg" />
     <Content Include="Content\images\qie.jpg" />
     <Content Include="Content\images\storephoto\6666.jpg" />
+    <Content Include="Content\images\storephoto\auto.png" />
     <Content Include="Content\layui\css\layui.css" />
     <Content Include="Content\layui\css\layui.mobile.css" />
     <Content Include="Content\layui\css\modules\code.css" />

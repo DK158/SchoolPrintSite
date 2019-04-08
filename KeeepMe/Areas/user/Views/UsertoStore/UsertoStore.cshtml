@@ -203,7 +203,9 @@
 
                 }
                 else { return; }
-            });
+            }
+                
+            );
             /*确认已支付*/
             $("#Iamsure").on('click', function () {
                 var tel = $("#yourtel").val();
@@ -262,15 +264,44 @@
                 $("#wechatpay").css('display', 'block');
             });
 
+            //加载店铺名称，位置，图片，价格等信息
+            $.getJSON("TheStore", function (data) {
+                $.each(data, function (key, value) {
+                    $("#store_name").html(value.s_name);
+                    var sculpture_src = value.s_sculpture;
+                    var s_photo_src = value.s_photo;
+                    $("#store_sculpture").attr('src', sculpture_src);
+                    $("#store_photo").attr('src', s_photo_src);
+                    $("#store_worktime").html(value.s_worktime);//营业时间
+                    var carry = value.s_carry;//送货上门 
+                    if (carry == true) {
+                        $("#diliver_cahrge").append("<span title=\"送货价格\">送货上门：不满" + value.s_carryterm + "加" + value.s_carryadd + "</span>");
+                    } else {
+                        $("#diliver_cahrge").append("<span title=\"送货价格\">不支持送货上门</span>");
+                    }
+                    $("#store_location").html("打印店地址：" + value.s_location);
+                });
+            });
+            $.getJSON("StorePriceItem", function (data) { //分为两个getJson是为了减少数据库查询出结果的冗余
+                $.each(data, function (key, value) {
+                    $("#price_items").append("<span>" + value.priceItem_name + "：<span style=\"color: #1E9FFF;\">" + value.sItem_price + " </span>" + value.priceItem_unit + "</span></br>");
+                });
+            });
+            //layui重新渲染
+            //layui.use('element', function () {
+            //    var element = layui.element;
+            //    element.init();
+            //});
         });
-        //   });
-    </script>
-
+    </script> 
 </head>
 <body class="layui-layout-body">
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header layui-bg-cyan" style="margin:0;padding:0;">
-            <div class="" style="text-align:center;height:100%;"><h1 style="padding-top:12px;height:100%;border-bottom:none;"><img src="~/Content/images/headicon/illust.png" class="layui-nav-img" />西柚云上打印群</h1></div>
+            <div class="" style="text-align:center;height:100%;">
+            <h1 style="padding-top:12px;height:100%;border-bottom:none;"><img id="store_sculpture" src="~/Content/images/headicon/illust.png" class="layui-nav-img" />
+                <label id="store_name">西柚云上打印群</label></h1>
+            </div>
             <!-- 头部区域（可配合layui已有的水平导航） -->
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item">
@@ -299,18 +330,20 @@
             <!-- 内容主体区域 -->
             <!--左边内容-->
             <div class="layui-carousel-left" style="height:600px;width:300px;">
-                <img src="~/Content/images/storephoto/6666.jpg" alt="" class="layui-layer-imgbar" style="width:300px;" />
-                <!--动态添加，各种打印服务价格-->
-                <div id="price_items" style="width:100%;">
+                <img id="store_photo" src="~/Content/images/storephoto/6666.jpg" alt="" class="layui-layer-imgbar" style="width:300px;" />
+                <div style="margin-left:20px;">
+                    <!--动态添加，各种打印服务价格-->
+                    <div id="price_items" style="width:100%;">
 
-                </div>
-                <!--送货价格-->
-                <div id="diliver_cahrge" style="width:100%;">
-                    <span title="送货价格">1</span>
-                </div>
-                <!--打印店地址-->
-                <div id="location" style="width:100%;">
-                    <span tile="打印店地址">1</span>
+                    </div>
+                    <!--送货价格-->
+                    <div id="diliver_cahrge" style="width:100%;">
+                        <span>营业时间：<span id="store_worktime"></span></span></br>
+                    </div>
+                    <!--打印店地址-->
+                    <div id="location" style="width:100%;">
+                        <span id="store_location" tile="打印店地址"></span>
+                    </div>
                 </div>
             </div>
             <!--右边内容-->
@@ -338,7 +371,7 @@
                     </div>
                 </div>
                 <!--文件上传，修改参数-->
-                <div class="layui-body layui-bg-black" style="height:500px;margin-top:100px;margin-left:100px;">
+                <div class="layui-body" style="height:500px;margin-top:100px;margin-left:100px;background-color:#dddddd;">
                     <form id="form1" runat="server">
                         <div>
                             <span class="users_information conclude_money">
@@ -354,31 +387,7 @@
                     </form>
                 </div>
             </div>
-            @*<div class="content content-nav-base buytoday-content">
-                <div id="list-cont">
-                    <div class="banner-box">
-                        <div class="product-list-box">
-                            <div class="product-list w1200">
-                                <div class="list-cont" cont='tuangou'>
-                                    <div class="item-box layui-clear">
-                                        <div class="item">
-                                            <img src="~/Content/images/headicon/illust.png" alt="" />
-                                            <div class="text-box">
-                                                <p class="title">宝宝专用硅胶环保饭碗四套+调羹+筷子自助学吃饭套装</p>
-                                                <p class="plic">
-                                                    <span class="ciur-pic">￥100.00</span>
-                                                    <span class="Ori-pic">￥208.00</span>
-                                                    <span class="discount">5折</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>*@
+
         </div>
 
         <div class="layui-footer" style="margin:0;">

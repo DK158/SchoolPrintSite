@@ -27,21 +27,21 @@ namespace KeeepMe.Areas.user.Controllers
         
         public string TheStore()
         {
-            if(Session["now_the_store"]==null || Session["now_the_store"].ToString() == "")
+            if(Session["now_the_store_id"]==null || Session["now_the_store_id"].ToString() == "")
             {
                 return null;
             }
-            string store_id = Session["now_the_store"].ToString();
+            string store_id = Session["now_the_store_id"].ToString();
             return bus.TheStore(store_id);
         }
 
         public string StorePriceItem()
         {
-            if (Session["now_the_store"] == null || Session["now_the_store"].ToString() == "")
+            if (Session["now_the_store_id"] == null || Session["now_the_store_id"].ToString() == "")
             {
                 return null;
             }
-            string store_id = Session["now_the_store"].ToString();
+            string store_id = Session["now_the_store_id"].ToString();
             return bus.StorePriceItem(store_id);
         }
 
@@ -180,8 +180,8 @@ namespace KeeepMe.Areas.user.Controllers
             po.or_upTime = time.ToString();
             po.or_money = float.Parse(Request["money"]);
             po.or_payway = "支付宝支付";
-            Session["store_id"] = "6666";//临时
-            Session["store_name"] = "阿宝打印";//临时
+            Session["store_id"] = Session["now_the_store_id"];
+            Session["store_name"] = Session["now_the_store_name"];
             po.s_id = Session["store_id"].ToString();
             po.s_name = Session["store_name"].ToString();
 

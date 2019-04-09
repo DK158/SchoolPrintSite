@@ -28,12 +28,14 @@ namespace KeeepMe.Areas.user.Controllers
 
         public ActionResult toStorePage()
         {
-            //if (Request["store_id"] != "")
-            //{
-            //    return null;
-            //}
-            string str=Request["store_id"].ToString();
-            Session["now_the_store"] = Request["store_id"].ToString();
+            if (Request["store_id"] == "" || Request["store_id"] == null)
+            {
+                return null;
+            }
+            string str =Request["store_id"].ToString();
+            Session["now_the_store_id"] = Request["store_id"].ToString();
+            Session["now_the_store_name"] = Request["store_name"].ToString();
+            //return RedirectToRoute(new { controller = "UsertoStore", action = "UsertoStore" });
             return RedirectToAction("UsertoStore", "UsertoStore", new { area = "user" });
         }
     }

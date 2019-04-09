@@ -12,7 +12,9 @@
     <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Areas/user/Content/common.css" rel="stylesheet" />
     <link href="~/Areas/user/Content/index.css" rel="stylesheet" />
-
+    <script>
+        
+    </script>
 </head>
 
 <body>
@@ -473,7 +475,7 @@
                                 "</div>" +
                                 "<div class=\"post-desc\">" +
                                 "<div href=\"\" class=\"summaryimg\">" +
-                                "<a href=\"\" title=" + value.s_name + "><img title=" + value.s_name + " alt=" + value.s_name + " src=\"https://triedblog.oss-cn-beijing.aliyuncs.com/web/2018-11-18/storm-logo.png\" /></a>" +
+                                "<a href=\"\" title=" + value.s_name + "><img title=" + value.s_name + " alt=" + value.s_name + " src=" + value.s_photo + " /></a>" +
                                 "</div >" +
                                 "<span style=\"font-family: 微软雅黑; \">单面：<span id=\"\" style=\"color: #1E9FFF;\">" + charge[0] + "</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
                                 "<span style=\"font-family: 微软雅黑; \">双面：<span id=\"\" style=\"color: #1E9FFF;\">" + charge[1] + "</span></span>" +
@@ -491,6 +493,7 @@
                                 "<p class=\"post-info-right layui-unselect\">" +
                                 "<a><i class=\"layui-icon\">&#xe60a;</i><span class=\"num\">" + value.order_num + "</span></a>" +
                                 "<a><i class=\"layui-icon\">&#xe637;</i><span class=\"time\">" + value.s_worktime + "</span></a>" +
+                                "<a style=\"display:none\"><span class=" + value.s_id + ">" + state + "</span></a>" + //不显示提示是否歇业
                                 "</p>" +
                                 "</div>" +
                                 "</li >");
@@ -500,18 +503,30 @@
                         });
                         $(".storename").on('click', function () {
                             var store_id = $(this).attr("id"); //获取修改的id
-                            alert(store_id);
-                            //window.location("toStorePage?store_id=" + store_id+"");
-                            $.ajax({
-                                type: 'get',
-                                url: 'toStorePage',
-                                data: { store_id: store_id },
-                                success: function (data) {
-                                    if (data == null) {
-                                        alert("该店已歇业。");
-                                    }
-                                }
-                            });
+                            var states = $("." + store_id + "").text();
+                            var store_name = $("." + store_id + "").text();
+                            if (states == "歇业中") {
+                                layui.use('layer', function () {
+                                    var layer = layui.layer;
+                                    layer.msg("歇业中");
+                                });
+                            }
+                            else {
+                                window.location.href = "toStorePage?store_id=" + store_id + "&store_name=" + store_name + "";
+                            }
+                            
+                            //$.ajax({     
+                            //    type: 'get',
+                            //    url: 'tostorepage',
+                            //    data: { store_id: store_id },
+                            //    success: function (data) {
+                            //        alert(data);
+                            //        if (data == null) {
+                            //            alert("该店已歇业。");
+                            //        }
+                            //    }
+                            //});
+                            return false;
                         });
                     }
                     layui.use('element', function () {

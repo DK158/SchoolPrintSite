@@ -46,6 +46,9 @@
         //layui.use('layer', function () {
         //    var $ = layui.jquery, layer = layui.layer;
 
+        /*定义几个全局变量*/
+        var nocolor_single;
+        var nocolor_double;
         var num = 0;  //记录上传文件的个数
         //上传图片
         function FileUpload() {
@@ -53,6 +56,7 @@
                 alert("请选择文件");
                 return;
             }
+            if (nocolor_single == null || nocolor_double == null || nocolor_single == "" || nocolor_double == "") { alert("还未定价，请选择其他店铺打印."); return; }//还未定价的店铺无法计算价格
             $("#form1").ajaxSubmit({
                 type: 'post',
                 url: '../UsertoStore/FileUpload',
@@ -69,13 +73,13 @@
                         $("#docunment_pagenum").val(serverData[2]);
                         $("#uploadfilelist").append("<div id=\"" + num + "\" class=\"uploadfileinfo\"><span id=\"name" + num + "\" title=\"" + serverData[4] + "\">" + serverData[3] + "</span>页数:<span id=\"pages" + num + "\">" + serverData[2] + "p</span><\/div><br \/>");
                         $("#" + num + "").append("是否缩印：<select id=\"reduced" + num + "\"> <option value=\"1\">   否</option><option value=\"2\">一页两面</option><option value=\"4\">一页四面</option></select>");
-                        $("#" + num + "").append("打印方式：<select id=\"pagestyle" + num + "\"> <option>单面</option><option>双面</option></select>");
+                        $("#" + num + "").append("打印方式：<select id=\"pagestyle" + num + "\"> <option value=\"1\">单面</option><option value=\"2\">双面</option></select>");
                         $("#" + num + "").append("份数：<input type=\"Text\" id=\"copy" + num + "\" value=\"1\"/>");
                         $("#" + num + "").append("<a id=\"money" + num + "\" >￥</a>");
                         $("#" + num + "").append("<i id=\"icon" + num + "\" class=\"fa fa icon-1x icon-remove-circle\" title=\"删除\"></i>");
                         $("#MyFileUpload").clearFields(); //清空选择文件
                         $("#recordfilenum").val(num); //储存文件个数
-                        $("#money" + num + "").text(parseInt(serverData[2]) * 0.16 + "￥"); //初始单个文件费用
+                        $("#money" + num + "").text((parseInt(serverData[2]) * nocolor_single).toFixed(2) + "￥"); //初始单个文件费用
                         $("#totalmoney").text((parseFloat($("#totalmoney").text()) + parseFloat($("#money" + num + "").text())).toFixed(2));//初始总费用
                         /*添加，绑定select change事件*/
                         $(".uploadfileinfo select").on('change', function () {
@@ -84,17 +88,33 @@
                             var pagestext = $("#pages" + numid + "").text();
                             var page = parseInt(pagestext.substring(pagestext.indexOf(':') + 1, pagestext.indexOf('p'))); //获取页数
                             var copynums = parseInt($("#copy" + numid + "").val());
+                            var pagestayle = parseInt($("#pagestyle" + numid + "").val());//记录是双面打印还是单面打印，但是了解了以后，打印店都是单面价格乘2就是双面价格（都是按面计费），所以并没有分开讨论---》想想还是分开讨论价格一样就是了，万一某些打印店不是这样的呢
                             //  alert(pagestext + "   " + page + "   " + copynums);
-                            //计算单个文件费用
-                            $("#money" + numid + "").text(parseFloat(page * 0.16 * copynums) / parseFloat($("#reduced" + numid + "").find("option:selected").val()) + "￥");
-                            /*计算总费用*/
-                            var totalmoney = 0;
-                            for (var i = 1; i < 10; i++) {
-                                if ($("#" + i + "").length > 0) {
-                                    totalmoney = parseFloat($("#money" + i + "").text()) + totalmoney;
+                            if (pagestayle == 1) {//单面计费
+                                //计算单个文件费用
+                                $("#money" + numid + "").text((parseFloat(page * nocolor_single * copynums).toFixed(2) / parseFloat($("#reduced" + numid + "").find("option:selected").val()).toFixed(2)) + "￥");
+                                /*计算总费用*/
+                                var totalmoney = 0;
+                                for (var i = 1; i < 10; i++) {
+                                    if ($("#" + i + "").length > 0) {
+                                        totalmoney = parseFloat($("#money" + i + "").text()) + totalmoney;
+                                    }
                                 }
+                                $("#totalmoney").text(totalmoney.toFixed(2));
                             }
-                            $("#totalmoney").text(totalmoney.toFixed(2));
+                            else {//双面计费
+                                //计算单个文件费用
+                                $("#money" + numid + "").text((parseFloat(page * nocolor_double * copynums).toFixed(2) / parseFloat($("#reduced" + numid + "").find("option:selected").val()).toFixed(2)) + "￥");
+                                /*计算总费用*/
+                                var totalmoney = 0;
+                                for (var i = 1; i < 10; i++) {
+                                    if ($("#" + i + "").length > 0) {
+                                        totalmoney = parseFloat($("#money" + i + "").text()) + totalmoney;
+                                    }
+                                }
+                                $("#totalmoney").text(totalmoney.toFixed(2));
+                            }
+                            
                         });
                         /*添加，绑定select change事件*/
                         $(".uploadfileinfo input").on('change', function () {
@@ -114,7 +134,7 @@
                                     var copynums = parseInt($("#copy" + numid + "").val());
                                     //  alert(pagestext + "   " + page + "   " + copynums);
                                     //计算单个文件费用
-                                    $("#money" + numid + "").text(parseFloat(page * 0.16 * copynums) / parseFloat($("#reduced" + numid + "").find("option:selected").val()) + "￥");
+                                    $("#money" + numid + "").text((parseFloat(page * nocolor_single * copynums).toFixed(2) / parseFloat($("#reduced" + numid + "").find("option:selected").val()).toFixed(2)) + "￥");
                                     /*计算总费用*/
                                     var totalmoney = 0;
                                     for (var i = 1; i < 10; i++) {
@@ -284,6 +304,13 @@
             });
             $.getJSON("StorePriceItem", function (data) { //分为两个getJson是为了减少数据库查询出结果的冗余
                 $.each(data, function (key, value) {
+                    if (value.priceItem_name == "A4单面") {  //为全局变量赋值，用于计算打印价格
+                        nocolor_single = parseFloat(value.sItem_price);
+                    }
+                    else if (value.priceItem_name == "A4双面") {
+                        nocolor_double = parseFloat(value.sItem_price);
+                    }
+
                     $("#price_items").append("<span>" + value.priceItem_name + "：<span style=\"color: #1E9FFF;\">" + value.sItem_price + " </span>" + value.priceItem_unit + "</span></br>");
                 });
             });

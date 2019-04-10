@@ -169,7 +169,7 @@ namespace KeeepMe.Areas.user.Controllers
             sw.Close();
         }
 
-        public int recordorderpool()
+        public string recordorderpool()
         {
             printorders po = new printorders();
 
@@ -186,15 +186,17 @@ namespace KeeepMe.Areas.user.Controllers
             po.s_name = Session["store_name"].ToString();
 
             /*+"!"防止在转换为excel文件时自动识别为时间格式*/
-            po.or_location = Request["domitory"] + "!";
+            po.or_location = Request["location"];
             string order_files = Request["files"];//所有文件名
             po.user_tel = Request["tel"];
             po.or_remark = Request["remark"];
             po.or_filenum = Convert.ToInt32(Request["filenum"]);
+            string getcheck = produceOrderCheck(time);//取货码
+            po.or_getcheck = getcheck;
             po.or_neccesery = 0;//不急需，临时
             /*订单信息记录*/
-            int num = manp.recordorderpool(po);
-
+            int num=manp.recordorderpool(po);
+            /*文件打印信息记录*/
             string filerepeat = Request["filerepeat"];
             string filenarrow = Request["filenarrow"];
             string fileside = Request["fileside"];
@@ -203,7 +205,9 @@ namespace KeeepMe.Areas.user.Controllers
             recordsinglefile(po.or_id, order_files, filerepeat, filenarrow, fileside, pages, realfilename);
             /*已付款文件转移位置*/
             changelocation(realfilename);
-            return num;
+
+            if (num > 0) { return getcheck; }
+            else return null;
         }
 
         /// <summary>
@@ -258,16 +262,26 @@ namespace KeeepMe.Areas.user.Controllers
             string minute = time.Minute.ToString();
             string seconde = time.Second.ToString();
             if (time.Month < 10) { month = "0" + month; }
-            if (time.Day < 10) { day = "0" + month; }
-            if (time.Hour < 10) { hour = "0" + month; }
-            if (time.Minute < 10) { minute = "0" + month; }
-            if (time.Second < 10) { seconde = "0" + month; }
+            if (time.Day < 10) { day = "0" + day; }
+            if (time.Hour < 10) { hour = "0" + hour; }
+            if (time.Minute < 10) { minute = "0" + minute; }
+            if (time.Second < 10) { seconde = "0" + seconde; }
 
             string order_id = year + month + day + hour + minute + seconde;
             Random ran = new Random(); int a = ran.Next(100, 999);
             /*+"*"是为了防止在转换为excel文件时自动识别为时间格式*/
             order_id = order_id + "0" + a.ToString() + "*";
             return order_id;
+        }
+
+        /*-----------------------分界线 ---------------以下是新添加的-------------------*/
+
+        protected string produceOrderCheck(DateTime now)
+        {
+            //查询今天的点单量
+            int num = bus.getStoretodayordernum(now) + 1;//数目加一
+            string checknum = now.Day.ToString() +"-"+ num.ToString();//取货码由天数+当天订单数目组成
+            return checknum;
         }
 
     }

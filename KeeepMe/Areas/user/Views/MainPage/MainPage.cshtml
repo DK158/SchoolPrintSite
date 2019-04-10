@@ -504,7 +504,7 @@
                         $(".storename").on('click', function () {
                             var store_id = $(this).attr("id"); //获取修改的id
                             var states = $("." + store_id + "").text();
-                            var store_name = $("." + store_id + "").text();
+                            var store_name = $("#" + store_id + "  a").text();
                             if (states == "歇业中") {
                                 layui.use('layer', function () {
                                     var layer = layui.layer;

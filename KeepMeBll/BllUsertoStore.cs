@@ -28,5 +28,10 @@ namespace KeepMeBll
             //urlist = "{\"code\":0,\"msg\":\"\",\"count\":" + num + ",\"data\":" + urlist + "}"; //组成layui接收格式 -> 不用，这样只是在调用表格时使用
             return urlist;
         }
+
+        public int getStoretodayordernum(DateTime now)
+        {
+            return dus.getStoretodayordernum(now);
+        }
     }
 }

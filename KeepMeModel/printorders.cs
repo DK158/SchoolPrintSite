@@ -25,6 +25,7 @@ namespace KeepMeModel
 		private string _or_suretime;
 		private string _or_location;
 		private string _or_remark;
+		private string _or_getcheck;
 		/// <summary>
 		/// 
 		/// </summary>
@@ -146,8 +147,17 @@ namespace KeepMeModel
 			set{ _or_remark=value;}
 			get{return _or_remark;}
 		}
-		#endregion Model
+        /// <summary>
+		/// 
+		/// </summary>
+		public string or_getcheck
+        {
+            set { _or_getcheck = value; }
+            get { return _or_getcheck; }
+        }
+        
+        #endregion Model
 
-	}
+    }
 }
 

@@ -47,8 +47,10 @@
         //    var $ = layui.jquery, layer = layui.layer;
 
         /*定义几个全局变量*/
-        var nocolor_single;
-        var nocolor_double;
+        var nocolor_single;//黑白单面打印价格
+        var nocolor_double;//黑白双面打印价格
+        var carryterm;//送货上门最低订单价格
+        var carryadd;//送货加价
         var num = 0;  //记录上传文件的个数
         //上传图片
         function FileUpload() {
@@ -57,6 +59,26 @@
                 return;
             }
             if (nocolor_single == null || nocolor_double == null || nocolor_single == "" || nocolor_double == "") { alert("还未定价，请选择其他店铺打印."); return; }//还未定价的店铺无法计算价格
+            /* 判断店铺是否在自己定义的营业时间 */
+            var work_time = $("#store_worktime").text().split("-");
+            var work_time_open = work_time[0].split(":");
+            var work_time_close = work_time[1].split(":");
+            var time_now = new Date();
+            var hour = parseInt(time_now.getHours());
+            var minute = parseInt(time_now.getMinutes());
+            //alert("work_time_open:" + work_time_open[0] + "***" + work_time_open[1] + "....work_time_close:" + work_time_close[0] + "***" + work_time_close[1] + "....hour:" + hour + "...minute:" + minute);
+            if (hour < parseInt(work_time_open[0]) || hour > parseInt(work_time_close[0])) {
+                alert("不是店铺工作时间，请明天再来。"); return;
+            } else if (hour == parseInt(work_time_open[0])) {
+                if (minute < parseInt(work_time_open[1])) {
+                    alert("不是店铺工作时间，请明天再来。"); return;
+                }
+            } else if (hour == parseInt(work_time_close[0])) {
+                if (minute > parseInt(work_time_close[1])) {
+                    alert("不是店铺工作时间，请明天再来。"); return;
+                }
+            }
+            
             $("#form1").ajaxSubmit({
                 type: 'post',
                 url: '../UsertoStore/FileUpload',
@@ -92,7 +114,7 @@
                             //  alert(pagestext + "   " + page + "   " + copynums);
                             if (pagestayle == 1) {//单面计费
                                 //计算单个文件费用
-                                $("#money" + numid + "").text((parseFloat(page * nocolor_single * copynums).toFixed(2) / parseFloat($("#reduced" + numid + "").find("option:selected").val()).toFixed(2)) + "￥");
+                                $("#money" + numid + "").text((parseFloat(page * nocolor_single * copynums) / parseFloat($("#reduced" + numid + "").find("option:selected").val())).toFixed(2) + "￥");
                                 /*计算总费用*/
                                 var totalmoney = 0;
                                 for (var i = 1; i < 10; i++) {
@@ -104,7 +126,7 @@
                             }
                             else {//双面计费
                                 //计算单个文件费用
-                                $("#money" + numid + "").text((parseFloat(page * nocolor_double * copynums).toFixed(2) / parseFloat($("#reduced" + numid + "").find("option:selected").val()).toFixed(2)) + "￥");
+                                $("#money" + numid + "").text((parseFloat(page * nocolor_double * copynums) / parseFloat($("#reduced" + numid + "").find("option:selected").val())).toFixed(2) + "￥");
                                 /*计算总费用*/
                                 var totalmoney = 0;
                                 for (var i = 1; i < 10; i++) {
@@ -120,7 +142,8 @@
                         $(".uploadfileinfo input").on('change', function () {
                             var reg = /^\w+$/;
                             if (!reg.test($(this).val())) {
-                                alert("请输入数字！！"); return;
+                                alert("请输入数字！！");
+                                $(this).focus(); $(this).select(); return;
                             }
                             else {
                                 if (parseInt($(this).val()) < 1) {
@@ -205,10 +228,19 @@
                     alert("请填写您的姓名。");
                     return;
                 }
+                alert($("#carrytolocation").prop("checked"));
+                if ($("#carrytolocation").prop("checked")) {
+                    if ($("#or_loacation").val().length == 0) {
+                        alert("请填写收货地址。");
+                        return;
+                    }
+                }
                 if (confirm("您已确认订单。")) {
                     layui.use('layer', function () {
                         var $ = layui.jquery, layer = layui.layer;
-                        $("#checktotalmoney").text($("#totalmoney").text());
+                        var total = parseFloat($("#totalmoney").text());
+                        if (total >= carryterm) { $("#checktotalmoney").text(total.toString()); }
+                        else { $("#checktotalmoney").text((total + carryadd).toString()); }
                         layer.open({
                             type: 1,
                             title: '诚信支付',
@@ -253,19 +285,21 @@
                             filenum++;
                         }
                     }
-                    //记录寝室
-                    var dormitory = $("#dornumber_dong").find("option:selected").val() + "-" + $("#dornumber_floor").find("option:selected").val() + "-" + $("#dornumber_room").find("option:selected").val();
-                    //alert("true" + tel);
+                    
                     $.ajax({
                         type: 'post',
                         url: '../UsertoStore/recordorderpool',
                         data: {
-                            money: $("#totalmoney").text(), files: files, tel: tel, remark: $("#remark").val(), domitory: dormitory, filenum: filenum, username: $("#yourname").val(),
+                            money: $("#totalmoney").text(), files: files, tel: tel, remark: $("#remark").val(), location: $("#or_loacation").val(), filenum: filenum, username: $("#yourname").val(),
                             filerepeat: filerepeat, filenarrow: filenarrow, fileside: fileside, pages: pages, realfilename: realfilename
                         },
                         success: function (data) {
-                            if (data > 0) {
-                                alert("提交成功，我们将在预定时间段将文件送达您的寝室。");
+                            if (data != null) {
+                                alert("提交成功，我们将在预定时间段将文件送达您的寝室。 \n请牢记您的取货码：" + data + "");
+                                layui.use('layer', function () {
+                                    var layer = layui.layer;
+                                    layer.msg("歇业中");
+                                });
                                 location.href = "../UsertoStore/UsertoStore";
                             } else {
                                 alert("emmm.....出故障了。");
@@ -296,6 +330,8 @@
                     var carry = value.s_carry;//送货上门 
                     if (carry == true) {
                         $("#diliver_cahrge").append("<span title=\"送货价格\">送货上门：不满" + value.s_carryterm + "加" + value.s_carryadd + "</span>");
+                        carryterm = parseFloat(value.s_carryterm);//全局变量赋值，订单最低量
+                        carryadd = parseFloat(value.s_carryadd);
                     } else {
                         $("#diliver_cahrge").append("<span title=\"送货价格\">不支持送货上门</span>");
                     }
@@ -319,6 +355,10 @@
             //    var element = layui.element;
             //    element.init();
             //});
+            $("#carrytolaocation").on("blur", function () {
+                console.log($(this).prop("checked"));
+                console.log(this.checked);
+            });
         });
     </script> 
 </head>
@@ -383,17 +423,22 @@
                             您的电话：<input id="yourtel" type="text" required />
                         </span>
                         <span class="conclude_money" style="margin-left:10px;">
-                            您的姓名：<input id="yourname" type="text" required maxlength="10" />
+                            您的姓名：<input id="yourname" type="text" required maxlength="10" /> 
+                        </span>
+                        <span class="conclude_money" style="margin-left:50px;">
+                            @*<label style="font-size:16px;"><input id="carrytolaocation" name="carrytolocation" type="checkbox" checked />  送货上门 </label>*@
+                            <label style="font-size:16px;"><input id="carrytolaocation" type="checkbox" name="" title="写作" lay-skin="primary" checked>  送货上门 </label>
+                            
                         </span>
                     </div>
                     <div style="margin:6px;">
                         <span class="users_information">
-                            送货地址：<input type="text" required />
+                            送货地址：<input id="or_loacation" type="text" required />
                         </span>
                         <span class="conclude_money" style="margin-left:10px;">
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注：<input type="text" ID="remark" />
                         </span>
-                        <span id="showprintmoney" style="margin-left:60px; display:inline;">总费用：<span id="totalmoney" style="color:#41f316;font-size:18px;">0.0</span>￥</span>
+                        <span id="showprintmoney" style="margin-left:60px; display:inline;">打印费用：<span id="totalmoney" style="color:#41f316;font-size:18px;">0.0</span>￥</span>
                         <input id="submitpool" type="button" style="margin:0 0 0 20px;padding:0 12px;background-color:rgba(0, 255, 255, 0.19);" value="确认提交" />
                     </div>
                 </div>

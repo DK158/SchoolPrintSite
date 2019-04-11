@@ -52,14 +52,10 @@
         var carryterm;//送货上门最低订单价格
         var carryadd;//送货加价
         var num = 0;  //记录上传文件的个数
-        //上传图片
-        function FileUpload() {
-            if ($("#MyFileUpload").val() == "") {
-                alert("请选择文件");
-                return;
-            }
-            if (nocolor_single == null || nocolor_double == null || nocolor_single == "" || nocolor_double == "") { alert("还未定价，请选择其他店铺打印."); return; }//还未定价的店铺无法计算价格
-            /* 判断店铺是否在自己定义的营业时间 */
+        var change_carrynum = 0;//记录改变次数
+
+         /* 判断店铺是否在自己定义的营业时间 */
+        function checktime() {
             var work_time = $("#store_worktime").text().split("-");
             var work_time_open = work_time[0].split(":");
             var work_time_close = work_time[1].split(":");
@@ -68,16 +64,28 @@
             var minute = parseInt(time_now.getMinutes());
             //alert("work_time_open:" + work_time_open[0] + "***" + work_time_open[1] + "....work_time_close:" + work_time_close[0] + "***" + work_time_close[1] + "....hour:" + hour + "...minute:" + minute);
             if (hour < parseInt(work_time_open[0]) || hour > parseInt(work_time_close[0])) {
-                alert("不是店铺工作时间，请明天再来。"); return;
+                alert("不是店铺工作时间，请明天再来。"); return false;
             } else if (hour == parseInt(work_time_open[0])) {
                 if (minute < parseInt(work_time_open[1])) {
-                    alert("不是店铺工作时间，请明天再来。"); return;
+                    alert("不是店铺工作时间，请明天再来。"); return false;
                 }
             } else if (hour == parseInt(work_time_close[0])) {
                 if (minute > parseInt(work_time_close[1])) {
-                    alert("不是店铺工作时间，请明天再来。"); return;
+                    alert("不是店铺工作时间，请明天再来。"); return false;
                 }
+            } else {
+                return true;
             }
+        }
+
+        //上传图片
+        function FileUpload() {
+            if ($("#MyFileUpload").val() == "") {
+                alert("请选择文件");
+                return;
+            }
+            if (nocolor_single == null || nocolor_double == null || nocolor_single == "" || nocolor_double == "") { alert("还未定价，请选择其他店铺打印."); return; }//还未定价的店铺无法计算价格
+            if (!checktime()) { return; }//判断在不在店铺营业时间
             
             $("#form1").ajaxSubmit({
                 type: 'post',
@@ -228,19 +236,24 @@
                     alert("请填写您的姓名。");
                     return;
                 }
-                alert($("#carrytolocation").prop("checked"));
-                if ($("#carrytolocation").prop("checked")) {
-                    if ($("#or_loacation").val().length == 0) {
+                //alert($("#carrytolocation").is("checked"));//这样可以获取到值但是永远是 false ，使用prop,attr方法获取不到为 undefined
+                if ((change_carrynum%2)!=0) {  //使用全局变量，通过记录改变的次数来判断是否，送货上门
+                    if ($("#or_loacation").val().length == 0 || $("#or_loacation").val()==" ") {
                         alert("请填写收货地址。");
                         return;
                     }
                 }
+                if (num == 0) {//判断是否有文件
+                    alert("请上传文件。！"); return;
+                }
+                if (!checktime()) { return; }//判断在不在店铺营业时间
+
                 if (confirm("您已确认订单。")) {
                     layui.use('layer', function () {
                         var $ = layui.jquery, layer = layui.layer;
                         var total = parseFloat($("#totalmoney").text());
-                        if (total >= carryterm) { $("#checktotalmoney").text(total.toString()); }
-                        else { $("#checktotalmoney").text((total + carryadd).toString()); }
+                        if (total <= carryterm && (change_carrynum % 2) != 0) { $("#checktotalmoney").text((total + carryadd).toString()); }
+                        else { $("#checktotalmoney").text(total.toString()); }
                         layer.open({
                             type: 1,
                             title: '诚信支付',
@@ -255,9 +268,9 @@
 
                 }
                 else { return; }
-            }
-                
-            );
+            });
+
+            
             /*确认已支付*/
             $("#Iamsure").on('click', function () {
                 var tel = $("#yourtel").val();
@@ -290,16 +303,12 @@
                         type: 'post',
                         url: '../UsertoStore/recordorderpool',
                         data: {
-                            money: $("#totalmoney").text(), files: files, tel: tel, remark: $("#remark").val(), location: $("#or_loacation").val(), filenum: filenum, username: $("#yourname").val(),
-                            filerepeat: filerepeat, filenarrow: filenarrow, fileside: fileside, pages: pages, realfilename: realfilename
+                            money: $("#checktotalmoney").text(), files: files, tel: tel, remark: $("#remark").val(), location: $("#or_loacation").val(), filenum: filenum, username: $("#yourname").val(),
+                            filerepeat: filerepeat, filenarrow: filenarrow, fileside: fileside, pages: pages, realfilename: realfilename, ifcarry: (change_carrynum % 2).toString()
                         },
                         success: function (data) {
                             if (data != null) {
                                 alert("提交成功，我们将在预定时间段将文件送达您的寝室。 \n请牢记您的取货码：" + data + "");
-                                layui.use('layer', function () {
-                                    var layer = layui.layer;
-                                    layer.msg("歇业中");
-                                });
                                 location.href = "../UsertoStore/UsertoStore";
                             } else {
                                 alert("emmm.....出故障了。");
@@ -329,11 +338,11 @@
                     $("#store_worktime").html(value.s_worktime);//营业时间
                     var carry = value.s_carry;//送货上门 
                     if (carry == true) {
-                        $("#diliver_cahrge").append("<span title=\"送货价格\">送货上门：不满" + value.s_carryterm + "加" + value.s_carryadd + "</span>");
+                        $("#diliver_cahrge").append("<span title=\"送货价格\" style=\"color:red;\">送货上门：不满" + value.s_carryterm + "加" + value.s_carryadd + "</span>");
                         carryterm = parseFloat(value.s_carryterm);//全局变量赋值，订单最低量
                         carryadd = parseFloat(value.s_carryadd);
                     } else {
-                        $("#diliver_cahrge").append("<span title=\"送货价格\">不支持送货上门</span>");
+                        $("#diliver_cahrge").append("<span title=\"送货价格\" style=\"color:red;\">不支持送货上门</span>");
                     }
                     $("#store_location").html("打印店地址：" + value.s_location);
                 });
@@ -355,10 +364,19 @@
             //    var element = layui.element;
             //    element.init();
             //});
-            $("#carrytolaocation").on("blur", function () {
-                console.log($(this).prop("checked"));
-                console.log(this.checked);
+
+            /*确认收货是否勾选，触发事件，因为不能*/
+            $("#carrytolocationl").on('change', function () {//使用全局变量，通过记录改变的次数来判断是否，送货上门，试了很多方法都不行。。。可悲
+                //if ($(this).prop("checked") == false) { $(this).prop("checked", true); }
+                //else { $(this).prop("checked", false); }
+                //alert($(this).prop("checked"));
+                //alert("Option changed!");
+                change_carrynum = change_carrynum + 1;
             });
+            //$("#carrytolocation").change(function () {
+            //    alert("Option changed!");
+            //}); 
+            
         });
     </script> 
 </head>
@@ -426,8 +444,7 @@
                             您的姓名：<input id="yourname" type="text" required maxlength="10" /> 
                         </span>
                         <span class="conclude_money" style="margin-left:50px;">
-                            @*<label style="font-size:16px;"><input id="carrytolaocation" name="carrytolocation" type="checkbox" checked />  送货上门 </label>*@
-                            <label style="font-size:16px;"><input id="carrytolaocation" type="checkbox" name="" title="写作" lay-skin="primary" checked>  送货上门 </label>
+                            <label style="font-size:16px;" id="carrytolocationl"><input id="carrytolaocation" name="carrytolocation" runat="server" type="checkbox"/>  送货上门 </label>
                             
                         </span>
                     </div>

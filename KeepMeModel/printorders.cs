@@ -16,7 +16,7 @@ namespace KeepMeModel
 		private string _user_tel;
 		private string _or_payway;
 		private float? _or_money;
-		private int? _or_neccesery;
+		private int? _or_ifcarry;
 		private int? _or_state;
 		private int? _or_filenum;
 		private int? _or_pagenum;
@@ -78,10 +78,10 @@ namespace KeepMeModel
 		/// <summary>
 		/// 
 		/// </summary>
-		public int? or_neccesery
+		public int? or_ifcarry
 		{
-			set{ _or_neccesery=value;}
-			get{return _or_neccesery;}
+			set{ _or_ifcarry=value;}
+			get{return _or_ifcarry;}
 		}
 		/// <summary>
 		/// 

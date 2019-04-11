@@ -456,12 +456,33 @@
                         $.each(data, function (key, value) { //遍历每一行数据
                             var state = "";//记录店铺状态
                             var state_bg = "";//背景颜色
-                            if (value.s_runstate == 1) {
-                                state = "营业中";
+                            if (value.s_runstate == 1) {//判断店铺状态
+                                /* 判断店铺是否在自己定义的营业时间 */
+                                var work_time = value.s_worktime.split("-");
+                                var work_time_open = work_time[0].split(":");
+                                var work_time_close = work_time[1].split(":");
+                                var time_now = new Date();
+                                var hour = parseInt(time_now.getHours());
+                                var minute = parseInt(time_now.getMinutes());
+                                if (hour < parseInt(work_time_open[0]) || hour > parseInt(work_time_close[0])) {
+                                    state = "歇业中"; state_bg = "layui-bg-green";
+                                } else if (hour == parseInt(work_time_open[0])) {
+                                    if (minute < parseInt(work_time_open[1])) {
+                                        state = "歇业中"; state_bg = "layui-bg-green";
+                                    }
+                                } else if (hour == parseInt(work_time_close[0])) {
+                                    if (minute > parseInt(work_time_close[1])) {
+                                        state = "歇业中"; state_bg = "layui-bg-green";
+                                    }
+                                } else {
+                                    state = "营业中";
+                                }
                             } else {
                                 state = "歇业中";
                                 state_bg = "layui-bg-green";
                             }
+
+                            
                             var theprice = value.price;//记录价格
                             var charge = theprice.split(",");//分开单面和双面价格
 

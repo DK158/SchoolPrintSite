@@ -27,7 +27,7 @@ namespace KeepMeDal
             string month = now.Month.ToString();
             string day = now.Day.ToString();
             string str = year + "/" + month + "/" + day;
-            string sql = "SELECT COUNT(*) AS total FROM printorders WHERE printorders.or_upTime LIKE  '" + str + "'";
+            string sql = "SELECT COUNT(*) AS total FROM printorders WHERE printorders.or_upTime LIKE  '" + str + "%'";
             DataTable dt= mysqlDBhelper.doselectsqlT(sql);
             return Convert.ToInt32(dt.Rows[0][0]);
         }

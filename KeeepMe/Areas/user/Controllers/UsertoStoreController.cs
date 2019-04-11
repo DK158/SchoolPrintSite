@@ -193,7 +193,7 @@ namespace KeeepMe.Areas.user.Controllers
             po.or_filenum = Convert.ToInt32(Request["filenum"]);
             string getcheck = produceOrderCheck(time);//取货码
             po.or_getcheck = getcheck;
-            po.or_neccesery = 0;//不急需，临时
+            po.or_ifcarry = Convert.ToInt32(Request["ifcarry"]);//是否送货上门
             /*订单信息记录*/
             int num=manp.recordorderpool(po);
             /*文件打印信息记录*/

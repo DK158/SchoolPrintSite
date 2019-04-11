@@ -154,7 +154,7 @@ namespace KeeepMe.Controllers
             po.user_tel = Request["tel"];
             po.or_remark = Request["remark"];
             po.or_filenum =Convert.ToInt32(Request["filenum"]);
-            po.or_neccesery = 0;//不急需，临时
+            po.or_ifcarry = 0;//不急需，临时
             /*订单信息记录*/
             int num = manp.recordorderpool(po);
 

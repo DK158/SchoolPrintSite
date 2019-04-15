@@ -86,7 +86,7 @@
 
         <img src="https://triedblog.oss-cn-beijing.aliyuncs.com/blog/20181222/tb/background2.jpg" />
     </div>
-    <div class="content">
+    <div class="content" id="themaincontent">
         <!-- 每日语录 -->
         <div class="layui-container quoteoftheday layui-anim layui-anim-fadein">
             <div class="layui-row">
@@ -95,9 +95,9 @@
                         <div class="bd">
                             <ul class="infoList">
                                 <li>
-                                    <span class="quotetitle layui-unselect">查询收货<i id="quoterefresh" class="layui-icon layui-icon-face-smile layui-unselect"></i>：</span>
+                                    <span class="quotetitle layui-unselect">查询收货<i class="layui-icon layui-icon-face-smile layui-unselect"></i>：</span>
                                     <div class="layui-input-inline">
-                                        <input type="text" name="title" required lay-verify="required" placeholder="请输入电话或订单号" autocomplete="off" class="layui-input"
+                                        <input id="search_history" type="text" name="title" required lay-verify="required" placeholder="请输入电话或订单号" autocomplete="off" class="layui-input"
                                                style="height: 28px;width: 300px;">
                                     </div>
                                 </li>
@@ -110,8 +110,28 @@
             </div>
         </div>
 
+        <!--查询的结果用表格表示-->
+        <table class="layui-hide" id="table_search" lay-filter="table_search"></table>
+        <script type="text/html" id="barDemo">
+            {{#  if(d.or_state==0){ }}
+            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">未支付</a>
+            {{#  } else if(d.or_state==3) { }}
+            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">已确认</a>
+            {{#  } else { }}
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="sure_get">确认收货</a>
+            {{#  } }}
+        </script>
+        <script type="text/html" id="stateTpl">
+            {{#  if(d.or_ifcarry==1){ }}
+            是
+            {{#  } else { }}
+            否
+            {{#  } }}
+        </script>
+         
+
         <!-- 帖子 -->
-        <div class="layui-container mycontent">
+        <div class="layui-container mycontent" id="content_store_etc">
             <div class="layui-row">
                 <div class="layui-col-md8 layui-col-sm8 layui-col-xs12 content-left">
                     <div class="infomation">
@@ -408,13 +428,14 @@
                                 </ol>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- 底部信息 -->
-    <footer class="footer">
+    <footer class="footer layui-footer">
 
         <div class="info">
 
@@ -425,7 +446,7 @@
                 <a href="http://www.miitbeian.gov.cn" target="_blank">渝ICP备17007479号-2</a>
             </span>
             <span class="no-right-border">
-                <a href="../admin/login.html" target="_blank">后台登录</a>
+                <a href="../../Manager/Main/Mainpage">后台登录</a>
             </span>
             <span class="layui-clear no-right-border"></span>
         </div>
@@ -554,6 +575,77 @@
                         var element = layui.element;
                         element.render();
                     });
+                }
+            });
+
+            $("#search_history").bind('keyup', function (event) {
+                if (event.keyCode == "13") {//如果是按下回车
+                    if ($("#search_history").val() != "" && $("#search_history").val().length != 0) {
+                        $("#content_store_etc").hide();
+
+                        layui.use('table', function () {
+                            var table = layui.table;
+                            table.render({
+                                elem: '#table_search'
+                                , url: 'SearchHistory?user_tel=' + $("#search_history").val()
+                                , cols: [[
+                                    { field: 'or_id', title: '订单编号', align: 'center', sort: true }
+                                    , { field: 's_name', minWidth: 100, title: '打印店' }
+                                    , { field: 'or_filenum', width: 80, align: 'center', title: '文件数目'}
+                                    , { field: 'or_pagenum', width: 80, align: 'center', title: '页数' }
+                                    , { field: 'or_upTime', title: '下单时间', align: 'center', sort: true}
+                                    , { field: 'or_printtime', title: '打印时间', align: 'center', sort: true }
+                                    , { field: 'or_location', minWidth: 100, title: '地址'}
+                                    , { field: 'or_ifcarry', width: 120, align: 'center', title: '是否送货', templet: '#stateTpl' }
+                                    , { field: 'or_getcheck', width: 120, align: 'center', title: '取货码'}
+                                    , { fixed: 'right', title: '订单状态', toolbar: '#barDemo'}
+                                ]]
+                                , page: false
+                            });
+
+                            //监听行工具事件
+                            table.on('tool(table_search)', function (obj) {
+                                var data = obj.data;
+                                //console.log(obj);
+                                if (obj.event === 'sure_get') {
+                                    layer.confirm('您要确认收货？', function (index) {
+                                        $.ajax({
+                                            type: 'get',
+                                            url: 'ChangeStatetoSure',
+                                            data: { or_id: data.or_id },
+                                            success: function (data) {
+                                                if (data > 0) {
+                                                    layer.msg("收货成功！！！");//成功后重载
+                                                    table.render({
+                                                        elem: '#table_search'
+                                                        , url: 'SearchHistory?user_tel=' + $("#search_history").val()
+                                                        , cols: [[
+                                                            { field: 'or_id', title: '订单编号', align: 'center', sort: true }
+                                                            , { field: 's_name', minWidth: 100, title: '打印店' }
+                                                            , { field: 'or_filenum', width: 80, align: 'center', title: '文件数 目' } 
+                                                            , { field: 'or_pagenum', width: 80, align: 'center', title: '页数' }
+                                                            , { field: 'or_upTime', title: '下单时间', align: 'center', sort: true }
+                                                            , { field: 'or_printtime', title: '打印时间', align: 'center', sort: true }
+                                                            , { field: 'or_location', minWidth: 100, title: '地址' }
+                                                            , { field: 'or_ifcarry', width: 120, align: 'center', title: '是否送货', templet: '#stateTpl' }
+                                                            , { field: 'or_getcheck', width: 120, align: 'center', title: '取货码' }
+                                                            , { fixed: 'right', title: '订单状态', toolbar: '#barDemo' }
+                                                        ]]
+                                                        , page: false
+                                                    });
+                                                } else {
+                                                    layer.msg("系统问题，收货失败。。。");
+                                                }
+                                            }
+                                        });
+                                        //obj.del();
+                                        //layer.close(index);
+                                    });
+                                } 
+                            });
+
+                        });
+                    }
                 }
             });
 

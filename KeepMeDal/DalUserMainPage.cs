@@ -19,5 +19,17 @@ namespace KeepMeDal
             return mysqlDBhelper.doselectsqlT(sql);
         }  
 
+        public DataTable SearchHistory(string tel)
+        {
+            string sql = "SELECT * FROM printorders WHERE user_tel='" + tel + "' ORDER BY or_state ASC";
+            return mysqlDBhelper.doselectsqlT(sql);
+        }
+
+        public int ChangeStatetoSure(string or_id)
+        {
+            string sql = "UPDATE printorders SET or_state=3 WHERE or_id='" + or_id + "'";
+            return mysqlDBhelper.dochangesql(sql);
+        }
+
     }
 }

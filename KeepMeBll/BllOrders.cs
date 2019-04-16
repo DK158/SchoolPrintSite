@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using KeepMeDal;
+using System.Data;
 
 namespace KeepMeBll
 {
@@ -14,6 +15,22 @@ namespace KeepMeBll
         {
             string ulist = mo.Showorderlist(page, limit);
             return ulist;
+        }
+
+        public string GetOrderFiles(string or_id)
+        {
+            return mo.GetOrderFiles(or_id);
+        }
+        
+        public DataTable GetOrderFilesChangename(string or_id)
+        {
+            return mo.GetOrderFilesChangename(or_id);
+        }
+        
+
+        public int UpdateOrderPtintTime(string or_id,DateTime printTime)
+        {
+            return mo.UpdateOrderPtintTime(or_id, printTime);
         }
     }
 }

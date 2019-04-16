@@ -20,7 +20,16 @@
     </div>
 
     <!--------------数据表---------------------->
-    <table class="layui-table" id="tborders1" lay-filter="tborders1"></table>
+    <table class="layui-table" id="order_list" name="order_list" lay-filter="order_list"></table>
+    <script type="text/html" id="tool_bar">
+        <a class="layui-btn layui-btn-xs" lay-event="or_detail">订单详情</a>
+        {{#  if(d.or_state>=2){ }}
+        <a class="layui-btn layui-btn-xs" lay-event="*">已打印</a>
+        {{#  } else { }}
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="or_download">下载打印</a>
+        {{#  } }}
+    </script>
+
 
     <!--------------编辑信息表单布局---------------------->
     <div id="EditUserform" style="display:none;padding:0 36px 0 0;">
@@ -64,15 +73,95 @@
         </form>
     </div>
 
+
+    <!------------------- 显示订单详细表格 ------------------->
+    <div id="detailOrder" name="detailOrder" style="display:none;padding:20px 36px 0 0;align-content:center;">
+        <form id="detailorder" class="layui-form">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">订单编号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="or_id" name="or_id" class="layui-input">
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">用户电话</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="user_tel" name="user_tel" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">支付方式</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="or_payway" name="or_payway" class="layui-input">
+                </div>
+                <label class="layui-form-label">订单金额</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="or_money" name="or_money" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">送货上门</label>
+                <div class="layui-input-inline">
+                    <input type="radio" id="or_ifcarry_yes" name="or_ifcarry_yes" value="是" title="是">
+                    <input type="radio" id="or_ifcarry_no" name="or_ifcarry_no" value="否" title="否">
+                </div>
+                <label class="layui-form-label">送货地址</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="or_location" name="or_location" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">下单时间</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="or_upTime" name="or_upTime" class="layui-input">
+                </div>
+                <label class="layui-form-label">打印时间</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="or_printTime" name="or_printTime" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">取货码</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="or_getcheck" name="or_getcheck" class="layui-input">
+                </div>
+                <label class="layui-form-label">订单备注</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="or_remark" name="or_remark" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <table class="layui-table" id="order_detail" lay-filter="order_detail"></table>
+                <script type="text/html" id="stateTpl">
+                    {{#  if(d.pf_color==1){ }}
+                    是
+                    {{#  } else { }}
+                    否
+                    {{#  } }}
+                </script>
+                <script type="text/html" id="stateTpl2">
+                    {{#  if(d.pf_ifprint==true){ }}
+                    是
+                    {{#  } else { }}
+                    否
+                    {{#  } }}
+                </script>
+            </div>
+        </form>
+    </div>
+
+
     <script src="~/Content/layui/layui.js" charset="utf-8"></script>
 
     <script>
-        layui.use(['table','layer'], function(){
-            var table = layui.table, layer = layui.layer;
+        layui.use(['form','table','layer'], function(){
+            var $ = layui.jquery, layer = layui.layer, form = layui.form, table = layui.table; 
         //--------------方法渲染TABLE----------------
         var tableIns = table.render({
-            elem: '#tborders1'
-            , id: 'tborders1'
+            elem: '#order_list'
+            , id: 'order_list'
             , url: '@Url.Action("Showorderslist", "ManDbOrders")'
             , cols: [[
                  { checkbox: true, LAY_CHECKED: false, fixed: 'left' } //其它参数在此省略
@@ -81,6 +170,7 @@
                 , { field: 'or_upTime', title: '下单时间', edit: 'text'  }
                 , { field: 'or_money', title: '金额', align: 'center'}
                 , { field: 'or_location', title: '配送地址', align: 'center' }
+                , { fixed: 'right', title: '操作', toolbar: '#tool_bar' }
             ]]
             , page: true
             , limits: [10,15,20,30,60]
@@ -102,43 +192,89 @@
                 //得到数据总量
                 //console.log(count);
             }
-        });
+            });
+
+            //监听行工具事件
+            table.on('tool(order_list)', function (obj) {
+                var data = obj.data;
+                //console.log(obj);
+                if (obj.event === "or_detail") {//查看订单详情
+                    layer.open({
+                        type: 1,
+                        title: '查看详细信息',
+                        skin: 'layui-layer-lan',
+                        area: ['800px', '600px'],
+                        content: $('#detailOrder')
+                    });
+                    //赋值
+                    $("#or_id").val(data.or_id);
+                    $("#user_tel").val(data.user_tel);
+                    $("#or_payway").val(data.or_payway);
+                    $("#or_money").val(data.or_money);
+                    if (data.or_ifcarry == 1) { $("#or_ifcarry_yes").prop('checked', true); } else { $("#or_ifcarry_no").prop('checked', true); }
+                    $("#or_location").val(data.or_location);
+                    $("#or_upTime").val(data.or_upTime);
+                    $("#or_printTime").val(data.or_printTime);
+                    $("#or_getcheck").val(data.or_getcheck);
+                    $("#or_remark").val(data.or_remark);
+
+                    table.render({
+                        elem: "#order_detail",
+                        id: "order_detail",
+                        url: "GetOrderFiles?or_id=" + data.or_id,
+                        cols: [[
+                            { field: 'pf_changename', minWidth: 200, title: '文件名' },
+                            { field: 'pf_page',width:100, title: '文件页数' },
+                            { field: 'pf_repeatenum',width:60, title: '份数' },
+                            { field: 'pf_color', width: 80,title: '彩印', templet: '#stateTpl' },
+                            { field: 'pf_side', width: 80,title: '单双面' },
+                            { field: 'pf_narrow', width: 100, title: '缩印' },
+                            { field: 'pf_ifprint', title: '是否打印', templet: '#stateTpl2' }
+                        ]],
+                        page: false
+                    });
+                    form.render();//重新渲染
+                }
+                else if (obj.event === 'or_download') {//下载订单文件
+                    location.href = "DownloadOrderFiles?or_id=" + data.or_id;
+                }
+            });
         });
     </script>
     <script>
-layui.use('table', function(){
-  var table = layui.table;
-  var indexnum;//记录当前弹出层的id
-    //监听表格复选框选择
-  table.on('checkbox(demo)', function (obj) {
-      console.log(obj)
-  });
-    //监听工具条,行内操作按钮
-  table.on('tool(demo)', function (obj) {
-      var data = obj.data;
-  });
+        layui.use('table', function () {
+            var table = layui.table;
+            var indexnum;//记录当前弹出层的id
+            //监听表格复选框选择
+            table.on('checkbox(demo)', function (obj) {
+                console.log(obj)
+            });
+            //监听工具条,行内操作按钮
+            table.on('tool(demo)', function (obj) {
+                var data = obj.data;
+            });
 
-  var $ = layui.$, active = {
-      gettodayExcel: function () { //获取选中数据
-          location.href = "../ManDbOrders/getTodayExcel";
-      }
-    , getCheckLength: function () { //获取选中数目
-        var checkStatus = table.checkStatus('tborders')
-        , data = checkStatus.data;
-        layer.msg('选中了：' + data.length + ' 个');
-    }
-    , isAll: function () { //验证是否全选
-        var checkStatus = table.checkStatus('tbusers');
-        layer.msg(checkStatus.isAll ? '全选' : '未全选')
-    }
-  };
+            var $ = layui.$, active = {
+                gettodayExcel: function () { //获取选中数据
+                    location.href = "../ManDbOrders/getTodayExcel";
+                }
+                , getCheckLength: function () { //获取选中数目
+                    var checkStatus = table.checkStatus('tborders')
+                        , data = checkStatus.data;
+                    layer.msg('选中了：' + data.length + ' 个');
+                }
+                , isAll: function () { //验证是否全选
+                    var checkStatus = table.checkStatus('tbusers');
+                    layer.msg(checkStatus.isAll ? '全选' : '未全选')
+                }
+            };
 
-  $('.demoTable .layui-btn').on('click', function () {
-      var type = $(this).data('type');
-      active[type] ? active[type].call(this) : '';
-  });
+            $('.demoTable .layui-btn').on('click', function () {
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
 
-});
+        });
     </script>
 </body>
 </html>

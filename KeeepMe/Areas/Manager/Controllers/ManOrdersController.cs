@@ -7,6 +7,7 @@ using KeepMeclass;
 using System.IO;
 using Ionic.Zip;
 using System.Text.RegularExpressions;
+using KeepMeModel;
 using KeepMeBll;
 
 namespace KeeepMe.Areas.Manager.Controllers
@@ -36,6 +37,7 @@ namespace KeeepMe.Areas.Manager.Controllers
             var json = Json(dataJson, JsonRequestBehavior.AllowGet);
             return json;
         }
+        
         /*文件页面表格重载：点击“返回上一级”*/
         public JsonResult Showorder1()
         {
@@ -95,8 +97,8 @@ namespace KeeepMe.Areas.Manager.Controllers
         /// </summary>
         public void DownLoadfilelist()
         {
-            string fileName = Request["filename"]; ;//客户端保存的文件名  
-            string filePath = Request["fileroute"];//路径  
+            string fileName = Request["filename"]; //客户端保存的文件名
+            string filePath = Request["fileroute"];//路径
             String[] FileName = Regex.Split(fileName, ",");
             String[] FilePath = Regex.Split(filePath, ",");
             Response.Clear();
@@ -162,5 +164,7 @@ namespace KeeepMe.Areas.Manager.Controllers
                 return -1;
             }
         }
+
+        
     }
 }

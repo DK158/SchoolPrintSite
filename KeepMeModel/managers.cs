@@ -12,7 +12,7 @@ namespace Maticsoft.Model
 		#region Model
 		private int _ma_number;
 		private string _ma_tel;
-		private string _ma_role;
+		private string _ma_ifsystem;
 		/// <summary>
 		/// 
 		/// </summary>
@@ -32,10 +32,10 @@ namespace Maticsoft.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public string ma_role
+		public string ma_ifsystem
 		{
-			set{ _ma_role=value;}
-			get{return _ma_role;}
+			set{ _ma_ifsystem=value;}
+			get{return _ma_ifsystem;}
 		}
 		#endregion Model
 

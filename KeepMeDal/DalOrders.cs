@@ -12,11 +12,11 @@ namespace KeepMeDal
         public string Showorderlist(int page, int limit)  //List<User>
         {
             int startcount = page * limit;
-            string sql = "select * from printorders order by or_id desc limit " + startcount + "," + limit + "";
+            string sql = "select * from printorders order by or_state asc,or_id desc limit " + startcount + "," + limit + "";
             DataTable dt = mysqlDBhelper.doselectsqlT(sql);
-            //int num = mysqlDBhelper.doselectsqlReturnNum("select * from printorders");
+            int num = mysqlDBhelper.doselectsqlReturnNum("select * from printorders");
             string urlist = mysqlDBhelper.DataTableToJsonWithJavaScriptSerializer(dt);
-            urlist = "{\"code\":0,\"msg\":\"\",\"count\":" + dt.Rows.Count + ",\"data\":" + urlist + "}";
+            urlist = "{\"code\":0,\"msg\":\"\",\"count\":" + num + ",\"data\":" + urlist + "}";
             return urlist;
         }
         

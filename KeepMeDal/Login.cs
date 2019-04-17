@@ -24,17 +24,17 @@ namespace KeepMeDal
             {
                 return null;
             }
-            int role = Convert.ToInt32(dt.Rows[0][2]);
+            //int role = Convert.ToInt32(dt.Rows[0][2]); 
             string sql1 = "";
-            if (role == 1)
+            if (dt.Rows[0]["ma_ifassitant"].ToString() == "1")//只要最后一个满足就能成功登入
             {
                 sql1 = "select * from assistant where sa_tel='" + tel + "' and sa_pwd='" + pwd + "'";
             }
-            else if (role == 2)
+            else if (dt.Rows[0]["ma_ifstorekeeper"].ToString() == "1")
             {
                 sql1 = "select * from storekepper where sk_tel='" + tel + "' and sk_pwd='" + pwd + "'";
             }
-            else if (role == 3)
+            else if (dt.Rows[0]["ma_ifsystem"].ToString() == "1")
             {
                 sql1 = "select * from systemmanager where sm_tel='" + tel + "' and sm_pwd='" + pwd + "'";
             } 

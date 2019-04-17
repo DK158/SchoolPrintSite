@@ -47,15 +47,7 @@ namespace KeeepMe.Areas.user.Controllers
 
 
 
-
-
-
-
-
-
-
-
-
+        
 
 
         /*-----------------------分界线 ---------------以下是从 以前Print引用--------用于上传文件，获取信息-------------------*/
@@ -83,9 +75,9 @@ namespace KeeepMe.Areas.user.Controllers
                 if (fileExt == ".doc" || fileExt == ".docx" || fileExt == ".pdf")
                 {
                     //创建文件夹
-                    string dir = "/FileUploadFile/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + DateTime.Now.Day + "/temp/";//付款之前。临时文件夹
+                    string dir = "/FileUploadFile/"+ Session["now_the_store_id"].ToString()+ "/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + DateTime.Now.Day + "/temp/";//付款之前。临时文件夹
 
-                    string dir1 = "/FileUploadFile/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + DateTime.Now.Day + "/"; //付款之后
+                    string dir1 = "/FileUploadFile/" + Session["now_the_store_id"].ToString() + "/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + DateTime.Now.Day + "/"; //付款之后
                     //不包括文件名全路径
                     string tempdir = Path.GetDirectoryName(Request.MapPath(dir));
 
@@ -133,7 +125,7 @@ namespace KeeepMe.Areas.user.Controllers
         {
             string filename = Request["name"];
             //找寻路径
-            string dir = "/FileUploadFile/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + DateTime.Now.Day + "/temp/";
+            string dir = "/FileUploadFile/" + Session["now_the_store_id"].ToString() + "/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + DateTime.Now.Day + "/temp/";
             //不包括文件名全路径
             string tempdir = Path.GetDirectoryName(Request.MapPath(dir));
             //判断文件是否存在
@@ -178,7 +170,8 @@ namespace KeeepMe.Areas.user.Controllers
             po.or_id = produceOrderId(time);
             /*接收其他信息*/
             po.or_upTime = time.ToString();
-            po.or_money = float.Parse(Request["money"]);
+            string money = Request["money"].ToString();
+            po.or_money = float.Parse(money);
             po.or_payway = "支付宝支付";
             Session["store_id"] = Session["now_the_store_id"];
             Session["store_name"] = Session["now_the_store_name"];
@@ -236,7 +229,7 @@ namespace KeeepMe.Areas.user.Controllers
         protected void changelocation(string filename)
         {
             //找寻路径
-            string dir = "/FileUploadFile/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + DateTime.Now.Day + "/";
+            string dir = "/FileUploadFile/" + Session["now_the_store_id"].ToString() + "/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + DateTime.Now.Day + "/";
             //不包括文件名全路径
             string tempdir = Path.GetDirectoryName(Request.MapPath(dir));
             string[] FileName = Regex.Split(filename, "!!");

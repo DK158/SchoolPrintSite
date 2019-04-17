@@ -236,7 +236,17 @@
                     form.render();//重新渲染
                 }
                 else if (obj.event === 'or_download') {//下载订单文件
-                    location.href = "DownloadOrderFiles?or_id=" + data.or_id;
+                    //$.ajax({//下载不能使用异步
+                    //    type: 'get',
+                    //    url: 'DownloadOrderFiles1?or_id=' + data.or_id,
+                    //    data: { or_id: data.sk_tel },
+                    //    success: function (data) {
+                    //        if (data > 0) {
+                    //            layer.msg("下载成功。");
+                    //        }
+                    //    }
+                    //});
+                    location.href = "DownloadOrderFiles1?or_id=" + data.or_id;
                 }
             });
         });

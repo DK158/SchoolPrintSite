@@ -90,10 +90,9 @@ namespace KeeepMe.Areas.Manager.Controllers
             string or_id = Request["or_id"].ToString();
             return mo.GetOrderFiles(or_id);
         }
-
-        public void DownloadOrderFiles()
+        //下载订单文件
+        public void DownloadOrderFiles(string or_id)
         {
-            string or_id = Request["or_id"].ToString();
             string path_head = "E:\\visualstudio_workspace\\KeeepMe\\KeeepMe\\FileUploadFile\\";
             string year = or_id.Substring(0, 4);
             string month = Convert.ToInt32(or_id.Substring(4, 2)).ToString();
@@ -117,10 +116,7 @@ namespace KeeepMe.Areas.Manager.Controllers
                 Response.End();
             }
             catch (Exception ex) { }
-            DateTime printTime = DateTime.Now;
-            mo.UpdateOrderPtintTime(or_id,printTime);
-
-
+            
             //for (int i = 0; i < 1; i++)//只能下载单个文件，循环不行
             //{
             //    try
@@ -140,9 +136,17 @@ namespace KeeepMe.Areas.Manager.Controllers
             //        //做处理
             //    }
             //}
-            }
-        
-       
+        }
+
+        public int DownloadOrderFiles1()
+        {
+            string or_id = Request["or_id"].ToString();
+            DownloadOrderFiles(or_id);
+            DateTime printTime = DateTime.Now;
+            return mo.UpdateOrderPtintTime(or_id, printTime);
+        }
+
+
 
 
 

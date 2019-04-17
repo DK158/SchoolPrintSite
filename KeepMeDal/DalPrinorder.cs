@@ -24,7 +24,7 @@ namespace KeepMeDal
             {
                 int repeat=Convert.ToInt16(FileRepeat[i].ToString());
                 int page=Convert.ToInt16(pages[i].ToString());
-                string sql = "insert into printfile(or_id,pf_name,pf_repaeatnum,pf_color,pf_side,pf_page,pf_narrow,pf_changename) " +
+                string sql = "insert into printfile(or_id,pf_name,pf_repeatenum,pf_color,pf_side,pf_page,pf_narrow,pf_changename) " +
                     "values('" + id + "','" + FileName[i].ToString() + "','" + repeat + "',0,'" + FileSide[i].ToString() + "','" + page + "','" + FileNarrow[i].ToString() + "','" + RealFileName[i].ToString() + "')";
                 num+=mysqlDBhelper.dochangesql(sql);
             }

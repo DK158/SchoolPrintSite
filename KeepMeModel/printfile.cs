@@ -14,7 +14,7 @@ namespace KeepMeModel
 		private string _or_id;
 		private string _pf_name;
 		private int? _pf_page;
-		private int? _pf_repaeatnum;
+		private int? _pf_repeatenum;
 		private int? _pf_color;
 		private string _fp_side;
 		private string _pf_narrow;
@@ -54,10 +54,10 @@ namespace KeepMeModel
 		/// <summary>
 		/// 
 		/// </summary>
-		public int? pf_repaeatnum
+		public int? pf_repeatenum
 		{
-			set{ _pf_repaeatnum=value;}
-			get{return _pf_repaeatnum;}
+			set{ _pf_repeatenum=value;}
+			get{return _pf_repeatenum;}
 		}
 		/// <summary>
 		/// 

@@ -147,8 +147,7 @@
     <Compile Include="Controllers\DengMainController.cs" />
     <Compile Include="Controllers\ForgetPwdController.cs" />
     <Compile Include="Controllers\PrintController.cs" />
-    <Compile Include="Controllers\UserLoginController.cs" />
-    <Compile Include="Controllers\UserPageController.cs" />
+    <Compile Include="Controllers\ManLoginController.cs" />
     <Compile Include="Controllers\UserRegistController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -402,7 +401,6 @@
     <Content Include="Views\UserLogin\UserLoginview.cshtml" />
     <Content Include="Views\UserRegist\UserRegistView.cshtml" />
     <Content Include="Views\ForgetPwd\forgotpwd.cshtml" />
-    <Content Include="Views\UserPage\userPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

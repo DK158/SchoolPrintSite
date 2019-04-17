@@ -31,12 +31,11 @@ namespace KeepMeDal
                 string sql1 = "";
                 if (dt.Rows.Count==0)
                 {
-                     sql1 = "insert into managers(ma_tel,ma_role) values('" + skeeper.sk_tel + "','3')";
+                     sql1 = "insert into managers(ma_tel,ma_ifstorekeeper) values('" + skeeper.sk_tel + "',true)";
                 }
                 else
                 {
-                    string role = dt.Rows[0][2].ToString() + "-3";
-                     sql1 = "update  managers) set ma_role='" + role + "' where ma_tel='" + skeeper.sk_tel + "'";
+                     sql1 = "update  managers set ma_ifstorekeeper=true where ma_tel='" + skeeper.sk_tel + "'";
                 }
                  mysqlDBhelper.dochangesql(sql1);
                 //插入行细信息

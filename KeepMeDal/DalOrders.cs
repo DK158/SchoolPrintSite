@@ -45,5 +45,18 @@ namespace KeepMeDal
             int num2 = mysqlDBhelper.dochangesql(sql2);
             return num1 < num2 ? num1 : num2;
         }
+        
+        public DataTable GetTheDayOrderFile(string thedate)
+        {
+            string sql = "SELECT or_id,pf_changename,pf_ifprint FROM printfile  WHERE or_id LIKE '" + thedate + "%' ORDER BY or_id ASC ";
+            return mysqlDBhelper.doselectsqlT(sql);
+        }
+
+        public int CheckHavePrint(string filename)
+        {
+            string sql = "update printfile set pf_ifprint=true where pf_changename='" + filename + "'";
+            return mysqlDBhelper.dochangesql(sql);
+        }
+
     }
 }

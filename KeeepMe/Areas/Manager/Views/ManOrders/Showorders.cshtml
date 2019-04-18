@@ -30,6 +30,7 @@
                     <th lay-data="{ field: 'Size', title: '文件大小', edit: 'text' }"></th>
                     <th lay-data="{ field: 'FullName',width:100}">全路径</th>
                     <th lay-data="{ field: 'IsFolder'}">文件夹</th>
+                    <th lay-data="{ field: 'ifprint',templet: '#stateTpl' }">打印</th>
                     <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
                 </tr>
             </thead>
@@ -47,7 +48,15 @@
             {{#
             }
             }}
+        </script>
+        <script type="text/html" id="stateTpl">
+            {{#  if(d.ifprint==1){ }}
+            已打印
+            {{# }else if(d.ifprint==0){ }}
+            未打印
+            {{#  } else { }}
 
+            {{#  } }}
         </script>
     </div>
     <script src="~/Content/layui/layui.js" charset="utf-8"></script>
@@ -66,9 +75,9 @@
             table.on('tool(demo)', function (obj) {
                 var data = obj.data;
                 if (obj.event === 'download') {
-                    layer.msg('ID：' + data.FullName + ' 的查看操作');
+                    //layer.msg('ID：' + data.FullName + ' 的查看操作');
                     /*z执行下载函数，并传参*/
-                    location.href = "../ManOrders/DownLoadfile?fileroute=" + data.FullName + "&filename=" + data.Name;
+                    location.href = "../ManOrders/DownLoadfile1?fileroute=" + data.FullName + "&filename=" + data.Name;
                 }
                 else if (obj.event == 'delete') {
                     $.ajax({

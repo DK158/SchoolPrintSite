@@ -32,5 +32,15 @@ namespace KeepMeBll
         {
             return mo.UpdateOrderPtintTime(or_id, printTime);
         }
+        
+        public DataTable GetTheDayOrderFile(string thedate)
+        {
+            return mo.GetTheDayOrderFile(thedate);
+        }
+
+        public int CheckHavePrint(string filename)
+        {
+            return mo.CheckHavePrint(filename);
+        }
     }
 }

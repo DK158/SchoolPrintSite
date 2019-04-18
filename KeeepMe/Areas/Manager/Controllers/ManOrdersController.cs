@@ -9,6 +9,7 @@ using Ionic.Zip;
 using System.Text.RegularExpressions;
 using KeepMeModel;
 using KeepMeBll;
+using System.Data;
 
 namespace KeeepMe.Areas.Manager.Controllers
 {
@@ -16,26 +17,79 @@ namespace KeeepMe.Areas.Manager.Controllers
     {
         //
         // GET: /Manager/ManOrders/
-
+        KeepMeBll.BllOrders bo = new KeepMeBll.BllOrders();
         //储存当前表格所在文件夹路径，是“物理路径”
         public static string nowdir;
+        public static string store_id;
 
         public ActionResult Showorders()
         {
+            if(Session["ma_store"]==null|| Session["ma_store"].ToString() == "")//未登录或者没有店铺信息
+            {
+                return null;
+            }
+            store_id= Session["ma_store"].ToString();
             return View();
         }
+        /*显示订单文件*/
         public JsonResult Showorder()
         {
-            string dir = "/FileUploadFile/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + DateTime.Now.Day + "/";
+            string dir = "/FileUploadFile/" + store_id + "/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + DateTime.Now.Day + "/";
             string tempdir = Path.GetDirectoryName(Request.MapPath(dir));
             nowdir = tempdir;//更新全局变量，赋值
             //创建文件夹
             Directory.CreateDirectory(tempdir); 
             List<FileSystemItem> list = KeepMeclass.SystemFile.GetItems(tempdir);
+            list = changelist(list, GetTheDayOrderFile());//将文件是否打印的信息加入list中，为此在类 FileSystemItem 中添加 ifprint 字段用于记录是否打印
             var num = list.Count;
             var dataJson = new { code = 0, msg = "", count = num, data = list };
             var json = Json(dataJson, JsonRequestBehavior.AllowGet);
             return json;
+        }
+        //获取数据库中的文件信息
+        protected DataTable GetTheDayOrderFile()
+        {
+            string str = nowdir;
+            string[] paths = str.Split('\\');
+            int i = 0;//记录数组
+            string thedate;//进入文件夹的日期
+            for (i = 0; i < paths.Length; i ++ )
+            {
+                if (paths[i] == Session["ma_store"].ToString())
+                {
+                    break;
+                }
+            }
+            if (paths.Length - i != 4)//不是底部目录
+            {
+                return null;
+            }
+            else
+            {
+                if(Convert.ToInt32(paths[i + 1]) < 10) { paths[i + 1] = "0" + paths[i + 1]; }
+                if(Convert.ToInt32(paths[i + 2]) < 10) { paths[i + 2] = "0" + paths[i + 2]; }
+                if(Convert.ToInt32(paths[i + 3]) < 10) { paths[i + 3] = "0" + paths[i + 3]; }
+                thedate = paths[i + 1] + paths[i + 2] + paths[i + 3];
+                return bo.GetTheDayOrderFile(thedate);
+            }
+        }
+
+        protected List<FileSystemItem> changelist(List<FileSystemItem> list,DataTable dt)
+        {
+            if (dt == null) { return list; }
+            string colname = "pf_changename";
+            foreach (FileSystemItem ele in list)
+            {
+                if (ele.IsFolder == true) { ele.ifprint = 2; continue; }//如果是文件夹
+                string name = ele.Name;
+                if(name== "recordfile.txt") { ele.ifprint = 3; continue; }//非打印文件
+                if (dt.Select(colname + "='" + name + "'").Length > 0)//如果list中文件在dataTable中存在
+                {
+                    DataRow dr = dt.Select(colname + "='" + name + "'")[0];
+                    ele.ifprint = Convert.ToInt16(dr["pf_ifprint"]);
+                }
+            }
+            return list;
         }
         
         /*文件页面表格重载：点击“返回上一级”*/
@@ -72,12 +126,17 @@ namespace KeeepMe.Areas.Manager.Controllers
         /// <summary>
         /// 下载单个文件
         /// </summary>
-        public void DownLoadfile()
+        public int DownLoadfile1()
+        {
+            string fileName = Request["filename"]; ;//客户端保存的文件名  
+            string filePath = Request["fileroute"];//路径  
+            DownLoadfile(fileName, filePath);
+            return bo.CheckHavePrint(fileName);
+        }
+        public void DownLoadfile(string fileName,string filePath)
         {
             try
             {
-                string fileName = Request["filename"]; ;//客户端保存的文件名  
-                string filePath = Request["fileroute"];//路径  
                 Response.ContentType = "application/x-doc-compressed";
                 Response.AddHeader("Content-Disposition", "attachment;filename='" + fileName + "'");
                 string filename = filePath;
@@ -128,7 +187,7 @@ namespace KeeepMe.Areas.Manager.Controllers
         {
             using (ZipFile zip = new ZipFile(System.Text.Encoding.Default))
             {
-                string dir = "/FileUploadFile/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/"+DateTime.Now.Day+"/";
+                string dir = "/FileUploadFile/" + store_id + "/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/"+DateTime.Now.Day+"/";
                 string tempdir = Path.GetDirectoryName(Request.MapPath(dir));
                 zip.AddDirectory(tempdir);
                 zip.Save(Server.MapPath("~/Test.zip"));
@@ -147,7 +206,7 @@ namespace KeeepMe.Areas.Manager.Controllers
                 return File(Server.MapPath("~/Test.zip"), "application/zip", "当前文件夹所有订单文件.zip");
             }
         }
-
+        /*删除选中文件*/
         public int deleteSelected()
         {
             string filename = Request["name"];

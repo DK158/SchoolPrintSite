@@ -401,6 +401,7 @@
     <Content Include="Views\UserLogin\UserLoginview.cshtml" />
     <Content Include="Views\UserRegist\UserRegistView.cshtml" />
     <Content Include="Views\ForgetPwd\forgotpwd.cshtml" />
+    <Content Include="Views\ManLogin\ManLoginview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

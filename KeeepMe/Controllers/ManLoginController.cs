@@ -14,7 +14,7 @@ namespace KeeepMe.Controllers
         // GET: /UserLogin/
         KeepMeBll.Login lg = new KeepMeBll.Login();
         string temp = "1";
-        public ActionResult UserLoginview()
+        public ActionResult ManLoginview()
         {
             Session["wrong"] = "1";
             ViewBag.Title = temp; //判定是否是登录失败
@@ -33,9 +33,10 @@ namespace KeeepMe.Controllers
                 if (num > 0)
                 {
                     //将用户信息存在Session中,
-                    if (dt.Columns.Count == 5) { Session["role"] = 3; } //系统管理员
-                    else if (dt.Columns.Count == 10) { Session["role"] = 2; }//店主
-                    else if (dt.Columns.Count == 8) { Session["role"] = 1; }//店员
+                    Session["ma_ifassitant"] = dt.Rows[0]["ma_ifassitant"];  //系统管理员
+                    Session["ma_ifstorekeeper"] = dt.Rows[0]["ma_ifstorekeeper"]; //店主
+                    Session["ma_ifsystem"] = dt.Rows[0]["ma_ifsystem"]; //店员
+                    Session["ma_store"] = dt.Rows[0]["ms_storeid"];//管理店铺
                     Session["wrong"] = null;
                     Session["user_id"] = name;
                     return RedirectToAction("Mainpage", "Main", new { area = "Manager" });

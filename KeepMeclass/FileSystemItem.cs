@@ -24,6 +24,9 @@ namespace KeepMeclass
 
         private string _Version;
 
+        //添加
+        private Int16 _ifprint;//之前是用的 bool 类型，但是无法区分 0 1 文件夹 三种情况
+
         /// <summary>
         /// 名称
         /// </summary>
@@ -170,5 +173,21 @@ namespace KeepMeclass
 
             return _Version;
         }
+
+        /// <summary>
+        /// 是否已经打印
+        /// </summary>
+        public Int16 ifprint
+        {
+            get
+            {
+                return _ifprint;
+            }
+            set
+            {
+                _ifprint = value;
+            }
+        }
+
     }
 }

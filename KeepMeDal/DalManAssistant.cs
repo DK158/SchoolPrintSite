@@ -31,7 +31,7 @@ namespace KeepMeDal
                 string sql1 = "";
                 if (dt.Rows.Count == 0)
                 {
-                    sql1 = "insert into managers(ma_tel,ma_ifassitant) values('" + ast.sa_tel + "',true)";
+                    sql1 = "insert into managers(ma_tel,ma_ifassitant,ma_nick) values('" + ast.sa_tel + "',true,'" + ast.sa_nick + "')";
                 }
                 else
                 {
@@ -39,9 +39,9 @@ namespace KeepMeDal
                 }
                 mysqlDBhelper.dochangesql(sql1);
                 //插入行细信息
-                string sql = "insert into assistant(sa_tel,s_id,sa_name,sa_pwd,sa_general,sa_nick,sa_birthday,sa_breifinfo,sa_sculpture)" +
+                string sql = "insert into assistant(sa_tel,s_id,sa_name,sa_pwd,sa_general,sa_birthday,sa_breifinfo,sa_sculpture)" +
                "values('" + ast.sa_tel + "','" + ast.s_id + "','" + ast.sa_name + "','" + ast.sa_pwd + "','" + ast.sa_general + "'," +
-               "'" + ast.sa_nick + "','" + ast.sa_birthday + "','" + ast.sa_breifinfo + "','" + ast.sa_sculpture + "')";
+               "'" + ast.sa_birthday + "','" + ast.sa_breifinfo + "','" + ast.sa_sculpture + "')";
                 return mysqlDBhelper.dochangesql(sql);
             }
             else
@@ -52,7 +52,7 @@ namespace KeepMeDal
 
         public DataTable showAssistantdetail(string sa_tel)
         {
-            string sql = "select sa_tel,s_id,sa_name,sa_general,sa_nick,sa_birthday,sa_breifinfo from  assistant where sa_tel='" + sa_tel + "'";
+            string sql = "select * from  assistant join managers on assistant.sa_tel=managers.ma_tel where sa_tel='" + sa_tel + "'";
             return mysqlDBhelper.doselectsqlT(sql);
         }
 
@@ -67,7 +67,8 @@ namespace KeepMeDal
         public int editAssistant(assistant ast)
         {
             string sql = "update  assistant set s_id='" + ast.s_id + "',sa_name='" + ast.sa_name + "',sa_pwd='" + ast.sa_pwd + "',sa_general='" + ast.sa_general + "'," +
-                "sa_nick='" + ast.sa_nick + "',sa_birthday='" + ast.sa_birthday + "',sa_breifinfo='" + ast.sa_breifinfo + "' where sa_tel='" + ast.sa_tel + "' ";
+                "sa_birthday='" + ast.sa_birthday + "',sa_breifinfo='" + ast.sa_breifinfo + "' where sa_tel='" + ast.sa_tel + "' ";
+            sql = sql + ";update managers set ma_nick='" + ast.sa_nick + "'";
             return mysqlDBhelper.dochangesql(sql);
         }
 

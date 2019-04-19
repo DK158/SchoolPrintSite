@@ -22,7 +22,7 @@ namespace KeepMeBll
             return urlist;
         }
 
-        public int addPrintStore(store shop)
+        public string addPrintStore(store shop)
         {
             return ds.addPrintStore(shop);
         }

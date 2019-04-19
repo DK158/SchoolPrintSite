@@ -21,6 +21,7 @@ namespace KeepMeModel
 		private string _s_worktime;
 		private string _s_breifinfo;
 		private string _s_sculpture;
+		private string _s_photo;
 		private int? _s_runstate;
 		/// <summary>
 		/// 
@@ -110,10 +111,18 @@ namespace KeepMeModel
 			set{ _s_sculpture=value;}
 			get{return _s_sculpture;}
 		}
-		/// <summary>
+        /// <summary>
 		/// 
 		/// </summary>
-		public int? s_runstate
+		public string s_photo
+        {
+            set { _s_photo = value; }
+            get { return _s_photo; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? s_runstate
 		{
 			set{ _s_runstate=value;}
 			get{return _s_runstate;}

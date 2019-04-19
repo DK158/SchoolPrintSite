@@ -178,6 +178,8 @@
     <Content Include="Content\images\geometry2.png" />
     <Content Include="Content\images\headicon\illust.png" />
     <Content Include="Content\images\headicon\pic02.jpg" />
+    <Content Include="Content\images\headicon\store\4765.png" />
+    <Content Include="Content\images\headicon\store\6666.png" />
     <Content Include="Content\images\headicon\sweet.jpg" />
     <Content Include="Content\images\important\alipay.jpg" />
     <Content Include="Content\images\important\wechatpay.png" />
@@ -188,7 +190,7 @@
     <Content Include="Content\images\pic03.jpg" />
     <Content Include="Content\images\qie.jpg" />
     <Content Include="Content\images\storephoto\6666.jpg" />
-    <Content Include="Content\images\storephoto\auto.png" />
+    <Content Include="Content\images\storephoto\4765.png" />
     <Content Include="Content\layui\css\layui.css" />
     <Content Include="Content\layui\css\layui.mobile.css" />
     <Content Include="Content\layui\css\modules\code.css" />
@@ -333,7 +335,6 @@
     <Folder Include="Areas\system\Views\Shared\" />
     <Folder Include="Areas\user\Models\" />
     <Folder Include="Areas\user\Views\Shared\" />
-    <Folder Include="Content\images\headicon\store\" />
     <Folder Include="Content\images\headicon\user\" />
     <Folder Include="Models\" />
   </ItemGroup>

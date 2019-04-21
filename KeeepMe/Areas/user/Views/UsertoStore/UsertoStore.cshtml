@@ -331,8 +331,8 @@
             $.getJSON("TheStore", function (data) {
                 $.each(data, function (key, value) {
                     $("#store_name").html(value.s_name);
-                    var sculpture_src = value.s_sculpture;
-                    var s_photo_src = value.s_photo;
+                    var sculpture_src = "../../../Content/images/headicon/store/" + value.s_sculpture;
+                    var s_photo_src ="../../../Content/images/storephoto/"+ value.s_photo;
                     $("#store_sculpture").attr('src', sculpture_src);
                     $("#store_photo").attr('src', s_photo_src);
                     $("#store_worktime").html(value.s_worktime);//营业时间

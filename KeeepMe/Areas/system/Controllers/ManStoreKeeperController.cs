@@ -39,12 +39,11 @@ namespace KeeepMe.Areas.system.Controllers
             skeeper.sk_tel = Request["sk_tel"];
             skeeper.sk_idcard = Request["sk_idcard"].ToString();
             skeeper.sk_name = Request["sk_name"].ToString();
-            skeeper.sk_pwd = DataHelper.GetSha1("123456");//默认值设置为123456
             skeeper.sk_general = Request["sk_general"].ToString();
             skeeper.sk_birthloacation = Request["sk_birthloacation"].ToString();
             skeeper.sk_birthday = Request["sk_birthday"].ToString();
             skeeper.sk_breifinfo = Request["sk_breifinfo"].ToString();
-            skeeper.sk_sculpture = "~/Content/images/headicon/sweet.jpg";//默认图片头像
+            skeeper.sk_sculpture = "auto.jpg";//默认图片头像
             return bsk.addStoreKeeper(skeeper);
         }
 
@@ -80,7 +79,6 @@ namespace KeeepMe.Areas.system.Controllers
             skeeper.sk_tel = Request["sk_tel"]; //店主电话作为主键，不可修改
             skeeper.sk_idcard = Request["sk_idcard"].ToString();
             skeeper.sk_name = Request["sk_name"].ToString();
-            skeeper.sk_pwd = DataHelper.GetSha1("123456");//默认值设置为123456,每次修改后密码自动重置为123456
             skeeper.sk_general = Request["sk_general"].ToString();
             skeeper.sk_birthloacation = Request["sk_birthloacation"].ToString();
             skeeper.sk_birthday = Request["sk_birthday"].ToString();

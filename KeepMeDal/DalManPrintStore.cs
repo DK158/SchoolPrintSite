@@ -29,11 +29,10 @@ namespace KeepMeDal
             {
                 //在插入store表之前需要在storekeeper中有这个管理员
                 string sql2 = "select * from storekeeper where sk_tel='" + shop.sk_tel + "'";
-                if (mysqlDBhelper.doselectsqlT(sql2).Rows.Count == 0)//存在此管理员
+                if (mysqlDBhelper.doselectsqlT(sql2).Rows.Count == 0)//不存在此管理员
                 {
                     return "2";//没有这个店主
                 }
-
                 string s_id = "";
                 int check = 0;
                 do
@@ -46,8 +45,17 @@ namespace KeepMeDal
                 string sql = "insert into store(s_id,sk_tel,s_name,s_worker,s_school,s_location,s_machine,s_breifinfo,s_sculpture,s_computer,s_worktime,s_runstate,s_photo)" +
                "values('" + s_id + "','" + shop.sk_tel + "','" + shop.s_name + "','" + shop.s_worker + "','" + shop.s_school + "'," +
                "'" + shop.s_location + "','" + shop.s_machine + "','" + shop.s_breifinfo + "','" + s_id + shop.s_sculpture + "'" +
-               ",'" + shop.s_computer + "','" + shop.s_worktime + "','" + shop.s_runstate + "','" + s_id + shop.s_photo + "')";
-                
+               ",'" + shop.s_computer + "','" + shop.s_worktime + "','" + shop.s_runstate + "','" + s_id + shop.s_photo + "')";//打印店表
+                string sql4 = "";
+                if(mysqlDBhelper.doselectsqlT("select * from managertostore where ms_tel='"+shop.sk_tel+"' and ms_storeid='" + shop.s_id + "'").Rows.Count == 0)//managertostore中没有此项
+                {
+                    sql4 = "insert into managertostore(ms_tel,ms_storeid,ms_ifstorekeeper) values('" + shop.sk_tel + "','" + s_id + "',true)";//增加项
+                }
+                else
+                {
+                    sql4 = "update managertostore set ms_ifstorekeeper=true where  ms_tel='" + shop.sk_tel + "' and ms_storeid='" + shop.s_id + "'";
+                }
+                sql = sql + ";" + sql4;//增加店铺表与关系表
                 if(mysqlDBhelper.dochangesql(sql) > 0)
                 {
                     return s_id;
@@ -69,6 +77,7 @@ namespace KeepMeDal
         public int deleteshop(string s_id)
         {
             string sql = "delete from store where s_id='" + s_id + "'";
+            sql = sql + ";delete from managertostore where ms_storeid='" + s_id + "'";
             return mysqlDBhelper.dochangesql(sql);
         }
         
@@ -83,7 +92,7 @@ namespace KeepMeDal
         public string productId()
         {
             Random rd = new Random();
-            string s2=rd.Next(1, 1000).ToString();//(生成1~1000之间的随机数，不包括10)
+            string s2=rd.Next(100, 1000).ToString();//(生成1~1000之间的随机数，不包括10)
             string s1 = rd.Next(1, 10).ToString();
             return s1 + s2;
         }

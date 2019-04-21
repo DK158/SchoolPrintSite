@@ -77,6 +77,22 @@ namespace KeeepMe.Areas.system.Controllers
         public int deleteshop()
         {
             string s_id = Request["s_id"];
+            /*删除图片，失败*/
+            ////删除头像图片
+            //string dir = "/Content/images/headicon/store/";
+            //string tempdir = Path.GetDirectoryName(Request.MapPath(dir));
+            //dir = tempdir + s_id + ".jpg";
+            //System.IO.File.Delete(dir);
+            //dir = tempdir + s_id + ".png";
+            //System.IO.File.Delete(dir);
+            ////删除店铺实拍
+            //string dir1 = "/Content/images/storephoto/";
+            //string tempdir1 = Path.GetDirectoryName(Request.MapPath(dir1));
+            //dir1 = tempdir1 + s_id + ".jpg";
+            //System.IO.File.Delete(dir1);
+            //dir1 = tempdir1 + s_id + ".png";
+            //System.IO.File.Delete(dir1);
+
             return bs.deleteshop(s_id);
         }
 
@@ -125,9 +141,9 @@ namespace KeeepMe.Areas.system.Controllers
                 try
                 {
                     //创建文件夹
-                    string dir = "/images/headicon/store/temp/";//确认添加或者修改之前。临时文件夹
+                    string dir = "/Content/images/headicon/store/temp/";//确认添加或者修改之前。临时文件夹
 
-                    string dir1 = "/images/headicon/store/"; //确认添加或者修改之前后
+                    string dir1 = "/Content/images/headicon/store/"; //确认添加或者修改之前后
                     //不包括文件名全路径
                     string tempdir = Path.GetDirectoryName(Request.MapPath(dir));
 
@@ -174,9 +190,9 @@ namespace KeeepMe.Areas.system.Controllers
                 try
                 {
                     //创建文件夹
-                    string dir = "/images/storephoto/temp/";//确认添加或者修改之前。临时文件夹
+                    string dir = "/Content/images/storephoto/temp/";//确认添加或者修改之前。临时文件夹
 
-                    string dir1 = "/images/storephoto/"; //确认添加或者修改之前后
+                    string dir1 = "/Content/images/storephoto/"; //确认添加或者修改之前后
                     //不包括文件名全路径
                     string tempdir = Path.GetDirectoryName(Request.MapPath(dir));
 
@@ -206,7 +222,7 @@ namespace KeeepMe.Areas.system.Controllers
         protected void changelocation(string storeid)
         {
             //找寻路径,改变头像路径
-            string dir = "/images/headicon/store/";
+            string dir = "/Content/images/headicon/store/";
             //不包括文件名全路径
             string tempdir = Path.GetDirectoryName(Request.MapPath(dir));
             string OrignFile = tempdir + "/temp/0000" + scul_extent;
@@ -214,7 +230,7 @@ namespace KeeepMe.Areas.system.Controllers
             System.IO.File.Move(OrignFile, NewFile);
 
             //找寻路径,改变实拍路径
-            string dir1 = "/images/storephoto/";
+            string dir1 = "/Content/images/storephoto/";
             //不包括文件名全路径
             string tempdir1 = Path.GetDirectoryName(Request.MapPath(dir1));
             string OrignFile1 = tempdir1 + "/temp/0000" + spho_extent;

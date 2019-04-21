@@ -31,7 +31,7 @@ namespace KeepMeDal
                 string sql1 = "";
                 if (dt.Rows.Count==0)
                 {
-                     sql1 = "insert into managers(ma_tel,ma_ifstorekeeper) values('" + skeeper.sk_tel + "',true)";
+                     sql1 = "insert into managers(ma_tel,ma_pwd,ma_ifstorekeeper) values('" + skeeper.sk_tel + "','"+mysqlDBhelper.GetSha1("123456")+"',true)";//添加ma_pwd
                 }
                 else
                 {
@@ -39,9 +39,9 @@ namespace KeepMeDal
                 }
                  mysqlDBhelper.dochangesql(sql1);
                 //插入行细信息
-                string sql = "insert into storekeeper(sk_tel,sk_idcard,sk_name,sk_pwd,sk_general,sk_birthloacation,sk_birthday,sk_breifinfo,sk_sculpture)" +
-               "values('" + skeeper.sk_tel + "','" + skeeper.sk_idcard + "','" + skeeper.sk_name + "','" + skeeper.sk_pwd + "','" + skeeper.sk_general + "'," +
-               "'" + skeeper.sk_birthloacation + "','" + skeeper.sk_birthday + "','" + skeeper.sk_breifinfo + "','" + skeeper.sk_sculpture + "')";
+                string sql = "insert into storekeeper(sk_tel,sk_idcard,sk_name,sk_general,sk_birthloacation,sk_birthday,sk_breifinfo,sk_sculpture)" +
+               "values('" + skeeper.sk_tel + "','" + skeeper.sk_idcard + "','" + skeeper.sk_name + "','" + skeeper.sk_general + "'," +
+               "'" + skeeper.sk_birthloacation + "','" + skeeper.sk_birthday + "','" + skeeper.sk_breifinfo + "','" + skeeper.sk_sculpture + "')";//店主表
                 return mysqlDBhelper.dochangesql(sql);
             }
             else
@@ -66,7 +66,7 @@ namespace KeepMeDal
 
         public int editkeeper(storekepper skeeper)
         {
-            string sql = "update  storekeeper set sk_idcard='" + skeeper.sk_idcard + "',sk_name='" + skeeper.sk_name + "',sk_pwd='" + skeeper.sk_pwd + "',sk_general='" + skeeper.sk_general + "'," +
+            string sql = "update  storekeeper set sk_idcard='" + skeeper.sk_idcard + "',sk_name='" + skeeper.sk_name + "',sk_general='" + skeeper.sk_general + "'," +
                 "sk_birthloacation='" + skeeper.sk_birthloacation + "',sk_birthday='" + skeeper.sk_birthday + "',sk_breifinfo='" + skeeper.sk_breifinfo + "' where sk_tel='" + skeeper.sk_tel + "' ";
             return mysqlDBhelper.dochangesql(sql);
         }

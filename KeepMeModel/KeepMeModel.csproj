@@ -56,6 +56,7 @@
     <Compile Include="storeprintprice.cs" />
     <Compile Include="SysNode.cs" />
     <Compile Include="systemmanager.cs" />
+    <Compile Include="treenode.cs" />
     <Compile Include="urgentorders.cs" />
     <Compile Include="user.cs" />
   </ItemGroup>

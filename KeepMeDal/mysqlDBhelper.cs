@@ -54,6 +54,7 @@ namespace KeepMeDal
             conn.Dispose();
             return ds;
         }
+        //查询数据库，返回数据表
         public static DataTable doselectsqlT(string sql)
         {
             MySqlConnection conn = lianjie();

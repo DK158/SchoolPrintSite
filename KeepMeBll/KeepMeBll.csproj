@@ -44,6 +44,7 @@
     <Compile Include="BllManAssistant.cs" />
     <Compile Include="BllManPrice.cs" />
     <Compile Include="BllOrders.cs" />
+    <Compile Include="BllPosWithFun.cs" />
     <Compile Include="BllPrint.cs" />
     <Compile Include="BllUserMainPage.cs" />
     <Compile Include="BllUsertoStore.cs" />

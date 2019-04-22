@@ -138,6 +138,7 @@
     <Compile Include="Areas\Manager\Controllers\ManPrintPriceController.cs" />
     <Compile Include="Areas\Manager\Controllers\ManUsersController.cs" />
     <Compile Include="Areas\Manager\ManagerAreaRegistration.cs" />
+    <Compile Include="Areas\system\Controllers\ManPosWithFunController.cs" />
     <Compile Include="Areas\system\Controllers\ManPrintStoreController.cs" />
     <Compile Include="Areas\system\Controllers\ManStoreKeeperController.cs" />
     <Compile Include="Areas\system\systemAreaRegistration.cs" />
@@ -299,12 +300,18 @@
     <Content Include="Content\layui\other\index.css" />
     <Content Include="Content\layui\other\style.css" />
     <Content Include="Content\layui\tab.js" />
+    <Content Include="Content\layui\tree\authtree.js" />
     <Content Include="Content\Login\animate.css" />
     <Content Include="Content\Login\bootstrap.min.css" />
     <Content Include="Content\Login\style.css" />
     <Content Include="Content\userpage\common.css" />
     <Content Include="Content\userpage\index.css" />
     <Content Include="Content\userpage\itemmain.css" />
+    <Content Include="Content\zTree\demo.css" />
+    <Content Include="Content\zTree\jquery.ztree.all.js" />
+    <Content Include="Content\zTree\jquery.ztree.core.js" />
+    <Content Include="Content\zTree\jquery.ztree.excheck.js" />
+    <Content Include="Content\zTree\zTreeStyle.css" />
     <Content Include="Global.asax" />
     <Content Include="Script\dengmain\jquery.js" />
     <Content Include="Script\dengmain\main.js" />
@@ -397,6 +404,9 @@
     <Content Include="Areas\Manager\Views\ManAssistant\ManAssistant.cshtml" />
     <Content Include="Areas\user\Views\MainPage\MainPage.cshtml" />
     <Content Include="Areas\user\Views\UsertoStore\UsertoStore.cshtml" />
+    <Content Include="Areas\system\Views\ManPosWithFun\PositionWithFunction.cshtml" />
+    <Content Include="Content\layui\tree\tree.json" />
+    <Content Include="Content\layui\tree\list-2.json" />
     <None Include="Properties\PublishProfiles\Keeepmeconfig.pubxml" />
     <Content Include="Views\UserLogin\UserLoginview.cshtml" />
     <Content Include="Views\UserRegist\UserRegistView.cshtml" />

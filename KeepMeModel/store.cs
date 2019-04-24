@@ -23,6 +23,9 @@ namespace KeepMeModel
 		private string _s_sculpture;
 		private string _s_photo;
 		private int? _s_runstate;
+		private int? _s_carryterm;
+		private int? _s_carryadd;
+		private bool? _s_carry;
 		/// <summary>
 		/// 
 		/// </summary>
@@ -127,8 +130,32 @@ namespace KeepMeModel
 			set{ _s_runstate=value;}
 			get{return _s_runstate;}
 		}
-		#endregion Model
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? s_carryterm
+        {
+            set { _s_carryterm = value; }
+            get { return _s_carryterm; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int? s_carryadd
+        {
+            set { _s_carryadd = value; }
+            get { return _s_carryadd; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool? s_carry
+        {
+            set { _s_carry = value; }
+            get { return _s_carry; }
+        }
+        #endregion Model
 
-	}
+    }
 }
 

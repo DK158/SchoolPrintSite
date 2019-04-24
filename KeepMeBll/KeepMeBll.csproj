@@ -52,6 +52,7 @@
     <Compile Include="Login.cs" />
     <Compile Include="BllManStoreKeeper.cs" />
     <Compile Include="BllManPrintStore.cs" />
+    <Compile Include="BllManStoreMessage.cs" />
     <Compile Include="Manuser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

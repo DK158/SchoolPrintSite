@@ -1,0 +1,250 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>StoreMessage</title>
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <script src="~/Script/jquery.min.js"></script>
+</head>
+<body>
+    <div>
+        <div id="addPrintStore" name="addPrintStore" style="padding:20px 36px 0 0;">
+            <form class="layui-form" style="text-align:center;align-content:center;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">店编号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="s_id" name="s_id" class="layui-input">
+                    </div>
+                    <label class="layui-form-label">店名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="s_name" name="s_name" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">所在学校</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="s_school" name="s_school" class="layui-input">
+                    </div>
+                    <label class="layui-form-label">店主电话</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="sk_tel" name="sk_tel" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">打印机数目</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="s_machine" name="s_machine" class="layui-input">
+                    </div>
+                    <label class="layui-form-label">电脑数目</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="s_computer" name="s_computer" class="layui-input">
+                        @*<input type="radio" id="s_name_nan" name="s_name" value="男" title="男">
+                        <input type="radio" id="s_name_nv" name="s_name" value="女" title="女">*@
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">工作人员数</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="s_worker" name="s_worker" class="layui-input">
+                    </div>
+                    <label class="layui-form-label">工作时间</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="s_worktime" name="s_worktime" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">送货上门</label>
+                    <div class="layui-input-inline">
+                        <input type="checkbox" id="s_carry" checked="" name="s_carry" lay-skin="switch" lay-filter="switchTest" value="true" dis-value="false" lay-text="开启|关闭">
+                    </div>
+                    <label class="layui-form-label">送货条件</label>
+                    <div class="layui-input-inline">
+                        <label class="layui-form-label" style="padding-left:0;">不满</label><input type="text" id="s_carryterm" name="s_carryterm" class="layui-input layui-input-inline" style="width:40px;"  lay-filter="number">
+                    </div>
+                    <div class="layui-input-inline">
+                        <label class="layui-form-label" style="padding-left:0;">加收</label><input type="text" id="s_carryadd" name="s_carryadd" class="layui-input layui-input-inline" style="width:40px;"  lay-filter="number">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">具体位置</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="s_location" name="s_location" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">运营状态：</label>
+                    <div class="layui-input-block">
+                        <input type="radio" id="s_runstate0" name="s_runstate" value="0" title="审核中">
+                        <input type="radio" id="s_runstate1" name="s_runstate" value="1" title="运营中">
+                        <input type="radio" id="s_runstate2" name="s_runstate" value="2" title="歇业中">
+                    </div>
+                </div>
+                <div class="layui-form-item" id="store_picture" style="align-content:center;">
+                    <div class="layui-input-inline">
+                        <div class="layui-upload">
+                            <button type="button" class="layui-btn" id="store_sculpture">店铺头像图片</button>
+                            <div class="layui-upload-list">
+                                <img class="layui-upload-img" id="s_sculpture" style="height:90px;width:120px;margin-bottom:10px;">
+                                <p id="demoText"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-input-inline">
+                        <div class="layui-upload">
+                            <button type="button" class="layui-btn" id="store_photo">店铺实拍图片</button>
+                            <div class="layui-upload-list">
+                                <img class="layui-upload-img" id="s_photo" style="height:90px;width:120px;margin-bottom:10px;">
+                                <p id="demoText2"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">简介</label>
+                        <div class="layui-input-block">
+                            <textarea placeholder="请输入内容" class="layui-textarea" name="s_breifinfo" id="s_breifinfo"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;align-content:center;text-align:center;">
+                        <button id="surechange" data-method="surechange" class="layui-btn" lay-submit="" lay-filter="*">确认修改</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script src="~/Content/layui/layui.js"></script>
+        <script>
+            $(document).ready(function () {
+                layui.use(['form', 'layer', 'table'], function () { //独立版的layer无需执行这一句
+                    var $ = layui.jquery, layer = layui.layer, form = layui.form, table = layui.table; //独立版的layer无需执行这一句
+                      
+                ////获取详细信息,赋值
+                $.ajax({
+                    type: 'get',
+                    url: '../ManStoreMessage/showshopdetail',
+                    data: { s_id: '6666' },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data != null) {
+                            $.each(data, function (key, value) {
+                                $("#s_id").val(value.s_id);
+                                $("#sk_tel").val(value.sk_tel);
+                                $("#s_name").val(value.s_name);
+                                $("#s_school").val(value.s_school);
+                                $("#s_location").val(value.s_location);
+                                $("#s_machine").val(value.s_machine);
+                                $("#s_computer").val(value.s_computer);
+                                $("#s_worker").val(value.s_worker);
+                                $("#s_worktime").val(value.s_worktime);
+                                $("#s_breifinfo").val(value.s_breifinfo);
+                                $("#s_carryterm").val(value.s_carryterm);
+                                $("#s_carryadd").val(value.s_carryadd);
+                                $("#s_sculpture").attr('src', '../../../Content/images/headicon/store/' + value.s_sculpture);
+                                $("#s_photo").attr('src', '../../../Content/images/storephoto/' + value.s_photo);
+                                if (value.s_runstate == '0') { $("#s_runstate0").prop('checked', true); } else if (value.s_runstate == '1') { $("#s_runstate1").prop('checked', true); } else { $("#s_runstate2").prop('checked', true); }
+                                if (value.s_carry == true) { layui.jquery('input[name="s_carry"]').attr('checked', 'checked'); } else { layui.jquery('input[name="s_carry"]').removeAttr('checked');  }
+                                //$("input[value='" + value.s_name + "']").attr('checked', 'true');
+                                form.render(); //更新全部
+                            });
+                        }
+                        else {
+                            layer.msg("系统故障，无详细信息");
+                        }
+                    }
+                });
+                
+                    form.on('submit(*)', function (data) {
+                        $.ajax({
+                            type: "POST",
+                            url: '../ManStoreMessage/SaveChange',
+                            data: data.field,//当前容器的全部表单字段，名值对形式：{name: value}
+                            success: function (data) {
+                                if (data > 0) {
+                                    layer.closeAll();
+                                    layer.msg("修改成功", { icon: 1, time: 3000, end: function () { window.location.reload(); } });
+                                    //$(".layui-laypage-btn")[0].click();//模拟点击实现刷新
+                                }
+                                else {
+                                    layer.closeAll();
+                                    layer.msg("修改失败", { icon: 2, time: 3000, end: function () { window.location.reload(); } });
+                                    //$(".layui-laypage-btn")[0].click();//模拟点击实现刷新
+                                }
+                            }
+                        });
+                        return false; //阻止全部刷新
+                    });
+                    
+                    
+                    //$("form input,textarea,button").prop("readonly", true);
+                });
+
+            });
+
+            /*图片上传*/
+            layui.use('upload', function () {
+                var $ = layui.jquery, upload = layui.upload;
+                //普通图片上传
+                var uploadInst = upload.render({
+                    elem: '#store_sculpture'
+                    , url: 'store_sculpture'
+                    , before: function (obj) {
+                        //预读本地文件示例，不支持ie8
+                        obj.preview(function (index, file, result) {
+                            $('#s_sculpture').attr('src', result); //图片链接（base64）
+                        });
+                    }
+                    , done: function (res) {
+                        //上传成功
+                        if (res.code > 0) {
+                            return layer.msg('上传成功');
+                        } else {//如果上传失败
+                            return layer.msg('上传失败');
+                        }
+                    }
+                    , error: function () {
+                        //演示失败状态，并实现重传
+                        var demoText = $('#demoText');
+                        demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                        demoText.find('.demo-reload').on('click', function () {
+                            uploadInst.upload();
+                        });
+                    }
+                });
+                var uploadInst2 = upload.render({
+                    elem: '#store_photo'
+                    , url: 'store_photo'
+                    , before: function (obj) {
+                        //预读本地文件示例，不支持ie8
+                        obj.preview(function (index, file, result) {
+                            $('#s_photo').attr('src', result); //图片链接（base64）
+                        });
+                    }
+                    , done: function (res) {
+                        //上传成功
+                        if (res.code > 0) {
+                            return layer.msg('上传成功');
+                        } else {//如果上传失败
+                            return layer.msg('上传失败');
+                        }
+                    }
+                    , error: function () {
+                        //演示失败状态，并实现重传
+                        var demoText = $('#demoText2');
+                        demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                        demoText.find('.demo-reload').on('click', function () {
+                            uploadInst2.upload();
+                        });
+                    }
+                });
+            });
+
+        </script>
+</body>
+</html>

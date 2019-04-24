@@ -11,7 +11,7 @@ namespace KeepMeBll
     public class BllPosWithFun
     {
         KeepMeDal.DalPosWithFun dpf = new KeepMeDal.DalPosWithFun();
-
+        
         public DataTable GetFunctionTree()
         {
             return dpf.PosWithFun();
@@ -19,6 +19,16 @@ namespace KeepMeBll
         public DataTable GetFunctionTree1()
         {
             return dpf.PosWithFun1();
+        }
+        
+        public DataTable GetFunctionTreeByPostion(string pos_id)
+        {
+            return dpf.GetFunctionTreeByPostion(pos_id);
+        }
+
+        public int SaveFunctionTreeOnPostion(string pos_id,string[] fun_id)
+        {
+            return dpf.SaveFunctionTreeOnPostion(pos_id,fun_id);
         }
     }
 }

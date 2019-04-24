@@ -49,6 +49,7 @@
     <Compile Include="DalManPrice.cs" />
     <Compile Include="DalManPrintStore.cs" />
     <Compile Include="DalManStoreKeeper.cs" />
+    <Compile Include="DalManStoreMessage.cs" />
     <Compile Include="DalOrders.cs" />
     <Compile Include="DalPosWithFun.cs" />
     <Compile Include="DalUertoStore.cs" />

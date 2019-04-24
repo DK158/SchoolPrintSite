@@ -136,6 +136,7 @@
     <Compile Include="Areas\Manager\Controllers\ManOrdersController.cs" />
     <Compile Include="Areas\Manager\Controllers\ManPriceController.cs" />
     <Compile Include="Areas\Manager\Controllers\ManPrintPriceController.cs" />
+    <Compile Include="Areas\Manager\Controllers\ManStoreMessageController.cs" />
     <Compile Include="Areas\Manager\Controllers\ManUsersController.cs" />
     <Compile Include="Areas\Manager\ManagerAreaRegistration.cs" />
     <Compile Include="Areas\system\Controllers\ManPosWithFunController.cs" />
@@ -407,6 +408,7 @@
     <Content Include="Areas\system\Views\ManPosWithFun\PositionWithFunction.cshtml" />
     <Content Include="Content\layui\tree\tree.json" />
     <Content Include="Content\layui\tree\list-2.json" />
+    <Content Include="Areas\Manager\Views\ManStoreMessage\StoreMessage.cshtml" />
     <None Include="Properties\PublishProfiles\Keeepmeconfig.pubxml" />
     <Content Include="Views\UserLogin\UserLoginview.cshtml" />
     <Content Include="Views\UserRegist\UserRegistView.cshtml" />

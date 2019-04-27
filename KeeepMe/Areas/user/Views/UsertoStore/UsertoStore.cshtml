@@ -287,6 +287,7 @@
                     var filenarrow = "";//储存单个文件是否缩印
                     var fileside = "";//储存单个文件是单面还是双面
                     var filenum = 0;  //储存文件个数
+                    var pagenum = 0; //存储总的文件页数
                     for (var i = 1; i < 10; i++) {
                         if ($("#" + i + "").length > 0) {
                             files = files + $("#name" + i + "").text() + "!!";
@@ -295,6 +296,10 @@
                             fileside = fileside + $("#pagestyle" + i + "").find("option:selected").text() + "!!";
                             pages = pages + $("#pages" + i + "").text() + "!!";
                             realfilename = realfilename + $("#name" + i + "").attr('title') + "!!";
+                            var nowpage = $("#pages" + i + "").text();//获取页数
+                            var page = parseInt(nowpage.substring(0, nowpage.length - 1));//去掉后面的p,并转换为数字
+                            var repeat = parseInt($("#copy" + i + "").val());//重复的份数
+                            pagenum = pagenum + page * repeat;
                             filenum++;
                         }
                     }
@@ -303,8 +308,8 @@
                         type: 'post',
                         url: '../UsertoStore/recordorderpool',
                         data: {
-                            money:$("#checktotalmoney").text(), files: files, tel: tel, remark: $("#remark").val(), location: $("#or_loacation").val(), filenum: filenum, username: $("#yourname").val(),
-                            filerepeat: filerepeat, filenarrow: filenarrow, fileside: fileside, pages: pages, realfilename: realfilename, ifcarry: (change_carrynum % 2).toString()
+                            money: $("#checktotalmoney").text(), files: files, tel: tel, remark: $("#remark").val(), location: $("#or_loacation").val(), filenum: filenum, username: $("#yourname").val(),
+                            filerepeat: filerepeat, filenarrow: filenarrow, fileside: fileside, pages: pages, realfilename: realfilename, ifcarry: (change_carrynum % 2).toString(), pagenum: pagenum
                         },
                         success: function (data) {
                             if (data != null) {

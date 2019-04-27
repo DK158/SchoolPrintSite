@@ -40,7 +40,7 @@ namespace KeeepMe.Areas.Manager.Controllers
         public int addStorePriceItem()
         {
             storeprintprice spp = new storeprintprice();
-            spp.printceItem_id = Convert.ToInt16(Request["printceItem_id"]);
+            spp.printceItem_id = Convert.ToInt16(Request["priceItem_id"]);
             spp.sItem_price = float.Parse(Request["sItem_price"]) ;
             Session["store_id"] = "6666";//临时
             spp.s_id = Session["store_id"].ToString();
@@ -67,6 +67,13 @@ namespace KeeepMe.Areas.Manager.Controllers
             return DataHelper.DataTableToJsonWithJavaScriptSerializer(dt);
         }
         
-
+        public int addPrintServiceStoreItem()
+        {
+            string name = Request["priceItem_name"].ToString();
+            string roleId = "6666";//Session["the_store_id"]
+            string unit = Request["priceItem_unit"].ToString();
+            return bp.addPrintServiceStoreItem(name, roleId, unit);
+        }
+        
     }
 }

@@ -136,6 +136,7 @@
     <Compile Include="Areas\Manager\Controllers\ManOrdersController.cs" />
     <Compile Include="Areas\Manager\Controllers\ManPriceController.cs" />
     <Compile Include="Areas\Manager\Controllers\ManPrintPriceController.cs" />
+    <Compile Include="Areas\Manager\Controllers\ManShowRunStateController.cs" />
     <Compile Include="Areas\Manager\Controllers\ManStoreMessageController.cs" />
     <Compile Include="Areas\Manager\Controllers\ManUsersController.cs" />
     <Compile Include="Areas\Manager\ManagerAreaRegistration.cs" />
@@ -314,6 +315,23 @@
     <Content Include="Content\zTree\jquery.ztree.excheck.js" />
     <Content Include="Content\zTree\zTreeStyle.css" />
     <Content Include="Global.asax" />
+    <Content Include="Script\chart\dist\echarts-en.common.js" />
+    <Content Include="Script\chart\dist\echarts-en.common.min.js" />
+    <Content Include="Script\chart\dist\echarts-en.js" />
+    <Content Include="Script\chart\dist\echarts-en.min.js" />
+    <Content Include="Script\chart\dist\echarts-en.simple.js" />
+    <Content Include="Script\chart\dist\echarts-en.simple.min.js" />
+    <Content Include="Script\chart\dist\echarts.common.js" />
+    <Content Include="Script\chart\dist\echarts.common.min.js" />
+    <Content Include="Script\chart\dist\echarts.js" />
+    <Content Include="Script\chart\dist\echarts.min.js" />
+    <Content Include="Script\chart\dist\echarts.simple.js" />
+    <Content Include="Script\chart\dist\echarts.simple.min.js" />
+    <Content Include="Script\chart\dist\extension\bmap.js" />
+    <Content Include="Script\chart\dist\extension\bmap.min.js" />
+    <Content Include="Script\chart\dist\extension\dataTool.js" />
+    <Content Include="Script\chart\dist\extension\dataTool.min.js" />
+    <Content Include="Script\chart\echart.min.js" />
     <Content Include="Script\dengmain\jquery.js" />
     <Content Include="Script\dengmain\main.js" />
     <Content Include="Script\dengmain\printpage.js" />
@@ -409,11 +427,16 @@
     <Content Include="Content\layui\tree\tree.json" />
     <Content Include="Content\layui\tree\list-2.json" />
     <Content Include="Areas\Manager\Views\ManStoreMessage\StoreMessage.cshtml" />
+    <Content Include="Areas\Manager\Views\ManShowRunState\ShowRunState.cshtml" />
     <None Include="Properties\PublishProfiles\Keeepmeconfig.pubxml" />
     <Content Include="Views\UserLogin\UserLoginview.cshtml" />
     <Content Include="Views\UserRegist\UserRegistView.cshtml" />
     <Content Include="Views\ForgetPwd\forgotpwd.cshtml" />
     <Content Include="Views\ManLogin\ManLoginview.cshtml" />
+    <Content Include="Script\chart\dist\echarts-en.js.map" />
+    <Content Include="Script\chart\dist\echarts.js.map" />
+    <Content Include="Script\chart\dist\extension\bmap.js.map" />
+    <Content Include="Script\chart\dist\extension\dataTool.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

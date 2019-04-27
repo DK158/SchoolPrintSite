@@ -160,7 +160,10 @@ namespace KeeepMe.Areas.user.Controllers
             sw.WriteLine(DateTime.Now.ToString() + "----" + filename + "----" + num + "----" + dir + "\\" + filename);
             sw.Close();
         }
-
+        /// <summary>
+        /// 存入数据库
+        /// </summary>
+        /// <returns></returns>
         public string recordorderpool()
         {
             printorders po = new printorders();
@@ -183,6 +186,7 @@ namespace KeeepMe.Areas.user.Controllers
             string order_files = Request["files"];//所有文件名
             po.user_tel = Request["tel"];
             po.or_remark = Request["remark"];
+            po.or_pagenum = Convert.ToInt32(Request["pagenum"]);
             po.or_filenum = Convert.ToInt32(Request["filenum"]);
             string getcheck = produceOrderCheck(time);//取货码
             po.or_getcheck = getcheck;

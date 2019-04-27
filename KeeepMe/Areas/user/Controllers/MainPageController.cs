@@ -41,10 +41,10 @@ namespace KeeepMe.Areas.user.Controllers
         }
 
         //通过手机号查询订单，并确认收货
-        public string SearchHistory()
+        public string SearchHistory(int page, int limit)
         {
             string user_tel=Request["user_tel"].ToString();
-            return bump.SearchHistory(user_tel);
+            return bump.SearchHistory(user_tel,page,limit);
         }
 
         //确认收货

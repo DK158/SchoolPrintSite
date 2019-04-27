@@ -1,0 +1,121 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ShowRunState</title>
+    <script src="~/Script/chart/dist/echarts.min.js"></script>
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <script src="~/Script/jquery.min.js"></script>
+    <script src="~/Content/layui/layui.js"></script>
+</head>
+<body>
+    <div>
+        <form class="layui-form" >
+            <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+            <div id="theRunState_line" style="width: 600px;height:400px;"></div>
+            <div id="theRunState_pie" style="width: 600px;height:400px;"></div>
+        </form>
+    </div>
+    <script>
+        layui.use(['form', 'layer', 'table'], function () { //独立版的layer无需执行这一句
+            var $ = layui.jquery, layer = layui.layer, form = layui.form, table = layui.table; //独立版的layer无需执行这一句
+
+            $(document).ready(function () {
+                $.ajax({
+                    type: 'get',
+                    url: 'GetFourWeekMoney',
+                    success: function (data) {
+                        var m_arr = data.split(',');
+                        //var str = data.split('#');
+                        //var time = str[0];
+                        //var money = str[1];
+                        //console.log("time:" + time + "\n money:" + money);
+                        // 基于准备好的dom，初始化echarts实例
+                        var myChart = echarts.init(document.getElementById('theRunState_line'));
+                        // 指定图表的配置项和数据
+                        option = {
+                            title: {
+                                text: '店铺收入情况',
+                                subtext: '最近28天',
+                                x: 'center'
+                            },
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: '{a} <br/>{b} : {c}'
+                            },
+                            xAxis: {
+                                type: 'category',
+                                data: ['前四周', '前三周', '前二周', '前一周'],//[time],
+                                name: '时间'
+                            },
+                            yAxis: {
+                                type: 'value',
+                                name: '订单金额'
+                            },
+                            series: [{
+                                name: '金额',
+                                data: [parseFloat(m_arr[0]).toFixed(2), parseFloat(m_arr[1]).toFixed(2), parseFloat(m_arr[2]).toFixed(2), parseFloat(m_arr[3]).toFixed(2)],// data, //[820, 932, 901, 934],//[money],
+                                type: 'line'
+                            }]
+                        };
+
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+
+                    }
+                });
+                $.ajax({
+                    type: 'get',
+                    url: 'GetDifferntMoney',
+                    success: function (data) {
+                        var m_arr = data.split(',');
+                        var myChart = echarts.init(document.getElementById('theRunState_pie'));
+                        option = {
+                            title: {
+                                text: '近期收入来源',
+                                subtext: '最近28天',
+                                x: 'center'
+                            },
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: "{a} <br/>{b} : {c} ({d}%)"
+                            },
+                            legend: {
+                                orient: 'vertical',
+                                left: 'left',
+                                data: ['送货上门订单', '自取订单']
+                            },
+                            series: [
+                                {
+                                    name: '访问来源',
+                                    type: 'pie',
+                                    radius: '55%',
+                                    center: ['50%', '60%'],
+                                    data: [
+                                        { value: parseFloat(m_arr[1]).toFixed(2), name: '送货上门订单' },
+                                        { value: parseFloat(m_arr[0]).toFixed(2), name: '自取订单' }
+                                    ],
+                                    itemStyle: {
+                                        emphasis: {
+                                            shadowBlur: 10,
+                                            shadowOffsetX: 0,
+                                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                        }
+                                    }
+                                }
+                            ]
+                        };
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                    }
+                });
+            });
+       });
+    </script>
+</body>
+</html>

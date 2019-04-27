@@ -18,11 +18,18 @@ namespace KeepMeDal
                 "limit " + startrow + " , " + limits + "";
             return mysqlDBhelper.doselectsqlT(sql);
         }  
-
-        public DataTable SearchHistory(string tel)
+        //分页获取历史
+        public DataTable SearchHistory(string tel, int page, int limit)
         {
-            string sql = "SELECT * FROM printorders WHERE user_tel='" + tel + "' ORDER BY or_state ASC";
+            int startnum = (page - 1) * limit;
+            string sql = "SELECT * FROM printorders WHERE user_tel='" + tel + "' ORDER BY or_state ASC limit " + startnum + "," + limit + "";
             return mysqlDBhelper.doselectsqlT(sql);
+        }
+        //获取记录条数
+        public int SearchHistorynum(string tel)
+        {
+            string sql = "SELECT * FROM printorders WHERE user_tel='" + tel + "' ";
+            return mysqlDBhelper.doselectsqlT(sql).Rows.Count;
         }
 
         public int ChangeStatetoSure(string or_id)

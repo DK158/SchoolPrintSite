@@ -42,6 +42,9 @@ namespace KeepMeBll
         {
             return dp.showPriceItemDetail(sItem_priceId);
         }
-
+        public int addPrintServiceStoreItem(string name,string roleId,string unit)
+        {
+            return dp.addPrintServiceStoreItem(name, roleId, unit);
+        }
     }
 }

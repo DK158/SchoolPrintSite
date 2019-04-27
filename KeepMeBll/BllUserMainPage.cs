@@ -20,11 +20,11 @@ namespace KeepMeBll
             //urlist = "{\"code\":0,\"msg\":\"\",\"count\":" + num + ",\"data\":" + urlist + "}"; //组成layui接收格式 -> 不用，这样只是在调用表格时使用
             return urlist;
         }
-        public string SearchHistory(string user_tel)
+        public string SearchHistory(string user_tel, int page, int limit)
         {
-            DataTable dt = dump.SearchHistory(user_tel);//获取表格
+            DataTable dt = dump.SearchHistory(user_tel,page,limit);//获取表格
             string urlist = DataHelper.DataTableToJsonWithJavaScriptSerializer(dt);
-            int num = DataHelper.DataTableRows(dt);
+            int num = dump.SearchHistorynum(user_tel);
             urlist = "{\"code\":0,\"msg\":\"\",\"count\":" + num + ",\"data\":" + urlist + "}"; //组成layui接收格式
             return urlist;
         }

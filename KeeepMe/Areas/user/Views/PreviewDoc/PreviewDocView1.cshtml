@@ -1,0 +1,45 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PreviewDocView1</title>
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+        <div>
+            <button class="layui-btn layui-btn-primary">原始按钮</button>
+            <button class="layui-btn">默认按钮</button>
+            <button class="layui-btn layui-btn-normal">百搭按钮</button>
+            <button class="layui-btn layui-btn-warm">暖色按钮</button>
+            <button class="layui-btn layui-btn-danger">警告按钮</button>
+            <button class="layui-btn layui-btn-disabled">禁用按钮</button>
+        </div>
+        <div id="the_doc">
+
+        </div>
+    </div>
+    <script src="~/Script/jquery.min.js"></script>
+    <script src="~/Content/layui/layui.js"></script>
+    <script>
+        layui.use(['element', 'form'], function () {
+            var $ = layui.jquery, element = layui.elemen, form = layui.form;
+            $(document).ready(function () {
+                window.location.href = "PreviewDocView";
+                //$.ajax({
+                //    type: 'get',
+                //    url: 'PreviewDocView',
+                //    success: function (data) {
+                //        $("#the_doc").append(data);
+                //    }
+                //});
+            });
+        });
+    </script>
+</body>
+</html>

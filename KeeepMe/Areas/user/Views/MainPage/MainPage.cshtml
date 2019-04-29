@@ -33,15 +33,15 @@
                         <a href="article_list.html">文档推荐</a>
                     </li>
 
-                    <li class="layui-nav-item">
+                    @*<li class="layui-nav-item">
                         <a href="leave_msg.html">留言</a>
                     </li>
                     <li class="layui-nav-item">
                         <a href="about.html">关于</a>
-                    </li>
+                    </li>*@
                 </ul>
             </div>
-            <div class="right">
+            @*<div class="right">
                 <ul class="layui-nav">
                     <li class="layui-nav-item layui-hide-sm layui-hide-md layui-hide-lg" id="navs">
                         <a>
@@ -73,15 +73,15 @@
                         </dl>
                     </li>
                 </ul>
-            </div>
+            </div>*@
         </div>
     </header>
     <!-- 轮播图 -->
-    <div class="scorllimgs">
-
-        <img src="https://triedblog.oss-cn-beijing.aliyuncs.com/index_background/programmer/499787.png" />
-
-        <img src="https://triedblog.oss-cn-beijing.aliyuncs.com/blog/20181222/tb/background2.jpg" />
+    <div class="layui-carousel" id="test10">
+        <div carousel-item="">
+            <div><img src="~/Areas/user/Content/img/bg_one.png" /></div>
+            <div><img src="~/Areas/user/Content/img/bg_two.jpg"></div>
+        </div>
     </div>
     <div class="content" id="themaincontent">
         <!-- 每日语录 -->
@@ -132,18 +132,15 @@
             否
             {{#  } }}
         </script>
-         
+
 
         <!-- 帖子 -->
-        <div class="layui-container mycontent" id="content_store_etc">
+        <div class="layui-fluid mycontent" id="content_store_etc">
             <div class="layui-row">
-                <div class="layui-col-md8 layui-col-sm8 layui-col-xs12 content-left">
-                    <div class="infomation">
+                <div class="layui-col-md12 layui-col-sm12 layui-col-xs12 content-left">
 
-                    </div>
-                    <ul class="post-list" id="store_list">
-
-                        <li class="post-one" style="width:90%;">
+                    <ul class="post-list" id="store_list" style="display:inline;">
+                        <li class="post-one" style="display:inline-block;width:42%;margin-left:3%;">
                             <span class="label layui-unselect"><c>营业中</c></span>
                             <h3 class="title animated"><a class="animated" title="西柚打印室" href="/article_detail/1542529945218">西柚打印室</a></h3>
                             <div class="article_lable_show layui-unselect">
@@ -175,13 +172,11 @@
                                 </p>
                             </div>
                         </li>
-                        <li class="post-one"  style="width:90%;">
+                        <li class="post-one" style="display:inline-block;width:42%;margin-left:3%;">
                             <span class="label layui-unselect"><c>营业中</c></span>
                             <h3 class="title animated"><a class="animated" title="西柚打印室" href="/article_detail/1542529945218">西柚打印室</a></h3>
                             <div class="article_lable_show layui-unselect">
-
                                 <span class="animated3" style="background-color: #ff00b3;">送货上门</span>
-
                                 <span class="animated3" style="background-color: #ff0808;">低价</span>
 
                             </div>
@@ -203,114 +198,96 @@
                                 </p>
                                 <p class="post-info-right layui-unselect">
                                     <a><i class="layui-icon">&#xe60a;</i><span class="num">312</span></a><!-- 总订单数目  -->
-                                    <a><i class="layui-icon">&#xe637;</i><span class="time">2018-11-18 </span></a><!--  加入时间  -->
+                                    <a><i class="layui-icon">&#xe637;</i><span class="time" title="营业时间">2018-11-18 </span></a><!--  加入时间  -->
                                 </p>
                             </div>
                         </li>
-
                     </ul>
 
 
                     <!-- 分页 -->
-                    <ul class="pagination">
+                    <div style="align-content:center;">
+                        <div id="demo0" style="align-content:center;text-align:center;"></div>
+                        
+                    </div>
 
-                        <li>
-                            <a class="active" href="javascript:;">1</a>
-                        </li>
-
-                        <li>
-                            <a href="/index?page=2">2</a>
-                        </li>
-
-                        <li>
-                            <a href="/index?page=3">3</a>
-                        </li>
-
-                        <li class="china">
-                            <a title="下一页" href="/index?page=2">下一页 <i class="layui-icon layui-icon-next"></i></a>
-                        </li>
-
-                        <li class="info">
-                            共<b>3</b>页<b>28</b>条数据
-                        </li>
-                    </ul>
                 </div>
                 <!-- 右边模块 -->
-                <div class="layui-col-md4 layui-col-sm4 layui-col-xs12 content-right">
+                <div class="layui-col-md4 layui-col-sm4 layui-col-xs12 content-right" style="display:none;">
                     <div>
 
                         <!-- 推荐文档 -->
-                        <div class="re-post">
-                            <h3 class="layui-unselect layui-bg-blue">推荐文档</h3>
-                            <div class="content layui-bg-gray">
-                                <ol>
-                                    <div class="layui-row">
-                                        <div class="layui-col-md12 layui-col-sm12 layui-col-xs12">
-                                            <li>
-                                                <a target="_blank" href="https://promotion.aliyun.com/ntms/act/campus2018.html?userCode=7ulkk1gd">阿里云学生价（24岁以下自动获得学生身份）</a>
-                                            </li>
-                                            <li>
-                                                <a target="_blank" href="https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=7ulkk1gd">阿里云最高￥1000云产品通用代金券</a>
-                                            </li>
-                                            <li>
-                                                <a target="_blank" href="https://promotion.aliyun.com/ntms/act/qwbk.html?userCode=7ulkk1gd">ECS云服务器2折起，优惠配置多选1</a>
-                                            </li>
-                                            <li>
-                                                <a target="_blank" href="https://promotion.aliyun.com/ntms/act/enterprise-discount.html?userCode=7ulkk1gd">企业级ECS云服务器特惠</a>
-                                            </li>
-                                        </div>
+                        @*<div class="re-post">
+                        <h3 class="layui-unselect layui-bg-blue">推荐文档</h3>
+                        <div class="content layui-bg-gray">
+                            <ol>
+                                <div class="layui-row">
+                                    <div class="layui-col-md12 layui-col-sm12 layui-col-xs12">
+                                        <li>
+                                            <a target="_blank" id="a_click" href="../../user/PreviewDoc/PreviewDocView1?url1=/FileUploadFile/recommend/开题报告.doc" title="/FileUploadFile/recommend/开题报告.doc">阿里云学生价（24岁以下自动获得学生身份）</a>
+                                        </li>
+                                        <li>
+                                            <a target="_blank" href="https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=7ulkk1gd">阿里云最高￥1000云产品通用代金券</a>
+                                        </li>
+                                        <li>
+                                            <a target="_blank" href="https://promotion.aliyun.com/ntms/act/qwbk.html?userCode=7ulkk1gd">ECS云服务器2折起，优惠配置多选1</a>
+                                        </li>
+                                        <li>
+                                            <a target="_blank" href="https://promotion.aliyun.com/ntms/act/enterprise-discount.html?userCode=7ulkk1gd">企业级ECS云服务器特惠</a>
+                                        </li>
                                     </div>
-                                </ol>
-                            </div>
+                                </div>
+                            </ol>
                         </div>
+                    </div>*@
 
                         <!-- 热门文章，活动 -->
-                        <div class="hot-post">
-                            <h3 class="layui-unselect layui-bg-blue">推荐文档</h3>
-                            <div class="content layui-bg-gray">
-                                <ul>
+                        @*<div class="hot-post">
+                        <h3 class="layui-unselect layui-bg-blue">推荐文档</h3>
+                        <div class="content layui-bg-gray">
+                            <ul>
 
-                                    <li class="animated8">
-                                        <a href="/article_detail/1537198865279" title="Hadoop实战-浏览器统计" target="_blank" class="thumbnail-link">
-                                            <img class="thumbnailside" title="Hadoop实战-浏览器统计" alt="Hadoop实战-浏览器统计" src="https://triedblog.oss-cn-beijing.aliyuncs.com/my/5.jpg" width="46" height="46" style="overflow: hidden;" />
-                                        </a>
-                                        <div class="right-box">
-                                            <h4 class="title">
-                                                <a href="/article_detail/1537198865279" title="Hadoop实战-浏览器统计">Hadoop实战-浏览器统计</a>
-                                            </h4>
-                                            <p class="time">
-                                                <i class="layui-icon layui-icon-date"></i>
-                                                <a>2018-09-17 23:41:05</a>
-                                            </p>
-                                            <p class="view">
-                                                <i class="layui-icon layui-icon-read"></i>
-                                                <a>333</a>
-                                            </p>
-                                        </div>
-                                    </li>
+                                <li class="animated8">
+                                    <a href="/article_detail/1537198865279" title="Hadoop实战-浏览器统计" target="_blank" class="thumbnail-link">
+                                        <img class="thumbnailside" title="Hadoop实战-浏览器统计" alt="Hadoop实战-浏览器统计" src="https://triedblog.oss-cn-beijing.aliyuncs.com/my/5.jpg" width="46" height="46" style="overflow: hidden;" />
+                                    </a>
+                                    <div class="right-box">
+                                        <h4 class="title">
+                                            <a href="/article_detail/1537198865279" title="Hadoop实战-浏览器统计">Hadoop实战-浏览器统计</a>
+                                        </h4>
+                                        <p class="time">
+                                            <i class="layui-icon layui-icon-date"></i>
+                                            <a>2018-09-17 23:41:05</a>
+                                        </p>
+                                        <p class="view">
+                                            <i class="layui-icon layui-icon-read"></i>
+                                            <a>333</a>
+                                        </p>
+                                    </div>
+                                </li>
 
-                                    <li class="animated8">
-                                        <a href="/article_detail/1538138100603" title="Hadoop分布式环境搭建" target="_blank" class="thumbnail-link">
-                                            <img class="thumbnailside" title="Hadoop分布式环境搭建" alt="Hadoop分布式环境搭建" src="https://triedblog.oss-cn-beijing.aliyuncs.com/my/5.jpg" width="46" height="46" style="overflow: hidden;" />
-                                        </a>
-                                        <div class="right-box">
-                                            <h4 class="title">
-                                                <a href="/article_detail/1538138100603" title="Hadoop分布式环境搭建">Hadoop分布式环境搭建</a>
-                                            </h4>
-                                            <p class="time">
-                                                <i class="layui-icon layui-icon-date"></i>
-                                                <a>2018-09-28 20:35:01</a>
-                                            </p>
-                                            <p class="view">
-                                                <i class="layui-icon layui-icon-read"></i>
-                                                <a>229</a>
-                                            </p>
-                                        </div>
-                                    </li>
+                                <li class="animated8">
+                                    <a href="/article_detail/1538138100603" title="Hadoop分布式环境搭建" target="_blank" class="thumbnail-link">
+                                        <img class="thumbnailside" title="Hadoop分布式环境搭建" alt="Hadoop分布式环境搭建" src="https://triedblog.oss-cn-beijing.aliyuncs.com/my/5.jpg" width="46" height="46" style="overflow: hidden;" />
+                                    </a>
+                                    <div class="right-box">
+                                        <h4 class="title">
+                                            <a href="/article_detail/1538138100603" title="Hadoop分布式环境搭建">Hadoop分布式环境搭建</a>
+                                        </h4>
+                                        <p class="time">
+                                            <i class="layui-icon layui-icon-date"></i>
+                                            <a>2018-09-28 20:35:01</a>
+                                        </p>
+                                        <p class="view">
+                                            <i class="layui-icon layui-icon-read"></i>
+                                            <a>229</a>
+                                        </p>
+                                    </div>
+                                </li>
 
-                                </ul>
-                            </div>
+                            </ul>
                         </div>
+                    </div>*@
 
 
 
@@ -351,118 +328,150 @@
     <script type="text/javascript" src="~/Areas/user/Script/MainPage/index.js"></script>
     <script>
         $(document).ready(function () {
+            //分页事件
+            layui.use(['laypage', 'layer'], function () {
+                var laypage = layui.laypage, layer = layui.layer;
+                var storenum = 0;//记录店铺数目
+                $.ajax({
+                    type: 'get'
+                    , url: 'GetStoreNum'
+                    ,success: function (data) {
+                        storenum = data;
+                    }
+                })
+                //总页数低于页码总数
+                laypage.render({
+                    elem: 'demo0'
+                    , count: storenum 
+                    , theme: '#F75733'
+                    , limit:6  //每页数目
+                    , jump: function (obj, first) {
+                        //obj包含了当前分页的所有参数，比如：
+                        console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                        console.log(obj.limit); //得到每页显示的条数
 
-            $.ajax({
-                type: 'get',
-                url: 'GetStores',
-                //data: { page: page, limit: limit },
-                dataType: 'json',
-                success: function (data) {
-                    if (data != null) {
-                        $.each(data, function (key, value) { //遍历每一行数据
-                            var state = "";//记录店铺状态
-                            var state_bg = "";//背景颜色
-                            if (value.s_runstate == 1) {//判断店铺状态
-                                /* 判断店铺是否在自己定义的营业时间 */
-                                var work_time = value.s_worktime.split("-");
-                                var work_time_open = work_time[0].split(":");
-                                var work_time_close = work_time[1].split(":");
-                                var time_now = new Date();
-                                var hour = parseInt(time_now.getHours());
-                                var minute = parseInt(time_now.getMinutes());
-                                if (hour < parseInt(work_time_open[0]) || hour > parseInt(work_time_close[0])) {
-                                    state = "歇业中"; state_bg = "layui-bg-green";
-                                } else if (hour == parseInt(work_time_open[0])) {
-                                    if (minute < parseInt(work_time_open[1])) {
-                                        state = "歇业中"; state_bg = "layui-bg-green";
-                                    }
-                                } else if (hour == parseInt(work_time_close[0])) {
-                                    if (minute > parseInt(work_time_close[1])) {
-                                        state = "歇业中"; state_bg = "layui-bg-green";
-                                    }
-                                } else {
-                                    state = "营业中";
+                        //动态加载店铺简要信息，放在分页中有利于分页直接动态加载渲染
+                        $.ajax({
+                            type: 'get',
+                            url: 'GetStores',
+                            data: { page: obj.curr, limit: obj.limit },
+                            dataType: 'json',
+                            success: function (data) {
+                                if (data != null) {
+                                    $.each(data, function (key, value) { //遍历每一行数据
+                                        var state = "";//记录店铺状态
+                                        var state_bg = "";//背景颜色
+                                        if (value.s_runstate == 1) {//判断店铺状态
+                                            /* 判断店铺是否在自己定义的营业时间 */
+                                            var work_time = value.s_worktime.split("-");
+                                            var work_time_open = work_time[0].split(":");
+                                            var work_time_close = work_time[1].split(":");
+                                            var time_now = new Date();
+                                            var hour = parseInt(time_now.getHours());
+                                            var minute = parseInt(time_now.getMinutes());
+                                            if (hour < parseInt(work_time_open[0]) || hour > parseInt(work_time_close[0])) {
+                                                state = "歇业中"; state_bg = "layui-bg-green";
+                                            } else if (hour == parseInt(work_time_open[0])) {
+                                                if (minute < parseInt(work_time_open[1])) {
+                                                    state = "歇业中"; state_bg = "layui-bg-green";
+                                                }
+                                            } else if (hour == parseInt(work_time_close[0])) {
+                                                if (minute > parseInt(work_time_close[1])) {
+                                                    state = "歇业中"; state_bg = "layui-bg-green";
+                                                }
+                                            } else {
+                                                state = "营业中";
+                                            }
+                                        } else {
+                                            state = "歇业中";
+                                            state_bg = "layui-bg-green";
+                                        }
+
+
+                                        var theprice = value.price;//记录价格
+                                        var charge = theprice.split(",");//分开单面和双面价格
+
+                                        //alert(value);
+                                        $("#store_list").append("<li class=\"post-one\" style=\"display:inline-block;width:42%;margin-left:3%;\">" +
+                                            "<span class=\"label layui-unselect " + state_bg + "\"><c>" + state + "</c></span>" +
+                                            "<h3 class= \"title animated storename\" id=" + value.s_id + "> <a class=\"animated\" title=" + value.s_name + " href=\"\">" + value.s_name + "</a></h3>" +
+                                            //"<div class=\"article_lable_show layui-unselect\">" +
+                                            //"<span class=\"animated3\" style=\"background-color: #ff00b3;\">" + value.songhuo + "</span>" +
+                                            //"<span class=\"animated3\" style=\"background-color: #ff0808;\">" + value + "</span>" +
+                                            //"</div>" +
+                                            "<div class=\"post-desc\">" +
+                                            "<div href=\"\" class=\"summaryimg\">" +
+                                            "<a href=\"\" title=" + value.s_name + "><img title=" + value.s_name + " alt=" + value.s_name + " src=\"../../../Content/images/storephoto/" + value.s_photo + "\"/></a>" +
+                                            "</div >" +
+                                            "<span style=\"font-family: 微软雅黑; \">A4单面：<span id=\"\" style=\"color: #1E9FFF;\">" + charge[0] + "</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+                                            "<span style=\"font-family: 微软雅黑; \">A4双面：<span id=\"\" style=\"color: #1E9FFF;\">" + charge[1] + "</span></span>" +
+                                            "<p class=\"post-desc-txt\">位置：" + value.s_location + "</p>" +
+                                            "<div class=\"layui-clear\">" +
+                                            "</div > " +
+                                            "</div>" +
+                                            "<div class=\"post-info\">" +
+                                            "<p class=\"post-info-left\">" +
+                                            "<a href=\"javascript:; \">" +
+                                            "<img title=" + value.ower_name + " src=\"https://triedblog.oss-cn-beijing.aliyuncs.com/my/login.jpg\" />" +
+                                            "<span class=\"author\">" + value.s_breifinfo + "</span>" +
+                                            "</a>" +
+                                            "</p>" +
+                                            "<p class=\"post-info-right layui-unselect\">" +
+                                            "<a><i class=\"layui-icon\">&#xe60a;</i><span class=\"num\" title=\"订单总量\">" + value.s_totalorder + "</span></a>" +
+                                            "<a><i class=\"layui-icon\">&#xe637;</i><span class=\"time\" title=\"营业时间\">" + value.s_worktime + "</span></a>" +
+                                            "<a style=\"display:none\"><span class=" + value.s_id + ">" + state + "</span></a>" + //不显示提示是否歇业
+                                            "</p>" +
+                                            "</div>" +
+                                            "</li >");
+
+                                        //$("#store_list").append("<div id='" + value.work_id + "' > " + value.work_name + "--" + value.post_time1 + "--" + value.place + "<\/div>");
+
+                                    });
+                                    $(".storename").on('click', function () {
+                                        var store_id = $(this).attr("id"); //获取修改的id
+                                        var states = $("." + store_id + "").text();
+                                        var store_name = $("#" + store_id + "  a").text();
+                                        if (states == "歇业中") {
+                                            layui.use('layer', function () {
+                                                var layer = layui.layer;
+                                                layer.msg("歇业中");
+                                            });
+                                        }
+                                        else {
+                                            window.location.href = "toStorePage?store_id=" + store_id + "&store_name=" + store_name + "";
+                                        }
+
+                                        //$.ajax({
+                                        //    type: 'get',
+                                        //    url: 'tostorepage',
+                                        //    data: { store_id: store_id },
+                                        //    success: function (data) {
+                                        //        alert(data);
+                                        //        if (data == null) {
+                                        //            alert("该店已歇业。");
+                                        //        }
+                                        //    }
+                                        //});
+                                        return false;
+                                    });
                                 }
-                            } else {
-                                state = "歇业中";
-                                state_bg = "layui-bg-green";
-                            }
-
-                            
-                            var theprice = value.price;//记录价格
-                            var charge = theprice.split(",");//分开单面和双面价格
-
-                            //alert(value);
-                            $("#store_list").append("<li class=\"post-one\" style=\"width:90%;\">" +
-                                "<span class=\"label layui-unselect " + state_bg + "\"><c>" + state + "</c></span>" +
-                                "<h3 class= \"title animated storename\" id=" + value.s_id + "> <a class=\"animated\" title=" + value.s_name + " href=\"\">" + value.s_name + "</a></h3>" +
-                                "<div class=\"article_lable_show layui-unselect\">" +
-                                "<span class=\"animated3\" style=\"background-color: #ff00b3;\">" + value.songhuo + "</span>" +
-                                "<span class=\"animated3\" style=\"background-color: #ff0808;\">" + value + "</span>" +
-                                "</div>" +
-                                "<div class=\"post-desc\">" +
-                                "<div href=\"\" class=\"summaryimg\">" +
-                                "<a href=\"\" title=" + value.s_name + "><img title=" + value.s_name + " alt=" + value.s_name + " src=\"../../../Content/images/storephoto/" + value.s_photo + "\"/></a>" +
-                                "</div >" +
-                                "<span style=\"font-family: 微软雅黑; \">单面：<span id=\"\" style=\"color: #1E9FFF;\">" + charge[0] + "</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-                                "<span style=\"font-family: 微软雅黑; \">双面：<span id=\"\" style=\"color: #1E9FFF;\">" + charge[1] + "</span></span>" +
-                                "<p class=\"post-desc-txt\">位置：" + value.s_location + "</p>" +
-                                "<div class=\"layui-clear\">" +
-                                "</div > " +
-                                "</div>" +
-                                "<div class=\"post-info\">" +
-                                "<p class=\"post-info-left\">" +
-                                "<a href=\"javascript:; \">" +
-                                "<img title=" + value.ower_name + " src=\"https://triedblog.oss-cn-beijing.aliyuncs.com/my/login.jpg\" />" +
-                                "<span class=\"author\">用心打造优质服务</span>" +
-                                "</a>" +
-                                "</p>" +
-                                "<p class=\"post-info-right layui-unselect\">" +
-                                "<a><i class=\"layui-icon\">&#xe60a;</i><span class=\"num\">" + value.order_num + "</span></a>" +
-                                "<a><i class=\"layui-icon\">&#xe637;</i><span class=\"time\">" + value.s_worktime + "</span></a>" +
-                                "<a style=\"display:none\"><span class=" + value.s_id + ">" + state + "</span></a>" + //不显示提示是否歇业
-                                "</p>" +
-                                "</div>" +
-                                "</li >");
-
-                            //$("#store_list").append("<div id='" + value.work_id + "' > " + value.work_name + "--" + value.post_time1 + "--" + value.place + "<\/div>");
-                            
-                        });
-                        $(".storename").on('click', function () {
-                            var store_id = $(this).attr("id"); //获取修改的id
-                            var states = $("." + store_id + "").text();
-                            var store_name = $("#" + store_id + "  a").text();
-                            if (states == "歇业中") {
-                                layui.use('layer', function () {
-                                    var layer = layui.layer;
-                                    layer.msg("歇业中");
+                                layui.use('element', function () {
+                                    var element = layui.element;
+                                    element.render();
                                 });
                             }
-                            else {
-                                window.location.href = "toStorePage?store_id=" + store_id + "&store_name=" + store_name + "";
-                            }
-                            
-                            //$.ajax({     
-                            //    type: 'get',
-                            //    url: 'tostorepage',
-                            //    data: { store_id: store_id },
-                            //    success: function (data) {
-                            //        alert(data);
-                            //        if (data == null) {
-                            //            alert("该店已歇业。");
-                            //        }
-                            //    }
-                            //});
-                            return false;
                         });
+
+
+                        //首次不执行
+                        if (!first) {
+                            //do something
+                        }
                     }
-                    layui.use('element', function () {
-                        var element = layui.element;
-                        element.render();
-                    });
-                }
+                });
             });
 
+            //订单记录查询
             $("#search_history").bind('keyup', function (event) {
                 if (event.keyCode == "13") {//如果是按下回车
                     if ($("#search_history").val() != "" && $("#search_history").val().length != 0) {
@@ -476,14 +485,14 @@
                                 , cols: [[
                                     { field: 'or_id', title: '订单编号', align: 'center', sort: true }
                                     , { field: 's_name', minWidth: 100, title: '打印店' }
-                                    , { field: 'or_filenum', width: 80, align: 'center', title: '文件数目'}
+                                    , { field: 'or_filenum', width: 80, align: 'center', title: '文件数目' }
                                     , { field: 'or_pagenum', width: 100, align: 'center', title: '总页数' }
-                                    , { field: 'or_upTime', title: '下单时间', align: 'center', sort: true}
+                                    , { field: 'or_upTime', title: '下单时间', align: 'center', sort: true }
                                     , { field: 'or_printtime', title: '打印时间', align: 'center', sort: true }
-                                    , { field: 'or_location', minWidth: 100, title: '地址'}
+                                    , { field: 'or_location', minWidth: 100, title: '地址' }
                                     , { field: 'or_ifcarry', width: 120, align: 'center', title: '是否送货', templet: '#stateTpl' }
-                                    , { field: 'or_getcheck', width: 120, align: 'center', title: '取货码'}
-                                    , { fixed: 'right', title: '订单状态', toolbar: '#barDemo'}
+                                    , { field: 'or_getcheck', width: 120, align: 'center', title: '取货码' }
+                                    , { fixed: 'right', title: '订单状态', toolbar: '#barDemo' }
                                 ]]
                                 , page: true
                                 , limits: [10, 15, 20, 30, 60]
@@ -509,7 +518,7 @@
                                                         , cols: [[
                                                             { field: 'or_id', title: '订单编号', align: 'center', sort: true }
                                                             , { field: 's_name', minWidth: 100, title: '打印店' }
-                                                            , { field: 'or_filenum', width: 80, align: 'center', title: '文件数 目' } 
+                                                            , { field: 'or_filenum', width: 80, align: 'center', title: '文件数 目' }
                                                             , { field: 'or_pagenum', width: 100, align: 'center', title: '总页数' }
                                                             , { field: 'or_upTime', title: '下单时间', align: 'center', sort: true }
                                                             , { field: 'or_printtime', title: '打印时间', align: 'center', sort: true }
@@ -530,7 +539,7 @@
                                         //obj.del();
                                         //layer.close(index);
                                     });
-                                } 
+                                }
                             });
 
                         });
@@ -538,6 +547,18 @@
                 }
             });
 
+
+                //图片轮播
+            layui.use(['carousel', 'form'], function () {
+                var carousel = layui.carousel , form = layui.form;
+                carousel.render({
+                    elem: '#test10'
+                    , interval: 1800
+                    , anim: 'fade'
+                    , height: '120px'
+                    , width: '100%'
+                });
+            }); 
         });
     </script>
 </body>

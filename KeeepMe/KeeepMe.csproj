@@ -59,6 +59,11 @@
       <EmbedInteropTypes>False</EmbedInteropTypes>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>bin\Microsoft.Office.Interop.Word.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -145,6 +150,7 @@
     <Compile Include="Areas\system\Controllers\ManStoreKeeperController.cs" />
     <Compile Include="Areas\system\systemAreaRegistration.cs" />
     <Compile Include="Areas\user\Controllers\MainPageController.cs" />
+    <Compile Include="Areas\user\Controllers\PreviewDocController.cs" />
     <Compile Include="Areas\user\Controllers\UsertoStoreController.cs" />
     <Compile Include="Areas\user\userAreaRegistration.cs" />
     <Compile Include="Controllers\DengMainController.cs" />
@@ -162,6 +168,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Areas\user\Content\common.css" />
+    <Content Include="Areas\user\Content\img\bg_two.jpg" />
+    <Content Include="Areas\user\Content\img\bg_one.png" />
     <Content Include="Areas\user\Content\index.css" />
     <Content Include="Areas\user\Script\MainPage\common.js" />
     <Content Include="Areas\user\Script\MainPage\index.js" />
@@ -428,6 +436,7 @@
     <Content Include="Content\layui\tree\list-2.json" />
     <Content Include="Areas\Manager\Views\ManStoreMessage\StoreMessage.cshtml" />
     <Content Include="Areas\Manager\Views\ManShowRunState\ShowRunState.cshtml" />
+    <Content Include="Areas\user\Views\PreviewDoc\PreviewDocView1.cshtml" />
     <None Include="Properties\PublishProfiles\Keeepmeconfig.pubxml" />
     <Content Include="Views\UserLogin\UserLoginview.cshtml" />
     <Content Include="Views\UserRegist\UserRegistView.cshtml" />

@@ -73,6 +73,7 @@
     <Compile Include="PageCount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemFile.cs" />
+    <Compile Include="Timer.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

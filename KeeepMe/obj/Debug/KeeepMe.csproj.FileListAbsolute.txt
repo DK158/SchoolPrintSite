@@ -74,7 +74,6 @@ E:\visualstudio_workspace\KeeepMe\KeeepMe\bin\System.Web.WebPages.dll
 E:\visualstudio_workspace\KeeepMe\KeeepMe\bin\System.Web.WebPages.Razor.dll
 E:\visualstudio_workspace\KeeepMe\KeeepMe\bin\KeepMeDal.dll
 E:\visualstudio_workspace\KeeepMe\KeeepMe\bin\MySql.Data.dll
-E:\visualstudio_workspace\KeeepMe\KeeepMe\bin\Microsoft.Office.Interop.Word.dll
 E:\visualstudio_workspace\KeeepMe\KeeepMe\bin\KeepMeBll.pdb
 E:\visualstudio_workspace\KeeepMe\KeeepMe\bin\KeepMeclass.pdb
 E:\visualstudio_workspace\KeeepMe\KeeepMe\bin\KeepMeModel.pdb

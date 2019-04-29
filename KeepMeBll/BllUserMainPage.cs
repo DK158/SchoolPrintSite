@@ -11,7 +11,10 @@ namespace KeepMeBll
    public class BllUserMainPage
     {
         KeepMeDal.DalUserMainPage dump = new KeepMeDal.DalUserMainPage();
-
+        public int GetStoreNum()
+        {
+            return dump.GetStoreNum();
+        }
         public string GetStores(int page,int limits)
         {
             DataTable dt = dump.GetStores(page, limits);//获取表格

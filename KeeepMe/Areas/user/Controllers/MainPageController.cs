@@ -18,12 +18,18 @@ namespace KeeepMe.Areas.user.Controllers
         {
             return View();
         }
+        //获取店铺数量，用于分页
+        public int GetStoreNum()
+        {
+            return bump.GetStoreNum();
+        }
         //获取店铺信息
         public string GetStores()
         {
-            //int page = Convert.ToInt16(Request["s_machine"].ToString());
-            //int limits = Convert.ToInt16(Request["s_computer"].ToString());
-            return bump.GetStores(0, 5);
+            int page = Convert.ToInt16(Request["page"].ToString());
+            int limit = Convert.ToInt16(Request["limit"].ToString());
+            return bump.GetStores(page-1, limit);
+            //return bump.GetStores(0, 5);
         }
 
         //跳转到店铺页面

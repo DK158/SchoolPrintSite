@@ -161,6 +161,7 @@ body {
 .mycontent .content-left #laypage {
   text-align: center;
   margin: 30px 0; }
+/*ÓÒ±ßÄ£¿éÔÝÊ±Òþ²Ø*/
 .mycontent .content-right > div .grid h3 {
   border-top-left-radius: 1px;
   border-top-right-radius: 1px;
@@ -207,7 +208,8 @@ ul.pagination {
   margin-top: 20px;
   margin-bottom: 50px;
   display: inline-block;
-  float: right; }
+  text-align:center;
+}
   ul.pagination li {
     display: inline-block; }
     ul.pagination li a {
@@ -276,7 +278,8 @@ ul.pagination {
   .scorllimgs {
     height: 100px; } }
 @media (min-width: 1200px) {
-  .scorllimgs img {
-    top: -30%; } }
+    .scorllimgs img {
+        top: -2%; 
+    } }
 
 /*# sourceMappingURL=index.css.map */

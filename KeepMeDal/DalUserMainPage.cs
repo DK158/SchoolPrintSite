@@ -3,12 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using KeepMeclass;
 using System.Data;
 
 namespace KeepMeDal
 {
     public class DalUserMainPage
     {
+        public  int GetStoreNum()
+        {
+            //有人访问的时候触发计时器,用于12小时跟新一次打印店点定数目
+            KeepMeclass.Timer tt = new KeepMeclass.Timer();
+            tt.timer();
+
+            string sql = "SELECT s_name FROM store s JOIN storeprintprice t ON s.s_id=t.s_id GROUP BY s.s_id";
+            return mysqlDBhelper.doselectsqlT(sql).Rows.Count;
+        }
         public DataTable GetStores(int page,int limits)
         {
             int startrow = page * limits;

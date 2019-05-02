@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BllManAssistant.cs" />
+    <Compile Include="BllManPosition.cs" />
     <Compile Include="BllManPrice.cs" />
     <Compile Include="BllManStoreState.cs" />
     <Compile Include="BllOrders.cs" />

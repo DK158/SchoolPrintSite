@@ -39,5 +39,11 @@ namespace KeepMeDal
             }
             return mysqlDBhelper.dochangesql(sql);
         }
+
+        public DataTable GetPositions()
+        {
+            string sql = "select pos_id,pos_name from position";
+            return mysqlDBhelper.doselectsqlT(sql);
+        }
     }
 }

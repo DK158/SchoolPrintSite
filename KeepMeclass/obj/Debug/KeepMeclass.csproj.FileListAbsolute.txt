@@ -11,3 +11,4 @@ E:\visualstudio_workspace\KeeepMe\KeepMeclass\obj\Debug\KeepMeclass.csproj.CoreC
 E:\visualstudio_workspace\KeeepMe\KeepMeclass\obj\Debug\KeepMeclass.csproj.CopyComplete
 E:\visualstudio_workspace\KeeepMe\KeepMeclass\obj\Debug\KeepMeclass.dll
 E:\visualstudio_workspace\KeeepMe\KeepMeclass\obj\Debug\KeepMeclass.pdb
+E:\visualstudio_workspace\KeeepMe\KeepMeclass\obj\Debug\KeepMeclass.csprojAssemblyReference.cache

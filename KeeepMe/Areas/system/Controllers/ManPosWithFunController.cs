@@ -129,5 +129,11 @@ namespace KeeepMe.Areas.system.Controllers
             string[] fun_id = fun_id1.Split(',');
             return bpf.SaveFunctionTreeOnPostion(pos_id, fun_id);
         }
+
+        //获取所有职位
+        public string GetPositions()
+        {
+            return bpf.GetPositions();
+        }
     }
 }

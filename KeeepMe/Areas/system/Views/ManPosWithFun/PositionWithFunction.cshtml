@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width" />
     <title>PositionWithFunction</title>
     <link rel="stylesheet" href="~/Content/layui/css/layui.css">
-    <script src="~/Script/jquery-1.8.2.min.js"></script>
 </head>
 <body>
     <div>
@@ -20,9 +19,6 @@
                     <div class="layui-input-inline">
                         <select name="interest" lay-filter="positions" id="select_position">
                             <option value="0"></option>
-                            <option value="101">系统管理员</option>
-                            <option value="201">店主</option>
-                            <option value="202">店员</option>
                         </select>
                     </div>
                 </div>
@@ -39,15 +35,16 @@
             </div>
         </form>
 
-        
-    <script src="~/Content/layui/layui.js"></script>
+
+        <script src="~/Script/jquery.min.js"></script>
+        <script src="~/Content/layui/layui.js"></script>
         <script type="text/javascript">
             layui.config({
                 base: '../../../Content/layui/tree/',
             }).extend({
                 authtree: 'authtree',
             });
-            layui.use(['jquery', 'authtree', 'form', 'layer', 'code' ], function () {
+            layui.use(['jquery', 'authtree', 'form', 'layer', 'code'], function () {
                 var $ = layui.jquery;
                 var authtree = layui.authtree;
                 var form = layui.form;
@@ -60,21 +57,21 @@
                     success: function (res) {
                         // 渲染时传入渲染目标ID，树形结构数据（具体结构看样例，checked表示默认选中），以及input表单的名字
                         var trees = authtree.listConvert(res.data.list, {
-							primaryKey: 'id'
-						    ,startPid: 0
-						    ,parentKey: 'pid'
-						    ,nameKey: 'name'
-						    ,valueKey: 'id'
-						});
-						layui.code({
-						});
-						// 如果页面中多个树共存，需要注意 layfilter 需要不一样
-						authtree.render('#LAY-auth-tree-convert-index', trees, {
-							inputname: 'authids[]',
-							layfilter: 'lay-check-convert-auth',
-							openall: true,
-							autowidth: true,
-						});
+                            primaryKey: 'id'
+                            , startPid: 0
+                            , parentKey: 'pid'
+                            , nameKey: 'name'
+                            , valueKey: 'id'
+                        });
+                        layui.code({
+                        });
+                        // 如果页面中多个树共存，需要注意 layfilter 需要不一样
+                        authtree.render('#LAY-auth-tree-convert-index', trees, {
+                            inputname: 'authids[]',
+                            layfilter: 'lay-check-convert-auth',
+                            openall: true,
+                            autowidth: true,
+                        });
 
                         // PS:使用 form.on() 会引起了事件冒泡延迟的BUG，需要 setTimeout()，并且无法监听全选/全不选
                         // PS:如果开启双击展开配置，form.on()会记录两次点击事件，authtree.on()不会
@@ -136,7 +133,7 @@
                     $.ajax({
                         url: 'SaveFunctionTreeOnPostion',
                         //dataType: 'json',
-                        data: { pos_id: $("#select_position").val(),fun_id: String(authids) },
+                        data: { pos_id: $("#select_position").val(), fun_id: String(authids) },
                         success: function (res) {
                             if (res > 0) {
                                 layer.alert('提交成功！');
@@ -155,7 +152,7 @@
                     $.ajax({
                         url: 'GetFunctionTreeByPostion',
                         dataType: 'json',
-                        data: { pos_id: data.value},
+                        data: { pos_id: data.value },
                         success: function (res) {  //重载树
                             var trees = authtree.listConvert(res.data.list, {
                                 primaryKey: 'id'
@@ -208,8 +205,29 @@
                             layer.alert(errstr + '，获取样例数据失败，请检查是否部署在本地服务器中！');
                         }
                     });
-                }); 
+                });
 
+            });
+            $(document).ready(function () {
+                layui.use(['element', 'jquery', 'form'], function () {
+                    var ele = layui.element, $ = layui.jquery, form = layui.form;
+                    $.ajax({
+                        type: 'get'
+                        , url: 'GetPositions'
+                        , success: function (data) {
+                            console.log(data);
+                            if (data != null) {
+                                //$("#select_position").append("<select name=\"interest\" lay-filter=\"positions\">");
+                                $.each(JSON.parse(data), function (key, value) {
+                                    $("#select_position").append("<option value=" + value.pos_id + ">" + value.pos_name + "</option>");
+                                    //ele.render();
+                                });
+                                //$("#select_position").append("</select>");
+                                form.render();
+                            }
+                        }
+                    });
+                });
             });
         </script>
     </div>

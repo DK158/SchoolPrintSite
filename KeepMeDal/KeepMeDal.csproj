@@ -52,6 +52,7 @@
     <Compile Include="DalManStoreMessage.cs" />
     <Compile Include="DalManStoreState.cs" />
     <Compile Include="DalOrders.cs" />
+    <Compile Include="DalPosition.cs" />
     <Compile Include="DalPosWithFun.cs" />
     <Compile Include="DalUertoStore.cs" />
     <Compile Include="DalUserMainPage.cs" />

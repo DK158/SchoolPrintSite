@@ -145,10 +145,12 @@
     <Compile Include="Areas\Manager\Controllers\ManStoreMessageController.cs" />
     <Compile Include="Areas\Manager\Controllers\ManUsersController.cs" />
     <Compile Include="Areas\Manager\ManagerAreaRegistration.cs" />
+    <Compile Include="Areas\system\Controllers\ManPositionController.cs" />
     <Compile Include="Areas\system\Controllers\ManPosWithFunController.cs" />
     <Compile Include="Areas\system\Controllers\ManPrintStoreController.cs" />
     <Compile Include="Areas\system\Controllers\ManStoreKeeperController.cs" />
     <Compile Include="Areas\system\systemAreaRegistration.cs" />
+    <Compile Include="Areas\user\Controllers\IWantJoinController.cs" />
     <Compile Include="Areas\user\Controllers\MainPageController.cs" />
     <Compile Include="Areas\user\Controllers\PreviewDocController.cs" />
     <Compile Include="Areas\user\Controllers\UsertoStoreController.cs" />
@@ -437,6 +439,8 @@
     <Content Include="Areas\Manager\Views\ManStoreMessage\StoreMessage.cshtml" />
     <Content Include="Areas\Manager\Views\ManShowRunState\ShowRunState.cshtml" />
     <Content Include="Areas\user\Views\PreviewDoc\PreviewDocView1.cshtml" />
+    <Content Include="Areas\user\Views\IWantJoin\Iwantjoin.cshtml" />
+    <Content Include="Areas\system\Views\ManPosition\ManPosition.cshtml" />
     <None Include="Properties\PublishProfiles\Keeepmeconfig.pubxml" />
     <Content Include="Views\UserLogin\UserLoginview.cshtml" />
     <Content Include="Views\UserRegist\UserRegistView.cshtml" />

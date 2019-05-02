@@ -30,5 +30,10 @@ namespace KeepMeBll
         {
             return dpf.SaveFunctionTreeOnPostion(pos_id,fun_id);
         }
+        public string GetPositions()
+        {
+            DataTable dt= dpf.GetPositions();
+            return DataHelper.DataTableToJsonWithJavaScriptSerializer(dt);
+        }
     }
 }

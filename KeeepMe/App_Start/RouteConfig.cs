@@ -16,8 +16,8 @@ namespace KeeepMe
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Print", action = "Main", id = UrlParameter.Optional }
-            ).DataTokens.Add("Area", "Manager");
+                defaults: new { controller = "MainPage", action = "MainPage", id = UrlParameter.Optional }
+            ).DataTokens.Add("Area", "user");
         }
     }
 }

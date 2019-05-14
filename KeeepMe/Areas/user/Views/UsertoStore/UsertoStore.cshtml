@@ -50,9 +50,10 @@
         var nocolor_single;//黑白单面打印价格
         var nocolor_double;//黑白双面打印价格
         var carryterm;//送货上门最低订单价格
+        var carry;//记录店铺是否送货上门
         var carryadd;//送货加价
         var num = 0;  //记录上传文件的个数
-        var change_carrynum = 0;//记录改变次数
+        var change_carrynum = 0;//记录改变次数(奇数：送货上门，偶数不用)
 
          /* 判断店铺是否在自己定义的营业时间 */
         function checktime() {
@@ -86,7 +87,7 @@
             }
             if (nocolor_single == null || nocolor_double == null || nocolor_single == "" || nocolor_double == "") { alert("还未定价，请选择其他店铺打印."); return; }//还未定价的店铺无法计算价格
             if (!checktime()) { return; }//判断在不在店铺营业时间
-            
+            $("#Upfiles").prop("readonly", true);//使文件上传过程中，不重复点击操作，单个文件上传
             $("#form1").ajaxSubmit({
                 type: 'post',
                 url: '../UsertoStore/FileUpload',
@@ -213,12 +214,15 @@
                         alert("提示: 文件格式错误，本程序只支持 .pdf .doc .docx 文件");
                         $("#MyFileUpload").clearFields(); //清空选择文件
                     }
-                }
+                }//success 方法部分结束
             });
+            $("#Upfiles").prop("readonly", false);//重新可上传
         }
 
         /*准备事件*/
         $(document).ready(function () {
+            layui.use(['layer'], function () {
+                var  layer = layui.layer;
             /*提交事件*/
             $("#submitpool").on('click', function () {
                 var tel = $("#yourtel").val();
@@ -246,7 +250,8 @@
                 if (num == 0) {//判断是否有文件
                     alert("请上传文件。！"); return;
                 }
-                if (!checktime()) { return; }//判断在不在店铺营业时间
+                if (!checktime()) { layer.msg("不在营业时间。"); return; }//判断在不在店铺营业时间
+                if ((change_carrynum % 2) != 0 && carry == false) { layer.msg("本店不支持送货上门,请取消勾选"); return; }
 
                 if (confirm("您已确认订单。")) {
                     layui.use('layer', function () {
@@ -270,6 +275,7 @@
                 else { return; }
             });
 
+            })
             
             /*确认已支付*/
             $("#Iamsure").on('click', function () {
@@ -341,7 +347,7 @@
                     $("#store_sculpture").attr('src', sculpture_src);
                     $("#store_photo").attr('src', s_photo_src);
                     $("#store_worktime").html(value.s_worktime);//营业时间
-                    var carry = value.s_carry;//送货上门 
+                    carry = value.s_carry;//送货上门 
                     if (carry == true) {
                         $("#diliver_cahrge").append("<span title=\"送货价格\" style=\"color:red;\">送货上门：不满" + value.s_carryterm + "加" + value.s_carryadd + "</span>");
                         carryterm = parseFloat(value.s_carryterm);//全局变量赋值，订单最低量
@@ -372,15 +378,8 @@
 
             /*确认收货是否勾选，触发事件，因为不能*/
             $("#carrytolocationl").on('change', function () {//使用全局变量，通过记录改变的次数来判断是否，送货上门，试了很多方法都不行。。。可悲
-                //if ($(this).prop("checked") == false) { $(this).prop("checked", true); }
-                //else { $(this).prop("checked", false); }
-                //alert($(this).prop("checked"));
-                //alert("Option changed!");
                 change_carrynum = change_carrynum + 1;
             });
-            //$("#carrytolocation").change(function () {
-            //    alert("Option changed!");
-            //}); 
             
         });
     </script> 
@@ -420,8 +419,10 @@
             <!-- 内容主体区域 -->
             <!--左边内容-->
             <div class="layui-carousel-left" style="height:600px;width:300px;">
-                <img id="store_photo" src="~/Content/images/storephoto/6666.jpg" alt="" class="layui-layer-imgbar" style="width:300px;" />
-                <div style="margin-left:20px;">
+                <div style="">
+                    <img id="store_photo" src="" alt="" class="layui-layer-imgbar" style="width:300px;" />@*height:200px;display:block;*@
+                </div>
+                <div style="margin-left:20px;display:block;">
                     <!--动态添加，各种打印服务价格-->
                     <div id="price_items" style="width:100%;">
 
@@ -468,7 +469,7 @@
                 <div class="layui-body" style="height:500px;margin-top:100px;margin-left:100px;background-color:#dddddd;">
                     <form id="form1" runat="server">
                         <div>
-                            <span class="users_information conclude_money">
+                            <span class="users_information conclude_money" id="Upfiles">
                                 <input type="file" name="MyFileUpload" id="MyFileUpload" />
                                 <input type="button" id="Inputthefile" value="上传" onclick="FileUpload()" style="width:60px;" />
                                 <input id="recordfilenum" style="display:none;" />

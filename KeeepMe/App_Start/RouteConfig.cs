@@ -13,11 +13,16 @@ namespace KeeepMe
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            //routes.MapRoute(
+            //    name: "Default",
+            //    url: "{controller}/{action}/{id}",
+            //    defaults: new { controller = "MainPage", action = "MainPage", id = UrlParameter.Optional }
+            //).DataTokens.Add("Area", "user");
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "MainPage", action = "MainPage", id = UrlParameter.Optional }
-            ).DataTokens.Add("Area", "user");
+                defaults: new { controller = "DengMain", action = "DengMain", id = UrlParameter.Optional }
+            );
         }
     }
 }
